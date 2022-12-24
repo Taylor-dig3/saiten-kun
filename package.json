@@ -3,19 +3,45 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "aws-sdk": "^2.794.0",
+    "axios": "^1.2.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "knex": "^2.3.0",
+    "lodash": "^4.17.20",
+    "node-fetch": "^2.6.7",
+    "openai": "^3.1.0",
+    "path": "^0.12.7",
+    "pg": "^8.8.0",
+    "prop-types": "^15.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "proxy": "http://localhost:4000",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamHeiDig3/dig3-automaticalScoringApp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/teamHeiDig3/dig3-automaticalScoringApp/issues"
+  },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node ./server/launch.js",
+    "server-dev": "nodemon ./server/launch.js",
+    "dev": "concurrently \"npm run server-dev\" \"npm run start\" "
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +60,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "concurrently": "^7.6.0",
+    "husky": "^4.3.0",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.1.2",
+    "pretty-quick": "^3.1.0",
+    "sinon": "^9.2.1"
   }
 }

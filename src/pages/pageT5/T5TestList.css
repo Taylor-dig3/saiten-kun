@@ -1,0 +1,27 @@
+.testLists {
+    margin-top: 50px;
+  }
+  
+  .listTable {
+    margin: 20px;
+    background-color: #8df78f;
+    border: 3px #69b86a solid;
+  }
+  
+  .listTable thead th {
+    border-bottom: 3px #69b86a solid;
+  }
+  
+  .listTable input {
+    accent-color: rgb(10, 148, 0);
+    transform: scale(1.5);
+  }
+  
+  .listTable td {
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
