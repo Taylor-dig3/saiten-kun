@@ -5,6 +5,9 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -24,6 +27,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
+    "recoil": "^0.7.6",
     "web-vitals": "^2.1.4"
   },
   "proxy": "http://localhost:4000",
@@ -41,7 +45,16 @@
     "eject": "react-scripts eject",
     "server": "node ./server/launch.js",
     "server-dev": "nodemon ./server/launch.js",
-    "dev": "concurrently \"npm run server-dev\" \"npm run start\" "
+    "dev": "concurrently \"npm run server-dev\" \"npm run start\" ",
+    "migrate": "knex migrate:latest",
+    "seed": "knex seed:run",
+    "seed1": "knex seed:run --specific=tests.js",
+    "seed2": "knex seed:run --specific=questions.js",
+    "seed3": "knex seed:run --specific=selected.js",
+    "seed4": "knex seed:run --specific=papers.js",
+    "makeMigration": "knex migrate:make",
+    "makeSeed": "knex seed:make",
+    "rollback": "knex migrate:rollback"
   },
   "eslintConfig": {
     "extends": [
