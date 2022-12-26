@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/closeTestResult.css";
+import "../S4TestCheck.css";
 
 export default function CloseTestResult({ setDispNo }) {
   return (

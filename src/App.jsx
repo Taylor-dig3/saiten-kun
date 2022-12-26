@@ -92,16 +92,7 @@ export default function App() {
             )
           }
         />
-        <Route
-          path="/T6ResultCheck"
-          element={
-            checkLoginState("teacherLogin") ? (
-              <T6ResultCheck />
-            ) : (
-              <Navigate replace to="/" />
-            )
-          }
-        />
+        <Route path="/T6ResultCheck" element={<T6ResultCheck />} />
       </Routes>
     </BrowserRouter>
     // </RecoilRoot>

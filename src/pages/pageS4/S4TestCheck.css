@@ -1,0 +1,68 @@
+select.studentsSelect {
+  margin-left: 50px;
+  margin-top: 25px;
+  vertical-align: top;
+  text-align: center;
+  font-size: 16pt;
+  color: black;
+  padding-right: 5px;
+  border-style: none;
+  background-color: #8df78f;
+  -webkit-appearance: none;
+  appearance: none; /* デフォルトの矢印を非表示 */
+  /* background-image: url(./tri-down.png); */
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 21px 21px;
+  width: 130px;
+}
+
+select.studentsSelect::-ms-expand {
+  display: none; /* デフォルトの矢印を非表示(IE用) */
+}
+
+.studentName {
+  margin-left: 30px;
+}
+
+.studentName img {
+  margin-top: 20px;
+  height: 100px;
+}
+
+.score {
+  margin-left: 30px;
+  margin-right: 10px;
+  font-size: 32pt;
+}
+
+.scoreUnit {
+  margin-right: 30px;
+}
+
+.questionTable {
+  text-align: center;
+  margin-left: 50px;
+  margin-top: 20px;
+  width: 80%;
+}
+
+.questionTable tr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.answer {
+  position: relative;
+  height: 100px;
+}
+
+.marubatsu {
+  position: absolute;
+  width: 100px;
+  left: 55%;
+}
+
+.title {
+  width: 100px;
+}

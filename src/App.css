@@ -5,5 +5,5 @@ body {
     rgba(130, 176, 189, 1) 13%,
     rgba(186, 216, 222, 1) 90%
   );
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
