@@ -3,20 +3,13 @@ import "./S2Test.css";
 import { useState, useEffect } from "react";
 import { startTest } from "../../helperFunctions/useFrontFuncs";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../shareComponents/atom";
+import { useRecoilValue } from "recoil";
 
 import { Buffer } from "buffer";
-// const axios = require("axios").default;
 import axios from "axios";
 const FormData = require("form-data");
 const form1 = new FormData();
-
-// function getTest() {
-//   const info = {
-//     name: "小テスト１",
-//     questions: ["1 + 2 =", "5 + 2 =", "4 + 3 =", "4 + 1 ="],
-//   };
-//   return info;
-// }
 
 export default function S2Test() {
   const [currentAnswer, setCurrentAnswer] = useState({});
@@ -24,15 +17,19 @@ export default function S2Test() {
   const [paper, setPaper] = useState([{}]);
   const [student_ID, setStudent_ID] = useState(-1);
   const navigate = useNavigate();
-  const s1MenuDisplay = ()=>{navigate("../S1Menu")}
+  const s1MenuDisplay = () => {
+    navigate("../S1Menu");
+  };
   // const [student_ID, setStudent_ID] = useState(-1);
   const answerImg = {};
   let canvas = [];
   let ctx = [];
 
+  const loginInfo = useRecoilValue(login);
+
   useEffect(() => {
     startTest(currentTestID).then((res) => {
-      console.log("startTest実行中")
+      console.log("startTest実行中");
       setPaper(res);
     });
   }, [currentTestID, setPaper]);
@@ -172,9 +169,6 @@ export default function S2Test() {
     if (
       window.confirm("見直しは終わりましたか？提出しますがよろしいですか？")
     ) {
-      // if (student_ID < 1) {
-      //   alert("出席番号を選択して下さい");
-      // } else {
       console.log("submit start");
       answerImg["student_id"] = student_ID;
       answerImg["student_name"] = chgImg(0);
@@ -192,19 +186,6 @@ export default function S2Test() {
         console.log("answerImg.answer start");
 
         const buffer = Buffer.from(elem.split(",")[1], "base64");
-        // console.log("buffer",buffer);
-        // console.log(form1);
-        // let base64 = elem.split(";base64,")[1]
-        // const binary_string = window.atob(base64);
-        // const len = binary_string.length;
-        // let bytes = new Uint8Array(len);
-        // for (let i = 0; i < len; i++) {
-        //   bytes[i] = binary_string.charCodeAt(i);
-        // }
-        // const arrayBuffer = bytes.buffer;
-        // const blob = new Blob([arrayBuffer]);
-        // console.log("blob", blob);
-        // form1.append("imgData", buffer, "image.png");
         form1.append("imgData", buffer);
         promises[index] = axios({
           method: "post",
@@ -214,7 +195,6 @@ export default function S2Test() {
             "Access-Control-Allow-Headers": "Content-Type, Authorization",
             "Content-Type": "multipart/form-data",
           },
-
         })
           .then((res) => {
             console.log("res.data", res.data);
@@ -225,29 +205,6 @@ export default function S2Test() {
           });
       });
       console.log("promiseall start");
-      // Promise.all(promises).then((answerText) => {
-      //   console.log("answertext")
-      //   console.log(answerText);
-      //   //各問題についてあっていたかあっていなかったかを出力する関数
-
-      //   const copyPaper = paper.concat();
-      //   let correctCount = 0;
-      //   for (let i = 0; i < copyPaper; i++) {
-      //     if (copyPaper[i] === answerText[i]) {
-      //       copyPaper["result"] = true;
-      //       correctCount += 1;
-      //     } else {
-      //       copyPaper["result"] = false;
-      //     }
-      //   }
-      //   console.log("copypaper",copyPaper);
-      //   copyPaper[0]["total"] = (correctCount / copyPaper.length) * 100;
-      // setPaper(copyPaper);
-
-      //結果を保持するusestateに対してsetする
-      // setDispNo(3);
-      // });
-      // }
     }
   }
 
@@ -287,107 +244,51 @@ export default function S2Test() {
 
   return (
     <>
-    <div>
-      <h2>{title}</h2>
-      <span className="submitTest">
-      <button className="back-button" onClick={s1MenuDisplay}>戻る</button>
-        <input
-          type="button"
-          value="提 出"
-          onClick={() => {
-            submitTest();
-          }}
+      <div>
+        <h2>{title}</h2>
+        <span className="submitTest">
+          <button className="back-button" onClick={s1MenuDisplay}>
+            戻る
+          </button>
+          <input
+            type="button"
+            value="提 出"
+            onClick={() => {
+              submitTest();
+            }}
           />
-      </span>
-      <table className="table1">
-        <tr>
-          <td className="studentsSelect1">
-            <select
-              className="studentsSelect2"
-              name="studentID"
-              onChange={(e) => {
-                // setStudent_ID(e.target.value);
-              }}
-              >
-              <option value="">出席番号</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-              <option value="32">32</option>
-              <option value="33">33</option>
-              <option value="34">34</option>
-              <option value="35">35</option>
-              <option value="36">36</option>
-              <option value="37">37</option>
-              <option value="38">38</option>
-              <option value="39">39</option>
-              <option value="40">40</option>
-              <option value="41">41</option>
-              <option value="42">42</option>
-              <option value="43">43</option>
-              <option value="44">44</option>
-              <option value="45">45</option>
-              <option value="46">46</option>
-              <option value="47">47</option>
-              <option value="48">48</option>
-              <option value="49">49</option>
-              <option value="50">50</option>
-            </select>
-          </td>
-          <td className="writeName">名前</td>
-          <td>
-            <canvas id="canvasName" width="460" height="160"></canvas>
-          </td>
-          <td className="canvasButtonDel0">
-            <button
-              type="button"
-              onClick={() => {
-                clearCanvas(0);
-              }}
-              >
-              リセット
-            </button>
-          </td>
-        </tr>
-      </table>
-      <table className="questionsTable">
-        <thead>
+        </span>
+        <table className="table1">
           <tr>
-            <th>問題</th>
-            <th>回答欄</th>
+            <div className="studentsID" value="ID">
+              ID:{loginInfo.userId}
+            </div>
+            <td className="writeName">名前</td>
+            <td>
+              <canvas id="canvasName" width="460" height="160"></canvas>
+            </td>
+            <td className="canvasButtonDel0">
+              <button
+                type="button"
+                onClick={() => {
+                  clearCanvas(0);
+                }}
+              >
+                リセット
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody>{questions}</tbody>
-      </table>
-    </div>
-              </>
+        </table>
+        <table className="questionsTable">
+          <thead>
+            <tr>
+              <th>問題</th>
+              <th>回答欄</th>
+            </tr>
+          </thead>
+          <tbody>{questions}</tbody>
+        </table>
+      </div>
+    </>
   );
 }

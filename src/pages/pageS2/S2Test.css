@@ -1,115 +1,112 @@
 h2 {
-    position: fixed;
-    width: 100%;
-    margin: 0px;
-    top: 0px;
-    padding-right: auto;
-    padding-top: 20px;
-    padding-left: 50px;
-    padding-bottom: 20px;
-    background-color: white;
-    z-index: 11;
-  }
-  
-  .table1 {
-    position: fixed;
-    top: 0px;
-    background-color: white;
-    margin-right: auto;
-    border-bottom: 2px solid gray;
-    z-index: 10;
-  }
+  position: fixed;
+  width: 100%;
+  margin: 0px;
+  top: 0px;
+  padding-right: auto;
+  padding-top: 20px;
+  padding-left: 50px;
+  padding-bottom: 20px;
+  background-color: white;
+  z-index: 11;
+}
 
-  
-  
-  .studentsSelect1 {
-    padding-left: 50px;
-    padding-top: 110px;
-    vertical-align: top;
-  }
-  
-  .studentsSelect2 {
-    text-align: center;
-    font-size: 16pt;
-    color: black;
-    padding-right: 5px;
-    border-style: none;
-    background-color: #8df78f;
-    -webkit-appearance: none;
-    appearance: none;
-    /* デフォルトの矢印を非表示 */
-    background-image: url(./tri-down.png);
-    background-position: right top;
-    background-repeat: no-repeat;
-    background-size: 21px 21px;
-    width: 130px;
-  }
-  
-  select.studentsSelect::-ms-expand {
-    display: none;
-    /* デフォルトの矢印を非表示(IE用) */
-  }
-  
-  .writeName {
-    padding: 110px 0px 0px 50px;
-    vertical-align: top;
-    min-width: 38px;
-  }
-  
-  #canvasName {
-    margin-top: 45px;
-    position: relative;
-    padding: 0px;
-    /* border: 1px solid black; */
-    outline: 2px solid gray;
-    outline-offset: -40px;
-  }
-  
-  .canvasAns {
-    position: relative;
-    padding: 0px;
-    /* border: 1px solid black; */
-    outline: 2px solid gray;
-    outline-offset: -40px;
-  }
-  
-  .canvasButtonDel0 {
-    padding: 0px;
-    margin: 0px;
-    min-width: 70px;
-    padding-right: 5000px;
-    padding-top: 110px;
-    vertical-align: top;
-  }
-  
-  .canvasButtonDel {
-    padding: 0px;
-    margin: 0px;
-    min-width: 70px;
-    padding-top: 65px;
-    vertical-align: top;
-  }
-  
-  .questionsTable {
-    text-align: center;
-    margin-left: 50px;
-    padding-top: 240px;
-    width: auto;
-  }
-  
-  .submitTest {
-    position: fixed;
-    top: 15px;
-    right: 50px;
-    z-index: 12;
-  }
-  
-  .submitTest input {
-    font-size: 20pt;
-    padding: 5px 20px 5px 20px;
-    background-color: blue;
-    color: white;
-    border-radius: 10px;
-    z-index: 12;
-  }
-  
+.table1 {
+  position: fixed;
+  top: 0px;
+  background-color: white;
+  margin-right: auto;
+  border-bottom: 2px solid gray;
+  z-index: 10;
+}
+
+.studentsID {
+  padding-left: 50px;
+  padding-top: 110px;
+  vertical-align: top;
+}
+
+.studentsSelect2 {
+  text-align: center;
+  font-size: 16pt;
+  color: black;
+  padding-right: 5px;
+  border-style: none;
+  background-color: #8df78f;
+  -webkit-appearance: none;
+  appearance: none;
+  /* デフォルトの矢印を非表示 */
+  background-image: url(./tri-down.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 21px 21px;
+  width: 130px;
+}
+
+select.studentsSelect::-ms-expand {
+  display: none;
+  /* デフォルトの矢印を非表示(IE用) */
+}
+
+.writeName {
+  padding: 110px 0px 0px 50px;
+  vertical-align: top;
+  min-width: 38px;
+}
+
+#canvasName {
+  margin-top: 45px;
+  position: relative;
+  padding: 0px;
+  /* border: 1px solid black; */
+  outline: 2px solid gray;
+  outline-offset: -40px;
+}
+
+.canvasAns {
+  position: relative;
+  padding: 0px;
+  /* border: 1px solid black; */
+  outline: 2px solid gray;
+  outline-offset: -40px;
+}
+
+.canvasButtonDel0 {
+  padding: 0px;
+  margin: 0px;
+  min-width: 70px;
+  padding-right: 5000px;
+  padding-top: 110px;
+  vertical-align: top;
+}
+
+.canvasButtonDel {
+  padding: 0px;
+  margin: 0px;
+  min-width: 70px;
+  padding-top: 65px;
+  vertical-align: top;
+}
+
+.questionsTable {
+  text-align: center;
+  margin-left: 50px;
+  padding-top: 240px;
+  width: auto;
+}
+
+.submitTest {
+  position: fixed;
+  top: 15px;
+  right: 50px;
+  z-index: 12;
+}
+
+.submitTest input {
+  font-size: 20pt;
+  padding: 5px 20px 5px 20px;
+  background-color: blue;
+  color: white;
+  border-radius: 10px;
+  z-index: 12;
+}
