@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { acquiredQuestion } from '../../shareComponents/atom';
+import { useRecoilState } from "recoil";
 import axios from "axios";
 
 import "./T3TestCreate.css";
@@ -13,6 +15,7 @@ export default function T3TestCreate() {
   const [selectGrade, setSelectGrade] = useState(1);
   const [selectSubject, setSelectSubject] = useState("算数");
   const [selectQuestionAmount, setSelectQuestionAmount] = useState(10);
+  const [chatGptQuestion,setChatGptQuestion] = useRecoilState(acquiredQuestion);
 
   const navigate = useNavigate();
   const t4ConfirmationCreatedTestDisplay = () => {
@@ -22,8 +25,7 @@ export default function T3TestCreate() {
         "https://api.openai.com/v1/completions",
         JSON.stringify({
           model: "text-davinci-003",
-          prompt:
-            `小学${selectGrade}年生向けの${selectSubject}のテストをください。${selectQuestionAmount}こください。"Question"と"Answer"に分けてください。改行してください。`,
+          prompt: `小学校${selectGrade}年生向けの${selectSubject}の問題をください。絶対に${selectQuestionAmount}問出題してください。"Question:"と"Answer:"に分けて改行して出力してください。Answerは単語または数字にしてください。`,
           max_tokens: 1000,
           temperature: 0.3,
           // top_p: 1,
@@ -38,55 +40,72 @@ export default function T3TestCreate() {
         }
       )
       .then((res) => {
-        // console.log(res.data.choices[0].text);
-        console.log(res.data.choices[0]);
-        let  splitText = res.data.choices[0].text.replace(/\t+/g, '');
-       splitText = splitText.split(/(\n|"  ")/);
-       const arr = splitText.map((elem)=>elem.trim()).filter((elem)=>{
-      //  return  !(elem.search(/\n/) > -1 || elem.search(/\s{5,}/) > -1 ||elem === "  " || elem === " " || elem === "")
-       return  !(elem.search(/\n/) > -1 || elem === "")
-       })
-console.log(arr)
-       const questionArr = arr.filter((elem,index)=>{
-        return index % 2 === 0
-       }).map((elem)=>{
-        let newWord = elem
-        // const questionIndex = elem.indexOf("Question")
-        if(elem.indexOf(":") > -1){
-          const  colonIndex = elem.indexOf(":")
-          // colonIndex = colonIndex + 1
-          newWord = newWord.slice(colonIndex + 1)
+        let getText = res.data.choices[0].text;
+        getText = getText.split(/(\n|\s{3,}|\t)/);
+        console.log(getText)
+        const arr = getText
+          .map((elem) => elem.trim())
+          .filter((elem) => {
+            // return !(elem.search(/\n/) > -1 || elem.search(/\t/) > -1 || elem === "" ||(elem.indexOf("Question") > -1 && elem.length < 11)||(elem.indexOf("Answer") > -1 && elem.length < 10));
+            return !(elem.search(/\n/) > -1 || elem.search(/\t/) > -1 || elem === "" );
+          });
+          console.log(arr)
+        const questionArr = arr
+          .filter((elem, index) => {
+            return index % 2 === 0;
+          })
+          .map((elem) => {
+            let newWord = elem;
+            const colonIndex = elem.indexOf(":");
+            const colonZenkakuIndex = elem.indexOf("：");
+            const commaIndex = elem.indexOf(".");
+            const spaceIndex = elem.indexOf(" ");
+            if (colonIndex > -1) {
+              newWord = newWord.slice(colonIndex + 1);
+            }else if(colonZenkakuIndex > -1){
+              newWord = newWord.slice(colonZenkakuIndex + 1);
+            }else if(commaIndex > -1){
+              newWord = newWord.slice(commaIndex + 1);
+            }else if(spaceIndex > -1){
+              newWord = newWord.slice(spaceIndex + 1);
+            }
+            return newWord.trim();
+          });
+
+        const answerArr = arr
+          .filter((elem, index) => {
+            return !(index % 2 === 0);
+          })
+          .map((elem) => {
+            let newWord = elem;
+            const colonIndex = elem.indexOf(":");
+            const colonZenkakuIndex = elem.indexOf("：");
+            const commaIndex = elem.indexOf(".");
+            const spaceIndex = elem.indexOf(" ");
+            if (colonIndex > -1) {
+              newWord = newWord.slice(colonIndex + 1);
+            }else if(colonZenkakuIndex > -1){
+              newWord = newWord.slice(colonZenkakuIndex + 1);
+            }else if(commaIndex > -1){
+              newWord = newWord.slice(commaIndex + 1);
+            }else if(spaceIndex > -1){
+              newWord = newWord.slice(spaceIndex + 1);
+            }
+            return newWord.trim();
+          });
+
+        const resultObj = [];
+        for (let i = 0; i < selectQuestionAmount; i++) {
+          const obj = { question: questionArr[i], answer: answerArr[i] };
+          resultObj.push(obj);
         }
-        return newWord.trim()
-       })
-
-       const answerArr = arr.filter((elem,index)=>{
-        return !(index % 2 === 0)
-       }).map((elem)=>{
-        let newWord = elem
-        // const questionIndex = elem.indexOf("Question")
-        if(elem.indexOf(":") > -1){
-          const  colonIndex = elem.indexOf(":")
-          // colonIndex = colonIndex + 1
-          newWord = newWord.slice(colonIndex + 1)
-        }
-        return newWord.trim()
-       })
-
-
-       const resultObj =[]
-       for(let i = 0; i < selectQuestionAmount ; i++){
-        const obj ={question:questionArr[i],answer:answerArr[i]}
-        resultObj.push(obj)
-
-       }
-        console.log(resultObj)
+        console.log(resultObj);
+        setChatGptQuestion(resultObj);
       });
 
-    // navigate("../T4ConfirmationCreatedTest");
+    navigate("../T4ConfirmationCreatedTest");
   };
 
- 
   const t1MenuDisplay = () => {
     navigate("../T1Menu");
   };
