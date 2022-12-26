@@ -1,0 +1,8 @@
+.creation-conditions-container{
+    width: 30%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 30px 4px; /* 余白 */
+}
