@@ -41,10 +41,16 @@ export default function T6ResultCheck() {
       <td>
         <button
           onClick={() => {
+            const update = [];
             const flag = paper[index].result ? false : true;
-            setPaper([
-              { question: "50音を答えろ", answer: "あいうえお", result: flag },
-            ]);
+            paper.forEach((item, i) => {
+              if (i === index) {
+                update.push({ ...item, result: flag });
+              } else {
+                update.push(item);
+              }
+            });
+            setPaper(update);
           }}
         >
           正誤反転
