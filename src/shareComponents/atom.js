@@ -5,3 +5,8 @@ export const login = atom({
     default: {userId:null,loginState:"notYetLoggedIn"}
   });
   
+
+  export const acquiredQuestion = atom({
+    key: "acquiredQuestion",
+    default: []
+  });
