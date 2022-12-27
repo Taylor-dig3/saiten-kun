@@ -8,5 +8,5 @@ export const login = atom({
 
   export const questionAndAnswer = atom({
     key: "questionAndAnswer",
-    default: []
+    default: {}
   });

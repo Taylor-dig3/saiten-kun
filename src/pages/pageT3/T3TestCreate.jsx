@@ -94,16 +94,20 @@ export default function T3TestCreate() {
             return newWord.trim();
           });
 
-        const resultObj = [];
+        const qAndAArry = [];
         for (let i = 0; i < selectQuestionAmount; i++) {
           const obj = { question: questionArr[i], answer: answerArr[i] };
-          resultObj.push(obj);
+          qAndAArry.push(obj);
         }
-        console.log(resultObj);
+        const resultObj = {
+          grade:selectGrade,
+          subject:selectSubject,
+          data:qAndAArry
+        }
         setChatGptQAndA(resultObj);
+        navigate("../T4ConfirmationCreatedTest");
       });
 
-    navigate("../T4ConfirmationCreatedTest");
   };
 
   const t1MenuDisplay = () => {

@@ -11,13 +11,13 @@ const setupServerMock = () => {
   app.post("/loginMock",(req,res) => {
     console.log("loginMock");
     let response;
-    if (req.body.user_id === 1){
+    if (req.body.user_id === "1"){
       response = {
         user_id : 1,
         name : "田中　花子",
         login_state: "studentLogin"
       }
-    } else if (req.body.user_id === 2) {
+    } else if (req.body.user_id === "2") {
       response = {
         user_id: 2,
         name: "田中　花子",
@@ -30,6 +30,7 @@ const setupServerMock = () => {
         login_state: "notYetLoggedIn"
       }
     }
+    
     res.send(response).status(200).end();
   });
 

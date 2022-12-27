@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { questionAndAnswer } from "../../shareComponents/atom";
-import { useRecoilState } from "recoil";
+import { questionAndAnswer,login } from "../../shareComponents/atom";
+import { useRecoilState,useRecoilValue } from "recoil";
 
 export default function T4ConfirmationCreatedTest() {
+  const loginInfo = useRecoilValue(login);
+  const [description, setDescription] =  useState("")
   const [qAndA, setQAndA] = useRecoilState(questionAndAnswer);
   const navigate = useNavigate();
 
@@ -13,24 +15,28 @@ export default function T4ConfirmationCreatedTest() {
   const t1MenuDisplay = () => {
     navigate("../T1Menu");
   };
-  const getInputValue = () => {
+  const register = () => {
     const editQuestions = document.querySelectorAll(".question-input");
     const editAnswers = document.querySelectorAll(".answer-input");
-
-    console.log("rion");
     const qAndAArr = [];
+
     for (let i = 0; i < editQuestions.length; i++) {
       qAndAArr.push({ question: editQuestions[i].value, answer: editAnswers[i].value });
     }
 
     const registerQandAObj = {
-      description:"dddsdsd",
-      createDate:"2022/12/27",
-      qAndA:qAndAArr
-
+      ...qAndA,
+      teacher_id:loginInfo.userId,
+      question_title:description,
+      data:qAndAArr
     }
+    //ここでAPIを実行してDBに問題を登録する。
     console.log(registerQandAObj);
   };
+
+const descriptionChange = (e)=>{
+  setDescription(e.target.value);
+}
 
   useEffect(() => {
     // console.log("rion");
@@ -41,11 +47,11 @@ export default function T4ConfirmationCreatedTest() {
       <div>先生作成テスト確認画面</div>
       <button onClick={t3TestCreateDisplay}>戻る</button>
       {/* <button onClick={t1MenuDisplay}>登録</button> */}
-      <button onClick={getInputValue}>登録ss</button>
+      <button onClick={register}>登録ss</button>
       <div>
-        <input type="text" placeholder="問題の説明を入力してください" />
+        <input type="text" placeholder="問題の説明を入力してください"  onChange={descriptionChange}/>
       </div>
-      {qAndA.map((elem, index) => {
+      {qAndA.data.map((elem, index) => {
         return (
           <div key={index}>
             <input

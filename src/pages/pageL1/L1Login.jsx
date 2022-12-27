@@ -132,7 +132,7 @@ export default function L1Login() {
           </RadioGroup>
           <div className="ui-form">
             <div className="form-field">
-              <label> ユーザーID</label>
+              <label> ユーザーID 1でログインすると生徒でログインID 2でログインすると先生ログインです</label>
               <input
                 type="text"
                 placeholder="ユーザーID"
