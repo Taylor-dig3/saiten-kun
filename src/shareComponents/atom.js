@@ -1,10 +1,10 @@
 import { atom } from "recoil";
 
 export const login = atom({
-<<<<<<< HEAD
   key: "login",
-  default: { userId: null, loginState: "notYetLoggedIn" },
+  default: {userId:null,name:null,loginState:"notYetLoggedIn"}
 });
+
 
 export const testResult = atom({
   key: "testResult",
@@ -25,12 +25,6 @@ export const acquiredQuestion = atom({
   key: "acquiredQuestion",
   default: [],
 });
-=======
-    key: "login",
-    default: {userId:null,name:null,loginState:"notYetLoggedIn"}
-  });
-  
-
   export const questionAndAnswer = atom({
     key: "questionAndAnswer",
     default: {}

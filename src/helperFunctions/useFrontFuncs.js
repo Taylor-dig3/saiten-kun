@@ -13,28 +13,6 @@ import axios from "axios";
 // });
 
 //今回のMVP外
-<<<<<<< HEAD
-// function outputResult(test_id) {
-//   try {
-//     return axios
-//       .get("/questionsMock", {
-//         params: {
-//           test_id: test_id,
-//         },
-//       })
-//       .then((response) => {
-//         console.log(response.data);
-//         return response.data;
-//       });
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }
-
-function getAllTests() {
-  try {
-    return axios.get("/testsMock").then((response) => {
-=======
 function outputResult(test_id) {
   try {
     return axios
@@ -57,7 +35,6 @@ function getAllTests() {
   try {
     // return axios.get("/tests").then((response) => {
       return axios.get("/testsMock").then((response) => {
->>>>>>> 3b531a2633c78ac4d2550e47dde2de6c1dca3908
       return response.data.map((obj) => {
         obj["grade"] = "1";
         obj["subject"] = "国語";
@@ -75,12 +52,9 @@ async function startTest(test_id) {
     console.log("rionやで");
     // const response = await
     return axios
-<<<<<<< HEAD
-      .get("/questionMock", {
-=======
+
       // .get("/questions", {
-        .get("/questionsMock", {
->>>>>>> 3b531a2633c78ac4d2550e47dde2de6c1dca3908
+        .get("/questionMock", {
         params: {
           test_id: Number(test_id),
         },
