@@ -224,8 +224,7 @@ export default function S2Test() {
   console.log("object");
   let questions = [];
   questions = testQuestionInfo.data.map((elem, index) => (
-    <tbody key={index + 1}>
-      <tr>
+      <tr key={index + 1}>
         <td>{elem["question_id"]}</td>
         <td>{elem["question"]}</td>
         <td>
@@ -247,7 +246,6 @@ export default function S2Test() {
           </button>
         </td>
       </tr>
-    </tbody>
   ));
 
   let title;
@@ -276,9 +274,9 @@ export default function S2Test() {
         <table className="table1">
             <tbody>
           <tr>
-            <div className="studentsID" value="ID">
+            {/* <div className="studentsID" value="ID">
               ID:{loginInfo.userId}
-            </div>
+            </div> */}
             <td className="writeName">名前</td>
             <td>
               {/* <div className="studentsID" value="ID">
