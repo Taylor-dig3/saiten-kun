@@ -12,20 +12,21 @@ app.use(express.json());
 const setupServerMock = () => {
   app.post("/loginMock",(req,res) => {
     console.log("loginMock");
-    if (req.body.login_id === 1){
-      const response = {
+    let res;
+    if (req.body.user_id === 1){
+      response = {
         user_id : 1,
         name : "田中　花子",
         login_state: "studentLogin"
       }
-    } else if (req.body.login_id === 2) {
-      const response = {
+    } else if (req.body.user_id === 2) {
+      response = {
         user_id: 2,
         name: "田中　花子",
         login_state: "teacherLogin"
       }
     } else {
-      const response = {
+      response = {
         user_id: null,
         name: null,
         login_state: "notYetLoggedIn"
