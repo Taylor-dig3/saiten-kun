@@ -219,10 +219,11 @@ export default function S2Test() {
     console.log(testQuestionInfo);
     console.log(testQuestionInfo.data);
   }, [testQuestionInfo]);
-
+console.log("object");
   let questions = [];
   questions = testQuestionInfo.data.map((elem, index) => (
-    <tr key={index + 1}>
+    <tbody  key={index + 1}>
+    <tr>
       <td>{elem["question_id"]}</td>
       <td>{elem["question"]}</td>
       <td>
@@ -231,7 +232,7 @@ export default function S2Test() {
           className="canvasAns"
           width="460"
           height="160"
-        ></canvas>
+          ></canvas>
       </td>
       <td className="canvasButtonDel">
         <button
@@ -239,11 +240,12 @@ export default function S2Test() {
           onClick={() => {
             clearCanvas(index + 1);
           }}
-        >
+          >
           リセット
         </button>
       </td>
     </tr>
+          </tbody>
   ));
 
   let title;
