@@ -1,5 +1,6 @@
 const express = require("express");
-const { setupServerMock } = require("./serverMock.js");
+const { setupServer } = require("./server.js");
+require("dotenv").config();
 
 const app = setupServerMock();
 // app.use("/", express.static(__dirname + "/../build"));
