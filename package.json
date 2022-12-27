@@ -48,10 +48,6 @@
     "dev": "concurrently \"npm run server-dev\" \"npm run start\" ",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
-    "seed1": "knex seed:run --specific=tests.js",
-    "seed2": "knex seed:run --specific=questions.js",
-    "seed3": "knex seed:run --specific=selected.js",
-    "seed4": "knex seed:run --specific=papers.js",
     "makeMigration": "knex migrate:make",
     "makeSeed": "knex seed:make",
     "rollback": "knex migrate:rollback"

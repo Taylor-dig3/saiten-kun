@@ -9,3 +9,8 @@ export const testResult = atom({
   key: "testResult",
   default: {},
 });
+
+export const acquiredQuestion = atom({
+  key: "acquiredQuestion",
+  default: [],
+});
