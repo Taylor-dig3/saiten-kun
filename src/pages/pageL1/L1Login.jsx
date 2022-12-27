@@ -3,11 +3,10 @@ import { Radio, RadioGroup, FormControlLabel } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
-import { login } from '../../shareComponents/atom';
-import { useRecoilState } from "recoil";
+import { login } from "../../shareComponents/atom";
+import { useRecoilState, useR } from "recoil";
 import "./L1Login.css";
-
-
+import axios from "axios";
 
 export default function L1Login() {
   const initialLoginValues = { userId: "", password: "" };
@@ -15,9 +14,9 @@ export default function L1Login() {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [isRevealPassword, setIsRevealPassword] = useState(false);
-  const [loginStatus, setLoginStatus] = useState("ログイン中です")
-  const [loginInfo, setLoginInfo] = useRecoilState(login)
-  
+  const [loginStatus, setLoginStatus] = useState("ログイン中です");
+  const [loginInfo, setLoginInfo] = useRecoilState(login);
+
   const [studentFlag, setStudentFlag] = useState(true);
   const navigate = useNavigate();
   const changeValue = () => setStudentFlag((prev) => !prev);
@@ -28,6 +27,7 @@ export default function L1Login() {
 
   const formChange = (e) => {
     const { name, value } = e.target;
+    console.log(e.target);
     setFormValues({ ...formValues, [name]: value });
   };
   const validate = (values) => {
@@ -42,7 +42,7 @@ export default function L1Login() {
     } else if (values.password.length > 15) {
       errors.password = "4文字以上、15文字以下のパスワードを入力してください";
     }
-    if (Object.keys(errors).length  === 0){
+    if (Object.keys(errors).length === 0) {
       errors.validateOkFlag = true;
     }
     return errors;
@@ -56,8 +56,8 @@ export default function L1Login() {
     setIsSubmit(true);
   };
 
-  useEffect(()=>{
-    if(formErrors.validateOkFlag){
+  useEffect(() => {
+    if (formErrors.validateOkFlag) {
       //ログインをAPIで投げる処理
       //axiosを使用してサーバー側にAPIを投げる
 
@@ -68,22 +68,50 @@ export default function L1Login() {
       //生徒ログイン成功　= “studentLogin”
       //未ログイン（ログイン失敗またはログイン前）= “notYetLoggedIn”
       // setLoginInfo({userId:"null",loginState:"notYetLoggedIn"})
-      if (studentFlag) {
-        setLoginInfo({userId:"0000",loginState:"studentLogin"})
-        navigate("S1Menu");
-      } else {
-        setLoginInfo({userId:"0000",loginState:"teacherLogin"})
-        navigate("T1Menu");
-      }
+
+      axios
+        .post("/loginMock", {
+          user_id: formValues.userId,
+          password: formValues.password,
+          student_flg: studentFlag,
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.login_state === "studentLogin") {
+            setLoginInfo({
+              userId: res.data.user_id,
+              name: res.data.name,
+              loginState: res.data.login_state,
+            });
+            navigate("S1Menu");
+          } else if (res.data.login_state === "teacherLogin") {
+            setLoginInfo({
+              userId: res.data.user_id,
+              name: res.data.name,
+              loginState: res.data.login_state,
+            });
+            navigate("T1Menu");
+          } else {
+            setLoginInfo({
+              userId: null,
+              name: null,
+              loginState: "notYetLoggedIn",
+            });
+          }
+        });
+      // console.log(formValues);
+      // if (studentFlag) {
+      //   setLoginInfo({ userId: "0000", loginState: "studentLogin" });
+      //   navigate("S1Menu");
+      // } else {
+      //   setLoginInfo({ userId: "0000", loginState: "teacherLogin" });
+      //   navigate("T1Menu");
+      // }
     }
-
-  },[formErrors])
-
-
+  }, [formErrors]);
 
   return (
     <>
-      
       <div className="form-container">
         <form onSubmit={(e) => formSubmit(e)}>
           <h1 className="login-form-name">ログインしてください</h1>
@@ -117,14 +145,14 @@ export default function L1Login() {
             <div className="form-field">
               <label> パスワード</label>
               <div className="login-form-input-password-container">
-              <input
-                type={isRevealPassword ? "text" : "password"}
-                placeholder="パスワード"
-                name="password"
-                className="login-form-input-password"
-                onChange={(e) => formChange(e)}
-              />
-              
+                <input
+                  type={isRevealPassword ? "text" : "password"}
+                  placeholder="パスワード"
+                  name="password"
+                  className="login-form-input-password"
+                  onChange={(e) => formChange(e)}
+                />
+
                 {isRevealPassword ? (
                   <VisibilityOffIcon
                     onClick={() => setIsRevealPassword(false)}
