@@ -6,7 +6,7 @@ const axios = require("axios");
 // const PORT = process.env.PORT || 3001;
 
 const setupServer = () => {
-  console.log("first")
+  console.log("first");
   const app = express();
   app.use(express.json());
 
@@ -26,6 +26,11 @@ const setupServer = () => {
     res.json(result).status(200).end();
     //test_idが入っているときはそのidと紐づくquestionの一覧を返す
     //test_idが入っていないときは全てのquestionsを返す。
+  });
+
+  app.get("/result", async (req, res) => {
+    //resultsテーブルとquestionsテーブルからresultとanswer_imgとanswerを持ってきてjoinで結合
+    //その時にqueryで渡すtest_idとstudent_idが必要　　tests.controller.js
   });
 
   app.get("/test/rion", async (req, res) => {
