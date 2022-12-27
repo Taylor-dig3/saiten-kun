@@ -1,5 +1,6 @@
 const express = require("express");
 const { setupServer } = require("./server.js");
+require("dotenv").config();
 
 const app = setupServer();
 // app.use("/", express.static(__dirname + "/../build"));
