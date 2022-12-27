@@ -6,8 +6,11 @@ const { getAllQuestion }= require("./db.controller/tests.controller");
 const axios = require("axios");
 // const PORT = process.env.PORT || 3001;
 
+<<<<<<< HEAD
 // app.use(express.json());
 
+=======
+>>>>>>> a44b9aaf1b6b66a510eb499516aaaa826612bfe1
 const setupServer = () => {
   const app = express();
   app.use(express.json());
