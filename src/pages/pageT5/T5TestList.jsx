@@ -5,6 +5,9 @@ import React from "react";
 // import CheckResults from "./CheckResults";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { login, testResult } from "../../shareComponents/atom";
+import { useRecoilValue, useRecoilState } from "recoil";
+import axios from "axios";
 
 import { getAllTests } from "../../helperFunctions/useFrontFuncs";
 
@@ -37,9 +40,13 @@ const subjects = ["国語", "算数", "理科", "社会"];
 export default function T5TestList({ setDispNo, setCurrentTestID }) {
   const [allTests, setAllTests] = useState([]);
   // const [listsTable, setListsTable] = useState();
-  const navigate = useNavigate()
-  const t6ResultCheckDisplay = () =>{navigate("../T6ResultCheck")}
-  const t1MenuDisplay = ()=>{navigate("../T1Menu")}
+  const navigate = useNavigate();
+  const t6ResultCheckDisplay = () => {
+    navigate("../T6ResultCheck");
+  };
+  const t1MenuDisplay = () => {
+    navigate("../T1Menu");
+  };
 
   useEffect(() => {
     getAllTests().then((res) => {
@@ -84,29 +91,29 @@ export default function T5TestList({ setDispNo, setCurrentTestID }) {
 
   return (
     <>
-    <button onClick={t6ResultCheckDisplay}>生徒テスト結果確認</button>
-    <button onClick={t1MenuDisplay}>戻る</button>
-    <div className="testLists">
-      {/* <NewTest setDispNo={setDispNo} />
+      <button onClick={t6ResultCheckDisplay}>生徒テスト結果確認</button>
+      <button onClick={t1MenuDisplay}>戻る</button>
+      <div className="testLists">
+        {/* <NewTest setDispNo={setDispNo} />
       <DoTest setDispNo={setDispNo} />
       <CheckResults setDispNo={setDispNo} /> */}
-      <div>
-        <table className="listTable">
-          <thead>
-            <tr>
-              <th></th>
-              <th>タイトル</th>
-              <th>学年</th>
-              <th>科目</th>
-              <th>問題数</th>
-              <th>作成日</th>
-              <th>実施日</th>
-            </tr>
-          </thead>
-          <tbody>{listsTable}</tbody>
-        </table>
+        <div>
+          <table className="listTable">
+            <thead>
+              <tr>
+                <th></th>
+                <th>タイトル</th>
+                <th>学年</th>
+                <th>科目</th>
+                <th>問題数</th>
+                <th>作成日</th>
+                <th>実施日</th>
+              </tr>
+            </thead>
+            <tbody>{listsTable}</tbody>
+          </table>
+        </div>
       </div>
-    </div>
-      </>
+    </>
   );
 }

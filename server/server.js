@@ -6,7 +6,7 @@ const axios = require("axios");
 // const PORT = process.env.PORT || 3001;
 
 const setupServer = () => {
-  console.log("first")
+  console.log("first");
   const app = express();
   app.use(express.json());
 
@@ -26,6 +26,12 @@ const setupServer = () => {
     res.json(result).status(200).end();
     //test_idが入っているときはそのidと紐づくquestionの一覧を返す
     //test_idが入っていないときは全てのquestionsを返す。
+  });
+
+  //テスト結果画面の処理
+  app.get("/result", async (req, res) => {
+    //resultsテーブルとquestionsテーブルからresultとanswer_imgとanswerを持ってきてjoinで結合
+    //その時にqueryで渡すtest_idとstudent_idが必要　　tests.controller.js
   });
 
   app.get("/test/rion", async (req, res) => {
@@ -50,6 +56,31 @@ const setupServer = () => {
         console.log("rionError");
         console.log("err", err);
       });
+  });
+
+  app.get("/answerMock", (req, res) => {
+    console.log("answerMock");
+    const resultTable = {
+      question_title: "漢字をひらがなに直しなさい",
+      data: [
+        {
+          question: "草がはえる",
+          answer_img: "logo192.png",
+          result: true,
+        },
+        {
+          question: "歯がぬけた",
+          answer_img: "logo192.png",
+          result: false,
+        },
+        {
+          question: "親しらず",
+          answer_img: "logo192.png",
+          result: false,
+        },
+      ],
+    };
+    res.send(resultTable).status(200).end();
   });
 
   app.post("/questions", async (req, res) => {

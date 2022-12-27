@@ -69,6 +69,7 @@ select.studentsSelect::-ms-expand {
   /* border: 1px solid black; */
   outline: 2px solid gray;
   outline-offset: -40px;
+  z-index: 10;
 }
 
 .canvasButtonDel0 {

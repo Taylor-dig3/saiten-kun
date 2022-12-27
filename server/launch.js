@@ -1,7 +1,7 @@
 const express = require("express");
-const { setupServer } = require("./server.js");
+const { setupServerMock } = require("./serverMock.js");
 
-const app = setupServer();
+const app = setupServerMock();
 // app.use("/", express.static(__dirname + "/../build"));
 
 const SERVER_PORT = process.env.SERVER_PORT || 4000;

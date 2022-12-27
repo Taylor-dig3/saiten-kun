@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
+import axios from "axios";
+
+//test_idとstudent_idをインポートしてくる
 
 export default function T6ResultCheck() {
   const loginInfo = useRecoilValue(login);
@@ -11,17 +14,14 @@ export default function T6ResultCheck() {
   };
 
   const [paper, setPaper] = useState([
-    { question: "50音を答えろ1", answer: "あいうえお", result: true },
-    { question: "50音を答えろ2", answer: "あいうえお", result: true },
-    { question: "50音を答えろ3", answer: "あいうえお", result: false },
-    { question: "50音を答えろ4", answer: "あいうえお", result: true },
-    { question: "50音を答えろ5", answer: "あいうえお", result: false },
-    { question: "50音を答えろ6", answer: "あいうえお", result: true },
-    { question: "50音を答えろ7", answer: "あいうえお", result: true },
+    { question: "50音を答えろ1", answer_img: "あいうえお", result: true },
+    { question: "50音を答えろ2", answer_img: "あいうえお", result: true },
+    { question: "50音を答えろ3", answer_img: "あいうえお", result: false },
+    { question: "50音を答えろ4", answer_img: "あいうえお", result: true },
+    { question: "50音を答えろ5", answer_img: "あいうえお", result: false },
+    { question: "50音を答えろ6", answer_img: "あいうえお", result: true },
+    { question: "50音を答えろ7", answer_img: "あいうえお", result: true },
   ]);
-
-  console.log(paper);
-  console.log(...paper);
 
   let title = "結果確認";
 
@@ -59,25 +59,32 @@ export default function T6ResultCheck() {
     </tr>
   ));
 
+  //queryパラメータでtest_idとstudent_idを渡す
+
+  useEffect(() => {
+    axios.get("/questions").then((res) => {
+      console.log(res);
+      // setPaper(res);
+    });
+  }, []);
+
   return (
     <div>
       <h2 className="title">{title}</h2>
-      <>
-        <span className="studentsSelect">
-          <div className="studentsID" value="ID">
-            ID:{loginInfo.userId}
-          </div>
-        </span>
-        <span className="studentName">
-          <img
-            className="studentName img"
-            src="./img/test4.png"
-            alt="student name"
-          />
-        </span>
-        <span className="score">{paper[0]["total"]}</span>
-        <span className="scoreUnit">点</span>
-      </>
+      <span className="studentsSelect">
+        <div className="studentsID" value="ID">
+          ID:{loginInfo.userId}
+        </div>
+      </span>
+      <span className="studentName">
+        <img
+          className="studentName img"
+          src="./img/test4.png"
+          alt="student name"
+        />
+      </span>
+      <span className="score">{paper[0]["total"]}</span>
+      <span className="scoreUnit">点</span>
       <button onClick={t5TestListDisplay}>戻る</button>
       <div>
         <table className="questionTable">

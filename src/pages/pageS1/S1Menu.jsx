@@ -1,12 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { login, testQuestion, testResult } from "../../shareComponents/atom";
+import { useRecoilValue, useRecoilState } from "recoil";
+import axios from "axios";
 
 export default function S1Menu() {
-  const navigate = useNavigate()
-  const s2Test = ()=> navigate("../S2Test")
-  const s3ResultListDisplay = ()=> navigate("../S3ResultList")
-  const l1LoginDisplay = ()=> navigate("/")
-  
+  const loginInfo = useRecoilValue(login);
+  const testId = 1;
+  const [testQuestionInfo, setTestQuestionInfo] = useRecoilState(testQuestion);
+
+  const navigate = useNavigate();
+  const s2Test = () => {
+    axios
+      .get("/questionMock", {
+        params: { userId: loginInfo.userId },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setTestQuestionInfo(res.data);
+        navigate("../S2Test");
+      });
+  };
+  const s3ResultListDisplay = () => navigate("../S3ResultList");
+  const l1LoginDisplay = () => navigate("/");
+
   return (
     <>
       <div>

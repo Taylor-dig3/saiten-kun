@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./S4TestCheck.css";
 import CloseTestResult from "./components/CloseTestResult";
 // import maru from "../../public/img/maru.png";
@@ -6,9 +6,10 @@ import CloseTestResult from "./components/CloseTestResult";
 // import testImg from "../../public/img/test.jpg";
 // import studentName1 from "../styles/test2.png";
 // import studentName2 from "../styles/test4.png";
-import { login } from "../../shareComponents/atom";
+import { login, testResult } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
+import { result } from "lodash";
 
 export default function S4TestCheck({
   setDispNo,
@@ -17,7 +18,7 @@ export default function S4TestCheck({
 }) {
   // const [studentID, setStudentID] = useState(-1);
   const loginInfo = useRecoilValue(login);
-
+  const resultInfo = useRecoilValue(testResult);
   const navigate = useNavigate();
   const s3ResultListDisplay = () => navigate("../S3ResultList");
   // if (currentAnswer["student_id"] !== undefined) {
@@ -26,7 +27,7 @@ export default function S4TestCheck({
   //   }
   // }
   let paper = [
-    { question: "50音を答えろ", answer: "あいうえお", result: true },
+    { question: "50音を答えろ", answer_img: "BASE-64", result: true },
     { question: "50音を答えろ", answer: "あいうえお", result: true },
     { question: "50音を答えろ", answer: "あいうえお", result: false },
     { question: "50音を答えろ", answer: "あいうえお", result: true },
@@ -37,11 +38,20 @@ export default function S4TestCheck({
   let title = "小テスト";
   let questions = [];
 
-  questions = paper.map((elem, index) => (
+  useEffect(() => {
+    console.log(resultInfo);
+    console.log(resultInfo.data);
+  }, [resultInfo]);
+
+  questions = resultInfo.data.map((elem, index) => (
     <tr key={index}>
       <td>{elem["question"]}</td>
       <td>
-        <img className="answer" src="./img/test.jpg" alt="answer" />
+        <img
+          className="answer"
+          src={"data:image/png;base64," + elem.answer_img}
+          alt="answer"
+        />
         {elem["result"] ? (
           <img className="marubatsu" src="./img/maru.png" alt="" />
         ) : (
