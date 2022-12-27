@@ -6,16 +6,9 @@ const { getAllQuestion }= require("./db.controller/tests.controller");
 const axios = require("axios");
 // const PORT = process.env.PORT || 3001;
 
-<<<<<<< HEAD
-// app.use(express.json());
 
-=======
->>>>>>> a44b9aaf1b6b66a510eb499516aaaa826612bfe1
 const setupServer = () => {
-<<<<<<< HEAD
-  console.log("first");
-=======
->>>>>>> Cure-Spicy/addAPI
+
   const app = express();
   app.use(express.json());
 
@@ -41,7 +34,6 @@ const setupServer = () => {
     res.send(result).status(200).end();
   })
 
-<<<<<<< HEAD
   //テスト結果画面の処理
   app.get("/result", async (req, res) => {
     //resultsテーブルとquestionsテーブルからresultとanswer_imgとanswerを持ってきてjoinで結合
@@ -102,29 +94,7 @@ const setupServer = () => {
       question: "testQuestion",
       answer: "testAnswer",
     };
-=======
-  // app.get("/tests", async (req, res) => {
-  //   //knexでDBからtestsテーブルとpaperテーブルを使って必要な中身を全部持ってくる。
-  //   const result = await apiModule.getTests();
-  //   res.json(result).status(200).end();
-  // });
-
-  // app.get("/questions", async (req, res) => {
-  //   let result;
-  //   if (req.query.test_id !== undefined) {
-  //     console.log("aaaaaaa");
-  //     result = await getQuestion(req.query.test_id);
-  //   } else {
-  //     console.log("aaaaaaa");
-  //     result = await getAllQuestion();
-  //   }
-  //   console.log(result);
-  //   res.json(result).status(200).end();
-  //   //test_idが入っているときはそのidと紐づくquestionの一覧を返す
-  //   //test_idが入っていないときは全てのquestionsを返す。
-  // });
->>>>>>> Cure-Spicy/addAPI
-
+  })
   // app.get("/test/rion", async (req, res) => {
   //   console.log("first");
   //   await axios
