@@ -16,6 +16,7 @@ export default function S1Menu() {
         params: { userId: loginInfo.userId },
       })
       .then((res) => {
+        console.log("S1pe-zi");
         console.log(res.data);
         setTestQuestionInfo(res.data);
         navigate("../S2Test");
