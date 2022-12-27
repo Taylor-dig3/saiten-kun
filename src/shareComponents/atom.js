@@ -18,7 +18,7 @@ export const testResultCheck = atom({
 
 export const testQuestion = atom({
   key: "testQuestion",
-  default: {},
+  default: {data:[0,1,2]},
 });
 
 export const acquiredQuestion = atom({

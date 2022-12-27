@@ -16,7 +16,7 @@ const form1 = new FormData();
 export default function S2Test() {
   const [currentAnswer, setCurrentAnswer] = useState({});
   const [currentTestID, setCurrentTestID] = useState("1");
-  const [paper, setPaper] = useState([{}]);
+  const [paper, setPaper] = useState( {data:[0,1,2]});
   const testQuestionInfo = useRecoilValue(testQuestion);
   const loginInfo = useRecoilValue(login);
   const navigate = useNavigate();
@@ -274,6 +274,7 @@ export default function S2Test() {
           />
         </span>
         <table className="table1">
+            <tbody>
           <tr>
             <div className="studentsID" value="ID">
               ID:{loginInfo.userId}
@@ -291,11 +292,12 @@ export default function S2Test() {
                 onClick={() => {
                   clearCanvas(0);
                 }}
-              >
+                >
                 リセット
               </button>
             </td>
           </tr>
+                </tbody>
         </table>
         <table className="questionsTable">
           <thead>
