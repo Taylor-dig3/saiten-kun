@@ -61,7 +61,9 @@ export default function S2Test() {
     // canvas.addEventListener('touchstart', startPoint, false);
     // canvas.addEventListener('touchmove', movePoint, false);
     // canvas.addEventListener('touchend', endPoint, false);
-    for (let i = 1; i <= paper.length; i++) {
+    console.log("paperやで")
+    console.log(paper.data.length)
+    for (let i = 1; i <= paper.data.length; i++) {
       canvas[i] = document.getElementById(`canvasAns${i}`);
       ctx[i] = canvas[i].getContext("2d");
       ctx[i].fillStyle = "rgb(255,255,255)";
@@ -219,33 +221,33 @@ export default function S2Test() {
     console.log(testQuestionInfo);
     console.log(testQuestionInfo.data);
   }, [testQuestionInfo]);
-console.log("object");
+  console.log("object");
   let questions = [];
   questions = testQuestionInfo.data.map((elem, index) => (
-    <tbody  key={index + 1}>
-    <tr>
-      <td>{elem["question_id"]}</td>
-      <td>{elem["question"]}</td>
-      <td>
-        <canvas
-          id={`canvasAns${index + 1}`}
-          className="canvasAns"
-          width="460"
-          height="160"
+    <tbody key={index + 1}>
+      <tr>
+        <td>{elem["question_id"]}</td>
+        <td>{elem["question"]}</td>
+        <td>
+          <canvas
+            id={`canvasAns${index + 1}`}
+            className="canvasAns"
+            width="460"
+            height="160"
           ></canvas>
-      </td>
-      <td className="canvasButtonDel">
-        <button
-          type="button"
-          onClick={() => {
-            clearCanvas(index + 1);
-          }}
+        </td>
+        <td className="canvasButtonDel">
+          <button
+            type="button"
+            onClick={() => {
+              clearCanvas(index + 1);
+            }}
           >
-          リセット
-        </button>
-      </td>
-    </tr>
-          </tbody>
+            リセット
+          </button>
+        </td>
+      </tr>
+    </tbody>
   ));
 
   let title;
