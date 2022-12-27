@@ -61,8 +61,8 @@ export default function S2Test() {
     // canvas.addEventListener('touchstart', startPoint, false);
     // canvas.addEventListener('touchmove', movePoint, false);
     // canvas.addEventListener('touchend', endPoint, false);
-    console.log("paperやで")
-    console.log(paper.data.length)
+    console.log("paperやで");
+    console.log(paper.data.length);
     for (let i = 1; i <= paper.data.length; i++) {
       canvas[i] = document.getElementById(`canvasAns${i}`);
       ctx[i] = canvas[i].getContext("2d");
@@ -221,6 +221,7 @@ export default function S2Test() {
     console.log(testQuestionInfo);
     console.log(testQuestionInfo.data);
   }, [testQuestionInfo]);
+
   console.log("object");
   let questions = [];
   questions = testQuestionInfo.data.map((elem, index) => (
