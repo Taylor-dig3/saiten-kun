@@ -47,7 +47,7 @@ const descriptionChange = (e)=>{
       <div>先生作成テスト確認画面</div>
       <button onClick={t3TestCreateDisplay}>戻る</button>
       {/* <button onClick={t1MenuDisplay}>登録</button> */}
-      <button onClick={register}>登録ss</button>
+      <button onClick={register}>登録</button>
       <div>
         <input type="text" placeholder="問題の説明を入力してください"  onChange={descriptionChange}/>
       </div>
@@ -57,9 +57,9 @@ const descriptionChange = (e)=>{
             <input
               type="text"
               className="question-input"
-              value={elem.question}
+              defaultValue={elem.question}
             />
-            <input type="text" className="answer-input" value={elem.answer} />
+            <input type="text" className="answer-input" defaultValue={elem.answer} />
           </div>
         );
       })}

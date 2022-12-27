@@ -53,24 +53,24 @@ export default function S3ResultList({ setCurrentTestID }) {
         />
       </td>
       <td>
-        <label for={`testListsRadio${index}`}>{elem["comment"]}</label>
+        <label htmlFor={`testListsRadio${index}`}>{elem["comment"]}</label>
       </td>
       <td>
-        <label for={`testListsRadio${index}`}>{elem["grade"]}</label>
+        <label htmlFor={`testListsRadio${index}`}>{elem["grade"]}</label>
       </td>
       <td>
-        <label for={`testListsRadio${index}`}>
+        <label htmlFor={`testListsRadio${index}`}>
           {subjects[Number(elem["subject"])]}
         </label>
       </td>
       <td>
-        <label for={`testListsRadio${index}`}>{elem["question_number"]}</label>
+        <label htmlFor={`testListsRadio${index}`}>{elem["question_number"]}</label>
       </td>
       <td>
-        <label for={`testListsRadio${index}`}>{elem["made_date"]}</label>
+        <label htmlFor={`testListsRadio${index}`}>{elem["made_date"]}</label>
       </td>
       <td>
-        <label for={`testListsRadio${index}`}>{elem["testdate"]}</label>
+        <label htmlFor={`testListsRadio${index}`}>{elem["testdate"]}</label>
       </td>
     </tr>
   ));
