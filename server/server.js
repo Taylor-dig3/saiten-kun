@@ -5,8 +5,6 @@ const apiModule = require("./db.controller/tests.controller");
 const axios = require("axios");
 // const PORT = process.env.PORT || 3001;
 
-app.use(express.json());
-
 const setupServer = () => {
   console.log("first")
   const app = express();

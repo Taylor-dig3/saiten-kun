@@ -12,7 +12,7 @@ app.use(express.json());
 const setupServerMock = () => {
   app.post("/loginMock",(req,res) => {
     console.log("loginMock");
-    let res;
+    let response;
     if (req.body.user_id === 1){
       response = {
         user_id : 1,
