@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { acquiredQuestion } from '../../shareComponents/atom';
+import { questionAndAnswer } from '../../shareComponents/atom';
 import { useRecoilState } from "recoil";
 import axios from "axios";
 
@@ -15,7 +15,7 @@ export default function T3TestCreate() {
   const [selectGrade, setSelectGrade] = useState(1);
   const [selectSubject, setSelectSubject] = useState("算数");
   const [selectQuestionAmount, setSelectQuestionAmount] = useState(10);
-  const [chatGptQuestion,setChatGptQuestion] = useRecoilState(acquiredQuestion);
+  const [chatGptQAndA,setChatGptQAndA] = useRecoilState(questionAndAnswer);
 
   const navigate = useNavigate();
   const t4ConfirmationCreatedTestDisplay = () => {
@@ -100,7 +100,7 @@ export default function T3TestCreate() {
           resultObj.push(obj);
         }
         console.log(resultObj);
-        setChatGptQuestion(resultObj);
+        setChatGptQAndA(resultObj);
       });
 
     navigate("../T4ConfirmationCreatedTest");

@@ -16,7 +16,8 @@ import axios from "axios"
 function outputResult(test_id) {
   try {
     return axios
-      .get("/questions", {
+      // .get("/questions", {
+        .get("/questionsMock", {
         params: {
           test_id: test_id,
         },
@@ -32,7 +33,8 @@ function outputResult(test_id) {
 
 function getAllTests() {
   try {
-    return axios.get("/tests").then((response) => {
+    // return axios.get("/tests").then((response) => {
+      return axios.get("/testsMock").then((response) => {
       return response.data.map((obj) => {
         obj["grade"] = "1";
         obj["subject"] = "国語";
@@ -50,7 +52,8 @@ async function startTest(test_id) {
     console.log("rionやで")
     // const response = await
     return axios
-      .get("/questions", {
+      // .get("/questions", {
+        .get("/questionsMock", {
         params: {
           test_id: Number(test_id),
         },

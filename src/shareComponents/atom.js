@@ -2,11 +2,11 @@ import { atom } from 'recoil';
 
 export const login = atom({
     key: "login",
-    default: {userId:null,loginState:"notYetLoggedIn"}
+    default: {userId:null,name:null,loginState:"notYetLoggedIn"}
   });
   
 
-  export const acquiredQuestion = atom({
-    key: "acquiredQuestion",
+  export const questionAndAnswer = atom({
+    key: "questionAndAnswer",
     default: []
   });

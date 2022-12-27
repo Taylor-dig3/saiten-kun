@@ -32,7 +32,7 @@ function outputResult(test_id) {
 
 function getAllTests() {
   try {
-    return axios.get("/tests").then((response) => {
+    return axios.get("/testsMock").then((response) => {
       return response.data.map((obj) => {
         obj["grade"] = "1";
         obj["subject"] = "国語";
