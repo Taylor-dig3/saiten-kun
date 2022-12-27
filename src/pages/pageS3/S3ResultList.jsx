@@ -19,7 +19,7 @@ export default function S3ResultList({ setCurrentTestID }) {
   const s4TestCheckDisplay = () => {
     axios
       .get("/answerMock", {
-        params: { testId: testId },
+        params: { userId: loginInfo.userId, testId: testId },
       })
       .then((res) => {
         console.log(res.data);

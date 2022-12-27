@@ -3,7 +3,7 @@ import "./S2Test.css";
 import { useState, useEffect } from "react";
 import { startTest } from "../../helperFunctions/useFrontFuncs";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../shareComponents/atom";
+import { login, testQuestion } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 
 import { Buffer } from "buffer";
@@ -17,6 +17,7 @@ export default function S2Test() {
   const [currentAnswer, setCurrentAnswer] = useState({});
   const [currentTestID, setCurrentTestID] = useState("1");
   const [paper, setPaper] = useState([{}]);
+  const testQuestionInfo = useRecoilValue(testQuestion);
   const loginInfo = useRecoilValue(login);
   const navigate = useNavigate();
   const s1MenuDisplay = () => {
@@ -148,7 +149,12 @@ export default function S2Test() {
   }
 
   function chgImg(n) {
-    return canvas[n].toDataURL();
+    console.log(canvas[n].toDataURL());
+    let fileData = canvas[n].toDataURL();
+    fileData = fileData.replace(/^data:\w+\/\w+;base64,/, "");
+    // const decodedFile = Buffer.from(fileData, "base64");
+    // form.append("imgData", decodedFile, "test.jpg");
+    return fileData;
   }
 
   function initLocalStorage() {
@@ -208,38 +214,36 @@ export default function S2Test() {
     }
   }
 
-  // useEffect(() => {
-  //   axios.get("/questions").then((res) => {
-  //     console.log(res);
-  //     // setPaper(res);
-  //   });
-  // }, []);
+  //S1のテスト開始ボタンでtestQuestionInfoが変わった時にtestQuestionを持ってくる
+  useEffect(() => {
+    console.log(testQuestionInfo);
+    console.log(testQuestionInfo.data);
+  }, [testQuestionInfo]);
 
   let questions = [];
-  questions = paper.map((elem, index) => (
-    <>
-      <tr key={index + 1}>
-        <td>{elem["question"]}</td>
-        <td>
-          <canvas
-            id={`canvasAns${index + 1}`}
-            className="canvasAns"
-            width="460"
-            height="160"
-          ></canvas>
-        </td>
-        <td className="canvasButtonDel">
-          <button
-            type="button"
-            onClick={() => {
-              clearCanvas(index + 1);
-            }}
-          >
-            リセット
-          </button>
-        </td>
-      </tr>
-    </>
+  questions = testQuestionInfo.data.map((elem, index) => (
+    <tr key={index + 1}>
+      <td>{elem["question_id"]}</td>
+      <td>{elem["question"]}</td>
+      <td>
+        <canvas
+          id={`canvasAns${index + 1}`}
+          className="canvasAns"
+          width="460"
+          height="160"
+        ></canvas>
+      </td>
+      <td className="canvasButtonDel">
+        <button
+          type="button"
+          onClick={() => {
+            clearCanvas(index + 1);
+          }}
+        >
+          リセット
+        </button>
+      </td>
+    </tr>
   ));
 
   let title;
@@ -292,6 +296,7 @@ export default function S2Test() {
         <table className="questionsTable">
           <thead>
             <tr>
+              <th>No.</th>
               <th>問題</th>
               <th>回答欄</th>
             </tr>

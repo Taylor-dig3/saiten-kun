@@ -10,6 +10,16 @@ export const testResult = atom({
   default: {},
 });
 
+export const testResultCheck = atom({
+  key: "testResultCheck",
+  default: {},
+});
+
+export const testQuestion = atom({
+  key: "testQuestion",
+  default: {},
+});
+
 export const acquiredQuestion = atom({
   key: "acquiredQuestion",
   default: [],

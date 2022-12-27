@@ -71,22 +71,20 @@ export default function T6ResultCheck() {
   return (
     <div>
       <h2 className="title">{title}</h2>
-      <>
-        <span className="studentsSelect">
-          <div className="studentsID" value="ID">
-            ID:{loginInfo.userId}
-          </div>
-        </span>
-        <span className="studentName">
-          <img
-            className="studentName img"
-            src="./img/test4.png"
-            alt="student name"
-          />
-        </span>
-        <span className="score">{paper[0]["total"]}</span>
-        <span className="scoreUnit">点</span>
-      </>
+      <span className="studentsSelect">
+        <div className="studentsID" value="ID">
+          ID:{loginInfo.userId}
+        </div>
+      </span>
+      <span className="studentName">
+        <img
+          className="studentName img"
+          src="./img/test4.png"
+          alt="student name"
+        />
+      </span>
+      <span className="score">{paper[0]["total"]}</span>
+      <span className="scoreUnit">点</span>
       <button onClick={t5TestListDisplay}>戻る</button>
       <div>
         <table className="questionTable">

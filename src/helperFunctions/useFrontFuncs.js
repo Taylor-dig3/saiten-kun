@@ -1,5 +1,5 @@
 // const axios = require("axios").default;
-import axios from "axios"
+import axios from "axios";
 // const FormData = require('form-data');
 // const fs = require('fs');
 // const form = new FormData();
@@ -13,26 +13,26 @@ import axios from "axios"
 // });
 
 //今回のMVP外
-function outputResult(test_id) {
-  try {
-    return axios
-      .get("/questions", {
-        params: {
-          test_id: test_id,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        return response.data;
-      });
-  } catch (err) {
-    console.error(err);
-  }
-}
+// function outputResult(test_id) {
+//   try {
+//     return axios
+//       .get("/questionsMock", {
+//         params: {
+//           test_id: test_id,
+//         },
+//       })
+//       .then((response) => {
+//         console.log(response.data);
+//         return response.data;
+//       });
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
 
 function getAllTests() {
   try {
-    return axios.get("/tests").then((response) => {
+    return axios.get("/testsMock").then((response) => {
       return response.data.map((obj) => {
         obj["grade"] = "1";
         obj["subject"] = "国語";
@@ -47,10 +47,10 @@ function getAllTests() {
 async function startTest(test_id) {
   // console.log(test_id);
   try {
-    console.log("rionやで")
+    console.log("rionやで");
     // const response = await
     return axios
-      .get("/questions", {
+      .get("/questionMock", {
         params: {
           test_id: Number(test_id),
         },
@@ -68,15 +68,15 @@ async function startTest(test_id) {
 }
 
 export { startTest, getAllTests };
-/*
-startTest(test_id){
-  return {
-    title:"小テスト2",
-    questions:["1+1","1+3","1+5"],
-    answer:["2","4","6"]
-  }
-}
-*/
+// /*
+// startTest(test_id){
+//   return {
+//     title:"小テスト2",
+//     questions:["1+1","1+3","1+5"],
+//     answer:["2","4","6"]
+//   }
+// }
+// */
 
 // outputResult(test_id){
 //   return [
