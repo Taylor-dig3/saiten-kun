@@ -9,6 +9,8 @@ const axios = require("axios");
 // app.use(express.json());
 
 const setupServer = () => {
+  console.log("first");
+
   const app = express();
   app.use(express.json());
 
@@ -31,6 +33,69 @@ const setupServer = () => {
     res.send(result).status(200).end();
   })
 
+// <<<<<<< HEAD
+  //テスト結果画面の処理
+  app.get("/result", async (req, res) => {
+    //resultsテーブルとquestionsテーブルからresultとanswer_imgとanswerを持ってきてjoinで結合
+    //その時にqueryで渡すtest_idとstudent_idが必要　　tests.controller.js
+  });
+
+  app.get("/test/rion", async (req, res) => {
+    console.log("first");
+    await axios
+      .post(
+        "https://ocr-api.userlocal.jp/recognition/cropped",
+        // form1,
+        "../public/image.png",
+        {
+          headers: {
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        console.log("res.data", res.data);
+        return res.data.text;
+      })
+      .catch((err) => {
+        console.log("rionError");
+        console.log("err", err);
+      });
+  });
+
+  app.get("/answerMock", (req, res) => {
+    console.log("answerMock");
+    const resultTable = {
+      question_title: "漢字をひらがなに直しなさい",
+      data: [
+        {
+          question: "草がはえる",
+          answer_img: "logo192.png",
+          result: true,
+        },
+        {
+          question: "歯がぬけた",
+          answer_img: "logo192.png",
+          result: false,
+        },
+        {
+          question: "親しらず",
+          answer_img: "logo192.png",
+          result: false,
+        },
+      ],
+    };
+    res.send(resultTable).status(200).end();
+  });
+
+  app.post("/questions", async (req, res) => {
+    const testDate = {
+      question: "testQuestion",
+      answer: "testAnswer",
+    }
+    });
+// =======
   // app.get("/tests", async (req, res) => {
   //   //knexでDBからtestsテーブルとpaperテーブルを使って必要な中身を全部持ってくる。
   //   const result = await apiModule.getTests();
@@ -51,6 +116,7 @@ const setupServer = () => {
   //   //test_idが入っているときはそのidと紐づくquestionの一覧を返す
   //   //test_idが入っていないときは全てのquestionsを返す。
   // });
+// >>>>>>> Cure-Spicy/addAPI
 
   // app.get("/test/rion", async (req, res) => {
   //   console.log("first");

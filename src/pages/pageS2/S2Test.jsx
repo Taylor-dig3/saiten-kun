@@ -16,7 +16,7 @@ const form1 = new FormData();
 export default function S2Test() {
   const [currentAnswer, setCurrentAnswer] = useState({});
   const [currentTestID, setCurrentTestID] = useState("1");
-  const [paper, setPaper] = useState([{}]);
+  const [paper, setPaper] = useState({ data: [0, 1, 2] });
   const testQuestionInfo = useRecoilValue(testQuestion);
   const loginInfo = useRecoilValue(login);
   const navigate = useNavigate();
@@ -28,40 +28,53 @@ export default function S2Test() {
   let canvas = [];
   let ctx = [];
 
+  // useEffect(() => {
+  //   startTest(currentTestID).then((res) => {
+  //     console.log(res);
+  //     console.log("startTest実行中");
+
+  //     setPaper(res);
+  //   });
+  // }, [currentTestID, setPaper]);
+
+  //S1のテスト開始ボタンでtestQuestionInfoが変わった時にtestQuestionを持ってくる
   useEffect(() => {
-    startTest(currentTestID).then((res) => {
-      console.log("startTest実行中");
-      setPaper(res);
-    });
-  }, [currentTestID, setPaper]);
+    console.log(testQuestionInfo);
+    console.log(testQuestionInfo.data);
+    setPaper(testQuestionInfo);
+  }, [testQuestionInfo]);
 
   useEffect(() => {
-    canvas[0] = document.getElementById("canvasName");
-    ctx[0] = canvas[0].getContext("2d");
+    // canvas[0] = document.getElementById("canvasName");
+    // ctx[0] = canvas[0].getContext("2d");
     // キャンバスを白色に塗る
-    ctx[0].fillStyle = "rgb(255,255,255)";
-    ctx[0].fillRect(0, 0, 460, 160);
+    // ctx[0].fillStyle = "rgb(255,255,255)";
+    // ctx[0].fillRect(0, 0, 460, 160);
     // PC対応
-    canvas[0].addEventListener(
-      "mousedown",
-      { index: 0, handleEvent: startPoint },
-      false
-    );
-    canvas[0].addEventListener(
-      "mousemove",
-      { index: 0, handleEvent: movePoint },
-      false
-    );
-    canvas[0].addEventListener(
-      "mouseup",
-      { index: 0, handleEvent: endPoint },
-      false
-    );
+    // canvas[0].addEventListener(
+    //   "mousedown",
+    //   { index: 0, handleEvent: startPoint },
+    //   false
+    // );
+    // canvas[0].addEventListener(
+    //   "mousemove",
+    //   { index: 0, handleEvent: movePoint },
+    //   false
+    // );
+    // canvas[0].addEventListener(
+    //   "mouseup",
+    //   { index: 0, handleEvent: endPoint },
+    //   false
+    // );
     // スマホ対応
     // canvas.addEventListener('touchstart', startPoint, false);
     // canvas.addEventListener('touchmove', movePoint, false);
     // canvas.addEventListener('touchend', endPoint, false);
-    for (let i = 1; i <= paper.length; i++) {
+    console.log("paperやで");
+    console.log(paper.data.length);
+    console.log(paper.data);
+    for (let i = 0; i < paper.data.length; i++) {
+      console.log(paper.data.length);
       canvas[i] = document.getElementById(`canvasAns${i}`);
       ctx[i] = canvas[i].getContext("2d");
       ctx[i].fillStyle = "rgb(255,255,255)";
@@ -149,12 +162,14 @@ export default function S2Test() {
   }
 
   function chgImg(n) {
+    console.log(canvas[n]);
     console.log(canvas[n].toDataURL());
     let fileData = canvas[n].toDataURL();
     fileData = fileData.replace(/^data:\w+\/\w+;base64,/, "");
     // const decodedFile = Buffer.from(fileData, "base64");
     // form.append("imgData", decodedFile, "test.jpg");
     return fileData;
+    // return canvas[n].toDataURL();
   }
 
   function initLocalStorage() {
@@ -177,9 +192,9 @@ export default function S2Test() {
     ) {
       console.log("submit start");
       // answerImg["student_id"] = student_ID;
-      answerImg["student_name"] = chgImg(0);
+      // answerImg["student_name"] = chgImg(0);
       answerImg["answer"] = [];
-      for (let i = 1; i <= paper.length; i++) {
+      for (let i = 0; i <= paper.data.length; i++) {
         answerImg["answer"].push(chgImg(i));
       }
       console.log("answer end", answerImg["answer"]);
@@ -193,6 +208,7 @@ export default function S2Test() {
 
         const buffer = Buffer.from(elem.split(",")[1], "base64");
         form1.append("imgData", buffer);
+        console.log(form1);
         promises[index] = axios({
           method: "post",
           url: "https://ocr-api.userlocal.jp/recognition/raw",
@@ -214,34 +230,29 @@ export default function S2Test() {
     }
   }
 
-  //S1のテスト開始ボタンでtestQuestionInfoが変わった時にtestQuestionを持ってくる
-  useEffect(() => {
-    console.log(testQuestionInfo);
-    console.log(testQuestionInfo.data);
-  }, [testQuestionInfo]);
-
+  console.log("object");
   let questions = [];
-  questions = testQuestionInfo.data.map((elem, index) => (
-    <tr key={index + 1}>
+  questions = paper.data.map((elem, index) => (
+    <tr key={index}>
       <td>{elem["question_id"]}</td>
       <td>{elem["question"]}</td>
       <td>
         <canvas
-          id={`canvasAns${index + 1}`}
+          id={`canvasAns${index}`}
           className="canvasAns"
           width="460"
           height="160"
         ></canvas>
       </td>
       <td className="canvasButtonDel">
-        <button
+        {/* <button
           type="button"
           onClick={() => {
-            clearCanvas(index + 1);
+            clearCanvas(index);
           }}
         >
           リセット
-        </button>
+        </button> */}
       </td>
     </tr>
   ));
@@ -270,28 +281,28 @@ export default function S2Test() {
           />
         </span>
         <table className="table1">
-          <tr>
-            <div className="studentsID" value="ID">
-              ID:{loginInfo.userId}
-            </div>
-            <td className="writeName">名前</td>
-            <td>
-              {/* <div className="studentsID" value="ID">
+          <tbody>
+            <tr>
+              <td className="studentsID" value="ID">
+                ID:{loginInfo.userId}
+              </td>
+              <td className="writeName">名前</td>
+              <td className="studentsID" value="ID">
                 名前:{loginInfo.userId}
-              </div> */}
-              <canvas id="canvasName" width="460" height="160"></canvas>
-            </td>
-            <td className="canvasButtonDel0">
-              <button
-                type="button"
-                onClick={() => {
-                  clearCanvas(0);
-                }}
-              >
-                リセット
-              </button>
-            </td>
-          </tr>
+              </td>
+              {/* <canvas id="canvasName" width="460" height="160"></canvas> */}
+              {/* <td className="canvasButtonDel0">
+                <button
+                  type="button"
+                  onClick={() => {
+                    clearCanvas(0);
+                  }}
+                >
+                  リセット
+                </button>
+              </td> */}
+            </tr>
+          </tbody>
         </table>
         <table className="questionsTable">
           <thead>

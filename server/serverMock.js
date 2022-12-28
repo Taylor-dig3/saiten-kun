@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 //knexをrequire
+const axios = require("axios");
 
 const app = express();
 // const PORT = process.env.PORT || 3001;
@@ -34,6 +35,31 @@ const setupServerMock = () => {
     
     res.send(response).status(200).end();
   });
+
+  app.get("/test/rion", async (req, res) => {
+    console.log("first");
+    await axios
+      .post(
+        "https://ocr-api.userlocal.jp/recognition/cropped",
+        // form1,
+        "../public/image.png",
+        {
+          headers: {
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        console.log("res.data", res.data);
+        return res.data.text;
+      })
+      .catch((err) => {
+        console.log("rionError");
+        console.log("err", err);
+      });
+  });
+
 
   app.get("/questionMock", (req, res) => {
     console.log("questionMock");
