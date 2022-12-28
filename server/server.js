@@ -1,9 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const { getStudentLogin, getTeacherLogin } = require("./db.controller/login.controller")
-const { getAllQuestion }= require("./db.controller/tests.controller");
+// const { getAllQuestion }= require("./db.controller/tests.controller");
+const { startTest } = require("./db.controller/student.controller")
 //knexをrequire
 const axios = require("axios");
+const e = require("express");
 // const PORT = process.env.PORT || 3001;
 
 // app.use(express.json());
@@ -31,6 +33,21 @@ const setupServer = () => {
       }
     }
     res.send(result).status(200).end();
+  })
+
+  app.get("/questions",async(req, res) => {
+    let result;
+    try {
+      result = await startTest(req.query.user_id)
+      res.json(result).status(200).end();
+    } catch(err){
+      console.log(err)
+      res.send(err).status(404).end();
+    }
+  })
+
+  app.get("/tetst",(req, res) => {
+
   })
 
 // <<<<<<< HEAD
