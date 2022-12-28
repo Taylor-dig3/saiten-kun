@@ -43,18 +43,5 @@ module.exports = {
           return result;
         }) 
       })
-
-    // return knex("tests")
-    //   .join("papers","tests.id","papers.test_id")
-    //   .join("questions","papers.question_id","questions.id")
-    //   .select({
-    //     question_title:"tests.question.title",
-    //     question_id:"questions.id",
-    //     question:"questions.question",
-    //     answer:"questions.answer"
-    //   })
-    //   .where({
-
-    //   })
   }
 }
