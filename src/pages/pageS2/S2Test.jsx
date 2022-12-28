@@ -186,7 +186,7 @@ export default function S2Test() {
     }, 0);
   }
 
-  function submitTest() {
+  async function submitTest() {
     if (
       window.confirm("見直しは終わりましたか？提出しますがよろしいですか？")
     ) {
@@ -194,39 +194,35 @@ export default function S2Test() {
       // answerImg["student_id"] = student_ID;
       // answerImg["student_name"] = chgImg(0);
       answerImg["answer"] = [];
-      for (let i = 0; i <= paper.data.length; i++) {
+      for (let i = 0; i < paper.data.length; i++) {
         answerImg["answer"].push(chgImg(i));
       }
       console.log("answer end", answerImg["answer"]);
       setCurrentAnswer(answerImg);
       console.log("answer set end");
+      console.log(answerImg);
 
       //ユーザーローカルに画像を入力して、文字列の配列を出力する関数
-      const promises = [];
-      answerImg.answer.forEach((elem, index) => {
-        console.log("answerImg.answer start");
-
-        const buffer = Buffer.from(elem.split(",")[1], "base64");
-        form1.append("imgData", buffer);
-        console.log(form1);
-        promises[index] = axios({
-          method: "post",
-          url: "https://ocr-api.userlocal.jp/recognition/raw",
-          data: form1,
-          headers: {
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            "Content-Type": "multipart/form-data",
-          },
-        })
-          .then((res) => {
-            console.log("res.data", res.data);
-            return res.data.text;
+      // const promises = [];
+      const arr = [];
+      let i = 0;
+      for (const elem of answerImg.answer) {
+        console.log("for"+i);
+        arr[i] = await axios
+          .post("/riontest", {
+            data: elem,
+            headers: {
+              "Access-Control-Allow-Headers": "Content-Type, Authorization",
+              "Content-Type": "multipart/form-data",
+            },
           })
-          .catch((err) => {
-            console.log("err", err);
+          .then((res) => {
+            console.log("then");
+            return res.data.text
           });
-      });
-      console.log("promiseall start");
+        i++;
+      }
+      console.log(arr)
     }
   }
 
