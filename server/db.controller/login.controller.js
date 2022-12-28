@@ -23,7 +23,7 @@ module.exports = {
           response.name = res.name;
           response.login_state = "studentLogin"
        } else {
-        response.login_state = "snotYetLoggedIn"
+        response.login_state = "notYetLoggedIn"
        }
        return response;
       })
