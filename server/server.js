@@ -2,25 +2,27 @@ require("dotenv").config();
 const express = require("express");
 const { getStudentLogin, getTeacherLogin } = require("./db.controller/login.controller")
 // const { getAllQuestion }= require("./db.controller/tests.controller");
-const { startTest } = require("./db.controller/student.controller")
+const { startTest, getTest, postAnswer, getAnswer } = require("./db.controller/student.controller")
 //knexをrequire
 const axios = require("axios");
 const e = require("express");
 // const PORT = process.env.PORT || 3001;
 
-// app.use(express.json());
+
 
 const setupServer = () => {
   console.log("first");
 
   const app = express();
-  app.use(express.json());
+  // app.use(express.json());
+  app.use(express.json({ extended: true, limit: '100mb' }));
 
   app.post("/login", async(req, res) => {
     let result = {};
     if(req.body.student_flg){
       try {
         result = await getStudentLogin(req.body.user_id,req.body.password);
+        res.send(result).status(200).end();
       } catch(err) {
         console.log(err);
         res.send(err).status(404).end();
@@ -32,7 +34,26 @@ const setupServer = () => {
         res.status(404).end();
       }
     }
-    res.send(result).status(200).end();
+  })
+
+  app.post("/answer",async(req, res) => {
+    let result;
+    try {
+      result = await postAnswer(req.body);
+      res.status(200).end();
+    } catch(err){
+      res.status(404).end();
+    }
+  })
+
+  app.get("/answer",async(req, res) => {
+    let result1;
+    try {
+      result1 = await getAnswer(req.query.user_id,req.query.test_id);
+      res.json(result1).status(200).end();
+    } catch(err){
+      console.log(err);
+    }
   })
 
   app.get("/questions",async(req, res) => {
@@ -41,13 +62,22 @@ const setupServer = () => {
       result = await startTest(req.query.user_id)
       res.json(result).status(200).end();
     } catch(err){
-      console.log(err)
+      console.log(err);
       res.send(err).status(404).end();
     }
   })
 
-  app.get("/tetst",(req, res) => {
-
+  app.get("/tests",async(req, res) => {
+    console.log("開始")
+    let result;
+    try {
+      console.log("aaaaaaaa");
+      result = await getTest(req.query.user_id);
+      res.json(result).status(200).end();
+    } catch(err){
+      console.log(err);
+      res.send(err).status(404).end();
+    }
   })
 
 // <<<<<<< HEAD
