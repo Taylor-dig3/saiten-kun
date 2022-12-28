@@ -36,4 +36,13 @@ module.exports = {
       return addAccount;
     }
   },
+
+  async pickupStudents(reqTeacher_id) {
+    const studentList = await knex("students")
+      .select("id", "name", "grade_id")
+      .where("teacher_id", reqTeacher_id);
+
+    console.log(studentList);
+    // res.json(studentList).status(200);
+  },
 };

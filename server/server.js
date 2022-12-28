@@ -9,7 +9,10 @@ const { startTest } = require("./db.controller/student.controller");
 //knexをrequire
 const axios = require("axios");
 const e = require("express");
-const { registerId } = require("./db.controller/teacher.controller");
+const {
+  registerId,
+  pickupStudents,
+} = require("./db.controller/teacher.controller");
 // const PORT = process.env.PORT || 3001;
 
 // app.use(express.json());
@@ -61,6 +64,19 @@ const setupServer = () => {
         req.body.password,
         req.body.teacher_id
       );
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  });
+
+  app.get("/student", (req, res) => {
+    let result = {};
+    console.log(req);
+
+    try {
+      result = pickupStudents(req.query.teacher_id);
       res.json(result).status(200).end();
     } catch (err) {
       console.log(err);
