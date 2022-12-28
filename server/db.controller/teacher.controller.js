@@ -43,6 +43,15 @@ module.exports = {
       .where("teacher_id", reqTeacher_id);
 
     console.log(studentList);
-    // res.json(studentList).status(200);
+    return studentList;
   },
+
+  //   async updatePassword(reqUser_id, reqPassword) {
+  //     const resetPassword = await knex("students")
+  //       .select("id", "name", "grade_id")
+  //       .where("teacher_id", reqTeacher_id);
+
+  //     console.log(studentList);
+  //     // res.json(studentList).status(200);
+  //   },
 };
