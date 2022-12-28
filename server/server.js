@@ -85,18 +85,18 @@ const setupServer = () => {
     }
   });
 
-  // app.put("/password", (req, res) => {
-  //   let result = {};
-  //   console.log(req);
+  app.put("/password", (req, res) => {
+    let result = {};
+    console.log(req);
 
-  //   try {
-  //     result = updatePassword(req.body.user_id, req.body.password);
-  //     res.json(result).status(200).end();
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.send(err).status(404).end();
-  //   }
-  // });
+    try {
+      result = updatePassword(req.body.user_id, req.body.password);
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  });
 
   app.get("/tetst", (req, res) => {});
 

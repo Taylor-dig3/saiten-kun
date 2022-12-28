@@ -46,12 +46,19 @@ module.exports = {
     return studentList;
   },
 
-  //   async updatePassword(reqUser_id, reqPassword) {
-  //     const resetPassword = await knex("students")
-  //       .select("id", "name", "grade_id")
-  //       .where("teacher_id", reqTeacher_id);
+  async updatePassword(reqUser_id, reqPassword) {
+    let salt = bcrypt.genSaltSync(Number(process.env.HASH_COUNT));
+    let hashed_password = bcrypt.hashSync(
+      `${process.env.HASHKEY}${reqPassword}`,
+      salt
+    );
 
-  //     console.log(studentList);
-  //     // res.json(studentList).status(200);
-  //   },
+    const setedPassword = await knex("students")
+      .where("id", reqUser_id)
+      .update({ password: hashed_password });
+
+    console.log("update");
+    console.log(setedPassword);
+    return setedPassword;
+  },
 };
