@@ -2,7 +2,7 @@ const express = require("express");
 const { setupServer } = require("./server.js");
 require("dotenv").config();
 
-const app = setupServerMock();
+const app = setupServer();
 // app.use("/", express.static(__dirname + "/../build"));
 
 const SERVER_PORT = process.env.SERVER_PORT || 4000;
