@@ -1,11 +1,15 @@
 require("dotenv").config();
 const express = require("express");
-const { getStudentLogin, getTeacherLogin } = require("./db.controller/login.controller")
+const {
+  getStudentLogin,
+  getTeacherLogin,
+} = require("./db.controller/login.controller");
 // const { getAllQuestion }= require("./db.controller/tests.controller");
-const { startTest } = require("./db.controller/student.controller")
+const { startTest } = require("./db.controller/student.controller");
 //knexをrequire
 const axios = require("axios");
 const e = require("express");
+const { registerId } = require("./db.controller/teacher.controller");
 // const PORT = process.env.PORT || 3001;
 
 // app.use(express.json());
@@ -16,41 +20,56 @@ const setupServer = () => {
   const app = express();
   app.use(express.json());
 
-  app.post("/login", async(req, res) => {
+  app.post("/login", async (req, res) => {
     let result = {};
-    if(req.body.student_flg){
+    if (req.body.student_flg) {
       try {
-        result = await getStudentLogin(req.body.user_id,req.body.password);
-      } catch(err) {
+        result = await getStudentLogin(req.body.user_id, req.body.password);
+      } catch (err) {
         console.log(err);
         res.send(err).status(404).end();
       }
     } else {
       try {
-        result = await getTeacherLogin(req.body.user_id,req.body.password);
+        result = await getTeacherLogin(req.body.user_id, req.body.password);
       } catch (err) {
         res.status(404).end();
       }
     }
     res.send(result).status(200).end();
-  })
+  });
 
-  app.get("/questions",async(req, res) => {
+  app.get("/questions", async (req, res) => {
     let result;
     try {
-      result = await startTest(req.query.user_id)
+      result = await startTest(req.query.user_id);
       res.json(result).status(200).end();
-    } catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
       res.send(err).status(404).end();
     }
-  })
+  });
 
-  app.get("/tetst",(req, res) => {
+  app.post("/student", (req, res) => {
+    let result = {};
+    console.log(req);
 
-  })
+    try {
+      result = registerId(
+        req.body.name,
+        req.body.grade_id,
+        req.body.password,
+        req.body.teacher_id
+      );
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  });
 
-// <<<<<<< HEAD
+  app.get("/tetst", (req, res) => {});
+
   //テスト結果画面の処理
   app.get("/result", async (req, res) => {
     //resultsテーブルとquestionsテーブルからresultとanswer_imgとanswerを持ってきてjoinで結合
@@ -110,9 +129,9 @@ const setupServer = () => {
     const testDate = {
       question: "testQuestion",
       answer: "testAnswer",
-    }
-    });
-// =======
+    };
+  });
+  // =======
   // app.get("/tests", async (req, res) => {
   //   //knexでDBからtestsテーブルとpaperテーブルを使って必要な中身を全部持ってくる。
   //   const result = await apiModule.getTests();
@@ -133,7 +152,7 @@ const setupServer = () => {
   //   //test_idが入っているときはそのidと紐づくquestionの一覧を返す
   //   //test_idが入っていないときは全てのquestionsを返す。
   // });
-// >>>>>>> Cure-Spicy/addAPI
+  // >>>>>>> Cure-Spicy/addAPI
 
   // app.get("/test/rion", async (req, res) => {
   //   console.log("first");
