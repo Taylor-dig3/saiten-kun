@@ -1,5 +1,3 @@
-const { getByTestId } = require("@testing-library/react");
-const { func } = require("prop-types");
 const knex = require("../../knex");
 
 module.exports = {
@@ -47,31 +45,29 @@ module.exports = {
       })
   },
   getTest(user_id){
-    // return knex("tests")
-    //   .join("results","tests.id","results.test_id")
-    //   .join("subjects","subjects.id","tests.subject_id")
-    //   .join("students","students.id","results.stundets_id")
-    //   .join("grades","grades.id","students.grade_id")
-    //   .join("papers", "papers.test_id", "tests.id")
-
-
-
-    //   .select({
-    //     test_id:"tests.id",
-    //     title:"tests.name",
-    //     run_date:"tests.run_date",
-    //     subject:"subjects.name",
-    //     grade:"grades.grades_number"
-    //   })
-    //   .groupBy("tests.id")
-    //   .count("papers.question_id", { as : "question_number"})
-    //   .where({
-    //     "results.student_id" : user_id
-    //   })
-    //   .then(res => {
-    //     console.log("aaaaaaaaaaa");
-    //     console.log(res);
-    //   })
+    return knex("tests")
+      .join("results","tests.id","results.test_id")
+      .join("subjects", "subjects.id","tests.subject_id")
+      .join("students", "students.id","results.student_id")
+      .join("grades","grades.id","students.grade_id")
+      // .join("papers", "papers.test_id", "tests.id")
+      .select({
+        test_id:"tests.id",
+        title:"tests.name",
+        run_date:"tests.run_date",
+        subject:"subjects.name",
+        grade:"grades.grades_number"
+      })
+      .groupBy("tests.id", "subjects.id", "grades.grades_number")
+      .count("results.question_id", { as : "question_number"})
+      .where({
+        "results.student_id" : user_id
+      })
+      // .distinct()
+      .first()
+      // .then(res => {
+      //   console.log(res);
+      // })
   },
   postAnswer(resultObj){
     console.log("postAnswer");
@@ -91,7 +87,7 @@ module.exports = {
   },
 
   async getAnswer(user_id,test_id){
-    const paperSub = await knex("papers").select({id:"question_id"}).where({"test_id": test_id});
+    // const paperSub = await knex("papers").select({id:"question_id"}).where({"test_id": test_id});
     // console.log(paperSub);
     // const questionsSub = await knex("questions").select("*").where(paperSub[0])
     // console.log(questionsSub);
