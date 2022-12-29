@@ -1,6 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { login, testQuestion, testResult } from "../../shareComponents/atom";
+import {
+  login,
+  testQuestion,
+  testResult,
+  testResultList,
+} from "../../shareComponents/atom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import axios from "axios";
 
@@ -8,6 +13,7 @@ export default function S1Menu() {
   const loginInfo = useRecoilValue(login);
   const testId = 1;
   const [testQuestionInfo, setTestQuestionInfo] = useRecoilState(testQuestion);
+  const [testResultInfo, setTestResultInfo] = useRecoilState(testResultList);
 
   const navigate = useNavigate();
   const s2Test = () => {
@@ -22,7 +28,18 @@ export default function S1Menu() {
         navigate("../S2Test");
       });
   };
-  const s3ResultListDisplay = () => navigate("../S3ResultList");
+  const s3ResultListDisplay = () => {
+    axios
+      .get("/tests", {
+        params: { user_id: loginInfo.userId },
+      })
+      .then((res) => {
+        console.log("S3pe-zi");
+        console.log(res.data);
+        setTestResultInfo(res.data);
+        navigate("../S3ResultList");
+      });
+  };
   const l1LoginDisplay = () => navigate("/");
 
   return (

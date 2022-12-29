@@ -74,6 +74,7 @@ const setupServer = () => {
     try {
       console.log("aaaaaaaa");
       result = await getTest(req.query.user_id);
+      console.log(result);
       res.json(result).status(200).end();
     } catch (err) {
       console.log(err);
