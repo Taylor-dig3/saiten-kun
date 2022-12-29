@@ -13,6 +13,7 @@ const {
   registerId,
   pickupStudents,
   updatePassword,
+  pickupTests,
 } = require("./db.controller/teacher.controller");
 // const PORT = process.env.PORT || 3001;
 
@@ -88,7 +89,20 @@ const setupServer = () => {
 
   app.get("/tetst",(req, res) => {
 
-  })
+  app.get("/teacherTests", (req, res) => {
+    let result = {};
+    console.log(req);
+
+    try {
+      result = pickupTests(req.query.teacher_id);
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  });
+
+  app.get("/tetst", (req, res) => {});
 
   //テスト結果画面の処理
   app.get("/result", async (req, res) => {
@@ -218,6 +232,6 @@ const setupServer = () => {
   //   res.status(200).end();
   // });
   return app;
-};
+});
 
 module.exports = { setupServer };

@@ -223,6 +223,18 @@ export default function S2Test() {
         i++;
       }
       console.log(arr)
+      //TODO
+      //このarr を使って解答と比較をする。
+      //比較完了後以下の形式でpostしてDBに保存する。
+      // {
+      //   user_id : ,
+      //   test_id : ,
+      //    data : [{
+      //   question_id : ,
+      //   answer_img : ,
+      //   result : true ,
+      //   }, {} , {} ]
+      // }
     }
   }
 

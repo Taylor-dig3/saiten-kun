@@ -61,4 +61,17 @@ module.exports = {
     console.log(setedPassword);
     return setedPassword;
   },
+
+  async pickupTests(reqTeacher_id) {
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    const testList = await knex("tests")
+      .select("name", "grade_id", "run_date", "make_date", "subject_id")
+      .from("tests")
+      .join("subjects", "tests.id", "subjects.name")
+      .where("teacher_id", reqTeacher_id);
+
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    console.log(testList);
+    // return testList;
+  },
 };
