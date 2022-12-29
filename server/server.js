@@ -13,6 +13,7 @@ const {
   registerId,
   pickupStudents,
   updatePassword,
+  pickupTests,
 } = require("./db.controller/teacher.controller");
 // const PORT = process.env.PORT || 3001;
 
@@ -91,6 +92,19 @@ const setupServer = () => {
 
     try {
       result = updatePassword(req.body.user_id, req.body.password);
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  });
+
+  app.get("/teacherTests", (req, res) => {
+    let result = {};
+    console.log(req);
+
+    try {
+      result = pickupTests(req.query.teacher_id);
       res.json(result).status(200).end();
     } catch (err) {
       console.log(err);
