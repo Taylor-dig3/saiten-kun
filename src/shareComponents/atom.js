@@ -25,6 +25,11 @@ export const testResultList = atom({
   default: [],
 });
 
+export const testList = atom({
+  key: "testQuestion",
+  default: [],
+});
+
 export const acquiredQuestion = atom({
   key: "acquiredQuestion",
   default: [],

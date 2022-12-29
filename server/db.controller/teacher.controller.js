@@ -71,11 +71,12 @@ module.exports = {
         run_date: "run_date",
         make_date: "make_date",
         subject: "subjects.name",
+        test_id: "papers.test_id",
       })
       .from("tests")
       .join("subjects", "tests.subject_id", "subjects.id")
       .join("papers", "tests.id", "papers.test_id")
-      .groupBy("tests.id", "subjects.id")
+      .groupBy("tests.id", "subjects.id", "papers.test_id")
       .count("papers.question_id", { as: "question_count" })
       .where("teacher_id", reqTeacher_id);
 
