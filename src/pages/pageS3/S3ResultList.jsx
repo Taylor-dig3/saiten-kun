@@ -12,7 +12,7 @@ export default function S3ResultList() {
   const navigate = useNavigate();
 
   //test_idとstudent_idをインポートしてくる
-  const [currentSelectedTestId, setCurrentSelectedTestID] = useState("1");
+  const [currentSelectedTestId, setCurrentSelectedTestID] = useState();
   const loginInfo = useRecoilValue(login);
   const testResultInfo = useRecoilValue(testResultList);
   const [resultInfo, setResultInfo] = useRecoilState(testResult);
@@ -98,7 +98,6 @@ export default function S3ResultList() {
                 <th>問題数</th>
                 {/* <th>作成日</th> */}
                 <th>実施日</th>
-                <th>選択：{}</th>
               </tr>
             </thead>
             <tbody>{listsTable}</tbody>
