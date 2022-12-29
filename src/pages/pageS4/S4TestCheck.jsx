@@ -1,50 +1,22 @@
 import React, { useEffect, useState } from "react";
 import "./S4TestCheck.css";
-import CloseTestResult from "./components/CloseTestResult";
-// import maru from "../../public/img/maru.png";
-// import batsu from "../../public/img/batsu.png";
-// import testImg from "../../public/img/test.jpg";
-// import studentName1 from "../styles/test2.png";
-// import studentName2 from "../styles/test4.png";
 import { login, testResult } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { result } from "lodash";
 import { Buffer } from "buffer";
 
-export default function S4TestCheck({
-  setDispNo,
-  currentAnswer,
-  currentTestID,
-}) {
-  // const [studentID, setStudentID] = useState(-1);
+export default function S4TestCheck() {
   const loginInfo = useRecoilValue(login);
   const resultInfo = useRecoilValue(testResult);
   const navigate = useNavigate();
   const s3ResultListDisplay = () => navigate("../S3ResultList");
-  // if (currentAnswer["student_id"] !== undefined) {
-  //   if (studentID !== currentAnswer["student_id"]) {
-  //     setStudentID(Number(currentAnswer["student_id"]));
-  //   }
-  // }
-  let paper = [
-    { question: "50音を答えろ", answer_img: "BASE-64", result: true },
-    { question: "50音を答えろ", answer: "あいうえお", result: true },
-    { question: "50音を答えろ", answer: "あいうえお", result: false },
-    { question: "50音を答えろ", answer: "あいうえお", result: true },
-    { question: "50音を答えろ", answer: "あいうえお", result: false },
-    { question: "50音を答えろ", answer: "あいうえお", result: true },
-    { question: "50音を答えろ", answer: "あいうえお", result: true },
-  ];
-  let title = "小テスト";
-  let questions = [];
 
   useEffect(() => {
     console.log(resultInfo);
     console.log(resultInfo.data);
   }, [resultInfo]);
 
-  questions = resultInfo.data.map((elem, index) => {
+  const questions = resultInfo.data.map((elem, index) => {
     const decodedFile = Buffer.from(elem["answer_img"], "base64").toString();
     return (
       <tr key={index}>
@@ -63,7 +35,7 @@ export default function S4TestCheck({
 
   return (
     <div>
-      <h2 className="title">{title}</h2>
+      <h1 className="title">{resultInfo.question_title}</h1>
 
       <>
         <span className="studentsSelect">
@@ -78,7 +50,7 @@ export default function S4TestCheck({
             alt="student name"
           />
         </span>
-        <span className="score">{paper[0]["total"]}</span>
+        <span className="score">{}</span>
         <span className="scoreUnit">点</span>
       </>
       <button onClick={s3ResultListDisplay}>閉じる</button>
