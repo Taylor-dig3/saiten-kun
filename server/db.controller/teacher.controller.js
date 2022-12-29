@@ -40,7 +40,7 @@ module.exports = {
   async pickupStudents(reqTeacher_id) {
     const studentList = await knex("students")
       .select("id", "name", "grade_id")
-      .where("teacher_id", reqTeacher_id);
+      .where("teacher_id", Number(reqTeacher_id));
 
     console.log(studentList);
     return studentList;

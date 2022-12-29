@@ -10,7 +10,8 @@ import Paper from "@mui/material/Paper";
 import { Container } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import axios from "axios";
-
+import { login } from "../../../shareComponents/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   unlockClick,
   cancelClick,
@@ -28,6 +29,7 @@ export default function StudentListModal({
   setIsSnackbar,
 }) {
   const [formInfo, setFormInfo] = useState({});
+  const loginInfo = useRecoilValue(login);
 
   //バリチェックの後にパスワードの変更処理を実行、正しく書き換えできたらスナックバーの表示
   useEffect(() => {
@@ -45,7 +47,12 @@ export default function StudentListModal({
 
   //初回マウント時にテーブルの中身を生成
   useEffect(() => {
-    axios.get("/studentMock").then((res) => {
+    console.log(loginInfo)
+    axios.get("/student",{
+        params:{
+            teacher_id:loginInfo.userId
+        }
+    }).then((res) => {
       console.log(res.data);
       setStudentTable(
         res.data.map((elem, index) => {

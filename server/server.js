@@ -32,6 +32,7 @@ const setupServer = () => {
     if (req.body.student_flg) {
       try {
         result = await getStudentLogin(req.body.user_id,req.body.password);
+        console.log("result",result)
         res.send(result).status(200).end();
       } catch(err) {
         console.log(err);
@@ -39,7 +40,9 @@ const setupServer = () => {
       }
     } else {
       try {
+        console.log("teacher");
         result = await getTeacherLogin(req.body.user_id, req.body.password);
+        res.send(result).status(200).end();
       } catch (err) {
         res.status(404).end();
       }
@@ -120,12 +123,14 @@ const setupServer = () => {
     }
   });
 
-  app.get("/student", (req, res) => {
+  app.get("/student",async (req, res) => {
     let result = {};
-    console.log(req);
+    console.log("riiiiion")
+    console.log(req.query);
 
     try {
-      result = pickupStudents(req.query.teacher_id);
+      result = await pickupStudents(req.query.teacher_id);
+      console.log(result);
       res.json(result).status(200).end();
     } catch(err){
       console.log(err)

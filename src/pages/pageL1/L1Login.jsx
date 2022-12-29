@@ -27,7 +27,7 @@ export default function L1Login() {
 
   const formChange = (e) => {
     const { name, value } = e.target;
-    console.log(e.target);
+    // console.log(e.target);
     setFormValues({ ...formValues, [name]: value });
   };
   const validate = (values) => {
@@ -58,19 +58,9 @@ export default function L1Login() {
 
   useEffect(() => {
     if (formErrors.validateOkFlag) {
-      //ログインをAPIで投げる処理
-      //axiosを使用してサーバー側にAPIを投げる
-
-      //ログインができた場合、setLoginInfo でステートを変更する。
-      //setLoginInfo({userId:APIから変えてきたID,loginState:APIから返ってきたログインステータス})
-      //ログインステータス詳細
-      //先生ログイン成功　= “teacherLogin”
-      //生徒ログイン成功　= “studentLogin”
-      //未ログイン（ログイン失敗またはログイン前）= “notYetLoggedIn”
-      // setLoginInfo({userId:"null",loginState:"notYetLoggedIn"})
-
+console.log(formValues);
       axios
-        .post("/loginMock", {
+        .post("/login", {
           user_id: formValues.userId,
           password: formValues.password,
           student_flg: studentFlag,
@@ -83,14 +73,13 @@ export default function L1Login() {
               name: res.data.name,
               loginState: res.data.login_state,
             });
-            navigate("S1Menu");
+            
           } else if (res.data.login_state === "teacherLogin") {
             setLoginInfo({
               userId: res.data.user_id,
               name: res.data.name,
               loginState: res.data.login_state,
             });
-            navigate("T1Menu");
           } else {
             setLoginInfo({
               userId: null,
@@ -99,17 +88,20 @@ export default function L1Login() {
             });
           }
         });
-      // console.log(formValues);
-      // if (studentFlag) {
-      //   setLoginInfo({ userId: "0000", loginState: "studentLogin" });
-      //   navigate("S1Menu");
-      // } else {
-      //   setLoginInfo({ userId: "0000", loginState: "teacherLogin" });
-      //   navigate("T1Menu");
-      // }
     }
   }, [formErrors]);
 
+
+  useEffect(()=>{
+    if(loginInfo.loginState === "studentLogin"){
+      navigate("S1Menu");
+    }else if(loginInfo.loginState === "teacherLogin"){
+      navigate("T1Menu");
+    }else{
+     console.log("ログイン失敗")
+    }
+
+  },[loginInfo])
   return (
     <>
       <div className="form-container">

@@ -41,8 +41,10 @@ module.exports = {
       })
       .first()
       .then(res => {
+        console.log(res);
         let response = {};
         const bool = bcrypt.compareSync(process.env.HASHKEY + password, res.password)
+        console.log(bool);
         if (bool) {
           response.user_id = res.user_id;
           response.name = res.name;
@@ -50,6 +52,7 @@ module.exports = {
         } else {
           response.login_state = "notYetLoggedIn"
         };
+        console.log(response);
         return response;
       })
   }
