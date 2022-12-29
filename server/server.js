@@ -83,6 +83,7 @@ const setupServer = () => {
   });
 
   app.get("/answer", async (req, res) => {
+    console.log("cccccccccccc");
     let result1;
     try {
       result1 = await getAnswer(req.query.user_id, req.query.test_id);

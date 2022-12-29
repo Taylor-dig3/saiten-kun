@@ -10,6 +10,7 @@ import { login, testResult } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { result } from "lodash";
+import { Buffer } from "buffer";
 
 export default function S4TestCheck({
   setDispNo,
@@ -43,23 +44,22 @@ export default function S4TestCheck({
     console.log(resultInfo.data);
   }, [resultInfo]);
 
-  questions = resultInfo.data.map((elem, index) => (
-    <tr key={index}>
-      <td>{elem["question"]}</td>
-      <td>
-        <img
-          className="answer"
-          src={"data:image/png;base64," + elem.answer_img}
-          alt="answer"
-        />
-        {elem["result"] ? (
-          <img className="marubatsu" src="./img/maru.png" alt="" />
-        ) : (
-          <img className="marubatsu" src="./img/batsu.png" alt="" />
-        )}
-      </td>
-    </tr>
-  ));
+  questions = resultInfo.data.map((elem, index) => {
+    const decodedFile = Buffer.from(elem["answer_img"], "base64").toString();
+    return (
+      <tr key={index}>
+        <td>{elem["question"]}</td>
+        <td>
+          <img className="answer" src={decodedFile} alt="answer" />
+          {elem["result"] ? (
+            <img className="marubatsu" src="./img/maru.png" alt="" />
+          ) : (
+            <img className="marubatsu" src="./img/batsu.png" alt="" />
+          )}
+        </td>
+      </tr>
+    );
+  });
 
   return (
     <div>

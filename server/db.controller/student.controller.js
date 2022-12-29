@@ -96,6 +96,7 @@ module.exports = {
   },
 
   getAnswer(user_id, test_id) {
+    console.log("cccccccccccc2");
     return knex("results")
       .join("tests", "tests.id", "=", "results.test_id")
       .join("questions", "questions.id", "=", "results.question_id")
@@ -126,7 +127,7 @@ module.exports = {
             result: obj.result,
           };
         });
-        // console.log(result);
+        console.log(result);
         return result;
       });
   },
