@@ -12,8 +12,8 @@ export default function S1Menu() {
   const navigate = useNavigate();
   const s2Test = () => {
     axios
-      .get("/questionMock", {
-        params: { userId: loginInfo.userId },
+      .get("/questions", {
+        params: { user_id: loginInfo.userId },
       })
       .then((res) => {
         console.log("S1pe-zi");

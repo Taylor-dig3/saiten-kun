@@ -207,7 +207,7 @@ export default function S2Test() {
       const arr = [];
       let i = 0;
       for (const elem of answerImg.answer) {
-        console.log("for"+i);
+        console.log("for" + i);
         arr[i] = await axios
           .post("/riontest", {
             data: elem,
@@ -218,23 +218,45 @@ export default function S2Test() {
           })
           .then((res) => {
             console.log("then");
-            return res.data.text
+            return res.data.text;
           });
         i++;
       }
-      console.log(arr)
-      //TODO
-      //このarr を使って解答と比較をする。
-      //比較完了後以下の形式でpostしてDBに保存する。
-      // {
-      //   user_id : ,
-      //   test_id : ,
-      //    data : [{
-      //   question_id : ,
-      //   answer_img : ,
-      //   result : true ,
-      //   }, {} , {} ]
-      // }
+      console.log(arr);
+
+      console.log(testQuestionInfo.data[0].answer);
+
+      const answerResult = [];
+      for (let i = 0; i < testQuestionInfo.data.length; i++) {
+        if (testQuestionInfo.data[i].answer === arr[i]) {
+          answerResult.push(true);
+        } else {
+          answerResult.push(false);
+        }
+      }
+
+      console.log(answerResult);
+      const dataArray = [];
+      for (let i = 0; i < testQuestionInfo.data.length; i++) {
+        const dataObj = {
+          question_id: testQuestionInfo.data[i].question_id,
+          answer_img: answerImg.answer[i],
+          result: answerResult[i],
+        };
+        dataArray.push(dataObj);
+      }
+
+      //アンサーデータをDBに送信
+      await axios
+        .post("/answer", {
+          user_id: loginInfo.userId,
+          test_id: testQuestionInfo.test_id,
+          data: dataArray,
+        })
+        .then((res) => {
+          console.log("then");
+          return res.data.text;
+        });
     }
   }
 

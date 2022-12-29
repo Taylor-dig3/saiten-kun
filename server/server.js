@@ -25,6 +25,8 @@ const {
 } = require("./db.controller/teacher.controller");
 const { ResetTvSharp } = require("@mui/icons-material");
 // const PORT = process.env.PORT || 3001;
+const FormData = require("form-data");
+const { Buffer } = require("buffer");
 
 const setupServer = () => {
   console.log("first");
@@ -37,8 +39,8 @@ const setupServer = () => {
     let result = {};
     if (req.body.student_flg) {
       try {
-        result = await getStudentLogin(req.body.user_id,req.body.password);
-        console.log("result",result)
+        result = await getStudentLogin(req.body.user_id, req.body.password);
+        console.log("result", result);
         res.send(result).status(200).end();
       } catch (err) {
         console.log(err);
@@ -55,6 +57,7 @@ const setupServer = () => {
   });
 
   app.get("/questions", async (req, res) => {
+    console.log("bbbbbbbbbbbbbbbbbbbbbbbb");
     let result;
     try {
       result = await startTest(req.query.user_id);
@@ -88,7 +91,35 @@ const setupServer = () => {
     }
   });
 
+  app.post("/riontest", async (req, res) => {
+    const form = new FormData();
+
+    const decodedFile = Buffer.from(req.body.data, "base64");
+    console.log(decodedFile);
+    form.append("imgData", decodedFile, "test.jpg");
+
+    const result = await axios({
+      method: "post",
+      url: "https://ocr-api.userlocal.jp/recognition/cropped",
+      data: form,
+      headers: {
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((res) => {
+        console.log("res.data", res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+
+    res.send(result).status(200).end();
+  });
+
   app.post("/answer", async (req, res) => {
+    console.log("aaaaaaaa8");
     let result;
     try {
       result = await postAnswer(req.body);
@@ -127,7 +158,7 @@ const setupServer = () => {
     }
   });
 
-  app.get("/student",async (req, res) => {
+  app.get("/student", async (req, res) => {
     let result = {};
     console.log(req.query);
 
