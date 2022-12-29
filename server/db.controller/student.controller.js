@@ -22,13 +22,15 @@ module.exports = {
             question_id: "questions.id",
             question: "questions.question",
             answer: "questions.answer",
+            test_id: "tests.id",
           })
           .where({
             "tests.id": res.test_id,
           })
           .then((testres) => {
-            // console.log(testres);
+            console.log(testres);
             let result = {
+              test_id: testres[0].test_id,
               question_title: testres[0].question_title,
               data: [],
             };

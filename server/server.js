@@ -25,6 +25,8 @@ const {
 } = require("./db.controller/teacher.controller");
 const { ResetTvSharp } = require("@mui/icons-material");
 // const PORT = process.env.PORT || 3001;
+const FormData = require("form-data");
+const { Buffer } = require("buffer");
 
 const setupServer = () => {
   console.log("first");
@@ -89,7 +91,35 @@ const setupServer = () => {
     }
   });
 
+  app.post("/riontest", async (req, res) => {
+    const form = new FormData();
+
+    const decodedFile = Buffer.from(req.body.data, "base64");
+    console.log(decodedFile);
+    form.append("imgData", decodedFile, "test.jpg");
+
+    const result = await axios({
+      method: "post",
+      url: "https://ocr-api.userlocal.jp/recognition/cropped",
+      data: form,
+      headers: {
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((res) => {
+        console.log("res.data", res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+
+    res.send(result).status(200).end();
+  });
+
   app.post("/answer", async (req, res) => {
+    console.log("aaaaaaaa8");
     let result;
     try {
       result = await postAnswer(req.body);
