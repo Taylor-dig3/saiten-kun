@@ -7,54 +7,43 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import Paper from "@mui/material/Paper";
-import {
-  Container,
-} from "@mui/material";
+import { Container } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import axios from "axios";
 
-// import { login } from "../../shareComponents/atom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  unlockClick,
+  cancelClick,
+  changePassword,
+} from "../helperFunc/t2Helper";
 
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import "../T2StudentRegistration.css";
 
-
 export default function StudentListModal({
   setStudentTable,
   studentTable,
+  setIsSnackbar,
 }) {
-  const unlockClick = (id) => {
-    const editItems = document.querySelectorAll(`.change-user-data-edit-${id}`);
-    const unlockItem = document.querySelector(`.change-user-data-unlock-${id}`);
-    for (const elem of editItems) {
-      elem.classList.remove("change-user-data-edit");
+  const [formInfo, setFormInfo] = useState({});
+
+  //バリチェックの後にパスワードの変更処理を実行、正しく書き換えできたらスナックバーの表示
+  useEffect(() => {
+    if (formInfo.validateOkFlag) {
+      axios
+        .put("/password", {
+          user_id: formInfo.userId,
+          password: formInfo.password,
+        })
+        .then((res) => {
+          setIsSnackbar(true);
+        });
     }
-    unlockItem.classList.add("user-data-unlock-hidden");
-  };
+  }, [formInfo]);
 
-  const cancelClick = (id) => {
-    const editItems = document.querySelectorAll(`.change-user-data-edit-${id}`);
-    const unlockItem = document.querySelector(`.change-user-data-unlock-${id}`);
-    for (const elem of editItems) {
-      elem.classList.add("change-user-data-edit");
-    }
-    unlockItem.classList.remove("user-data-unlock-hidden");
-  };
-const changePassword = (id)=>{
-    const errors = {};
-    const editInput = document.querySelector(`.change-user-data-edit-input-${id}`)
-
-    if (editInput.value.length < 4) {
-        errors.password = "4文字以上、15文字以下のパスワードを入力してください";
-      } else if (editInput.value.length > 15) {
-        errors.password = "4文字以上、15文字以下のパスワードを入力してください";
-      }
-
-}
-
+  //初回マウント時にテーブルの中身を生成
   useEffect(() => {
     axios.get("/studentMock").then((res) => {
       console.log(res.data);
@@ -89,7 +78,7 @@ const changePassword = (id)=>{
                     " " +
                     "change-user-data-edit" +
                     " " +
-                    "change-user-data-edit-input"+
+                    "change-user-data-edit-input" +
                     " " +
                     `change-user-data-edit-input-${elem.user_id}`
                   }
@@ -101,6 +90,9 @@ const changePassword = (id)=>{
                     " " +
                     "change-user-data-edit"
                   }
+                    onClick={() => {
+                      changePassword(elem.user_id, setFormInfo);
+                    }}
                 >
                   <CheckCircleOutlineSharpIcon
                     className={
@@ -108,7 +100,6 @@ const changePassword = (id)=>{
                       " " +
                       "change-user-data-edit"
                     }
-                    onClick={()=>{changePassword(elem.user_id)}}
                   />
                 </IconButton>
                 <IconButton
@@ -117,7 +108,10 @@ const changePassword = (id)=>{
                     `change-user-data-edit-${elem.user_id}` +
                     " " +
                     "change-user-data-edit"
-                  }
+                }
+                onClick={() => {
+                  cancelClick(elem.user_id);
+                }}
                 >
                   <HighlightOffIcon
                     className={
@@ -125,20 +119,18 @@ const changePassword = (id)=>{
                       " " +
                       "change-user-data-edit"
                     }
-                    onClick={() => {
-                      cancelClick(elem.user_id);
-                    }}
                   />
                 </IconButton>
                 <IconButton
                   aria-label="lockReset"
                   className={`change-user-data-unlock-${elem.user_id}`}
+                    onClick={() => {
+                        setIsSnackbar(true)
+                      unlockClick(elem.user_id);
+                    }}
                 >
                   <LockResetIcon
                     className={`change-user-data-unlock-${elem.user_id}`}
-                    onClick={() => {
-                      unlockClick(elem.user_id);
-                    }}
                   />
                 </IconButton>
               </TableCell>
@@ -151,7 +143,6 @@ const changePassword = (id)=>{
 
   return (
     <>
-      
       <Container maxWidth="lg">
         <TableContainer component={Paper} sx={{ maxHeight: 880 }}>
           <Table stickyHeader aria-label="sticky table">

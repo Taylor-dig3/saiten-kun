@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import axios from "axios";
-
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 import { login } from "../../shareComponents/atom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState} from "recoil";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import "./T2StudentRegistration.css";
@@ -22,6 +23,9 @@ const customStyles = {
     maxWidth: "70%",
   },
 };
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function T2StudentRegistration() {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -31,10 +35,9 @@ export default function T2StudentRegistration() {
     navigate("../T1Menu");
   };
 
-
   const displayStudentsList = async () => {
     console.log("object");
-    
+
     console.log(studentTable);
     setEditModalIsOpen(true);
   };
@@ -46,9 +49,14 @@ export default function T2StudentRegistration() {
   const [loginStatus, setLoginStatus] = useState("ログイン中です");
   const [loginInfo, setLoginInfo] = useRecoilState(login);
 
-
   const closeModal = () => setEditModalIsOpen(false);
-
+  const [isSnackbar, setIsSnackbar] = useState(false);
+  const closeSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setIsSnackbar(false);
+  };
 
 
   const formChange = (e) => {
@@ -62,7 +70,7 @@ export default function T2StudentRegistration() {
       errors.userName = "ユーザー名を入力してください";
     }
     if (!values.grade) {
-      errors.grade = "学年を入力してください"
+      errors.grade = "学年を入力してください";
     }
     if (!values.password) {
       errors.password = "パスワードを入力してください";
@@ -77,10 +85,8 @@ export default function T2StudentRegistration() {
     return errors;
   };
 
-
   useEffect(() => {
     if (formErrors.validateOkFlag) {
-      
       axios
         .post("/student", {
           name: formValues.userName,
@@ -89,9 +95,22 @@ export default function T2StudentRegistration() {
           password: formValues.password,
         })
         .then((res) => {
-         console.log(res)
+          console.log(res);
+          const userNameInput = document.querySelector(
+            ".register-form-input-userName"
+          );
+          const gradeInput = document.querySelector(
+            ".register-form-input-grade"
+          );
+          const passWordInput = document.querySelector(
+            ".register-form-input-passWord"
+          );
+
+          userNameInput.value = "";
+          gradeInput.value = "";
+          passWordInput.value = "";
+          setIsSnackbar(true);
         });
-     
     }
   }, [formErrors]);
 
@@ -108,7 +127,7 @@ export default function T2StudentRegistration() {
         <form onSubmit={(e) => formSubmit(e)}>
           <h1 className="register-form-name">生徒新規登録</h1>
           <hr />
-          <div className="ui-form">
+          <div className="student-register-ui-form">
             <div className="form-field">
               <label> 名前</label>
               <input
@@ -182,14 +201,32 @@ export default function T2StudentRegistration() {
       </div>
 
       <button onClick={t1MenuDisplay}>戻る</button>
+      <Snackbar
+        open={isSnackbar}
+        autoHideDuration={6000}
+        onClose={closeSnackbar}
+        // message="Note archived"
+        // action={action}
+      >
+        <Alert
+          onClose={closeSnackbar}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          パスワードの変更が完了しました！
+        </Alert>
+      </Snackbar>
       <Modal
         isOpen={editModalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
         appElement={document.getElementById("root") || undefined}
       >
-        <StudentListModal setStudentTable={setStudentTable} studentTable={studentTable}/>
- 
+        <StudentListModal
+          setStudentTable={setStudentTable}
+          studentTable={studentTable}
+          setIsSnackbar={setIsSnackbar}
+        />
       </Modal>
     </>
   );
