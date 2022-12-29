@@ -5,7 +5,7 @@ const {
   getTeacherLogin,
 } = require("./db.controller/login.controller");
 // const { getAllQuestion }= require("./db.controller/tests.controller");
-const { startTest } = require("./db.controller/student.controller");
+const { startTest, getTest, postAnswer, getAnswer } = require("./db.controller/student.controller")
 //knexをrequire
 const axios = require("axios");
 const e = require("express");
@@ -16,20 +16,21 @@ const {
 } = require("./db.controller/teacher.controller");
 // const PORT = process.env.PORT || 3001;
 
-// app.use(express.json());
+
 
 const setupServer = () => {
   console.log("first");
 
   const app = express();
-  app.use(express.json());
+  // app.use(express.json());
+  app.use(express.json({ extended: true, limit: '100mb' }));
 
   app.post("/login", async (req, res) => {
     let result = {};
     if (req.body.student_flg) {
       try {
-        result = await getStudentLogin(req.body.user_id, req.body.password);
-      } catch (err) {
+        result = await getStudentLogin(req.body.user_id,req.body.password);
+      } catch(err) {
         console.log(err);
         res.send(err).status(404).end();
       }
@@ -41,7 +42,7 @@ const setupServer = () => {
       }
     }
     res.send(result).status(200).end();
-  });
+  })
 
   app.get("/questions", async (req, res) => {
     let result;
@@ -79,26 +80,15 @@ const setupServer = () => {
     try {
       result = pickupStudents(req.query.teacher_id);
       res.json(result).status(200).end();
-    } catch (err) {
-      console.log(err);
+    } catch(err){
+      console.log(err)
       res.send(err).status(404).end();
     }
   });
 
-  app.put("/password", (req, res) => {
-    let result = {};
-    console.log(req);
+  app.get("/tetst",(req, res) => {
 
-    try {
-      result = updatePassword(req.body.user_id, req.body.password);
-      res.json(result).status(200).end();
-    } catch (err) {
-      console.log(err);
-      res.send(err).status(404).end();
-    }
-  });
-
-  app.get("/tetst", (req, res) => {});
+  })
 
   //テスト結果画面の処理
   app.get("/result", async (req, res) => {
