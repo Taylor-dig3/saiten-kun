@@ -14,6 +14,7 @@ const {
   pickupStudents,
   updatePassword,
   pickupTests,
+  updateResult,
 } = require("./db.controller/teacher.controller");
 // const PORT = process.env.PORT || 3001;
 
@@ -87,6 +88,17 @@ const setupServer = () => {
       res.status(200).end();
     } catch (err) {
       res.status(404).end();
+    }
+  })
+
+  app.put("/answer",async(req, res) => {
+    let result;
+    try {
+      console.log("aaaaaaaaaaaaa");
+      result = await updateResult(req.query.result_id)
+      res.json(result).status(200).end();
+    } catch(err) {
+      res.send(err).status(404).end();
     }
   })
 

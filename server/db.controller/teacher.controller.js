@@ -74,4 +74,25 @@ module.exports = {
     console.log(testList);
     // return testList;
   },
+
+  async updateResult(results_id){
+    const reverse = await knex("results")
+      .select("result")
+      .where({              
+        "id" : results_id
+      })
+      .first()
+    // console.log(reverse);
+    return knex("results")
+      .where({
+        "id" : results_id
+      })
+      .update({
+        "result" : !reverse.result
+      })
+      .then(res => {
+        return !reverse.result
+      })
+  }
+  
 };
