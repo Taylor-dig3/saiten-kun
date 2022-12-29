@@ -31,6 +31,7 @@ const setupServer = () => {
     if (req.body.student_flg) {
       try {
         result = await getStudentLogin(req.body.user_id,req.body.password);
+        res.send(result).status(200).end();
       } catch(err) {
         console.log(err);
         res.send(err).status(404).end();
@@ -42,7 +43,6 @@ const setupServer = () => {
         res.status(404).end();
       }
     }
-    res.send(result).status(200).end();
   })
 
   app.get("/questions", async (req, res) => {
@@ -55,6 +55,51 @@ const setupServer = () => {
       res.send(err).status(404).end();
     }
   });
+
+  app.get("/questions", async (req, res) => {
+    let result;
+    try {
+      result = await startTest(req.query.user_id)
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  })
+
+  app.get("/tests", async (req, res) => {
+    console.log("開始")
+    let result;
+    try {
+      console.log("aaaaaaaa");
+      result = await getTest(req.query.user_id);
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  })
+
+  app.get("/answer", async (req, res) => {
+    let result1;
+    try {
+      result1 = await getAnswer(req.query.user_id, req.query.test_id);
+      res.json(result1).status(200).end();
+    } catch (err) {
+      console.log(err);
+    }
+  })
+
+
+  app.post("/answer", async (req, res) => {
+    let result;
+    try {
+      result = await postAnswer(req.body);
+      res.status(200).end();
+    } catch (err) {
+      res.status(404).end();
+    }
+  })
 
   app.post("/student", (req, res) => {
     let result = {};
@@ -232,6 +277,6 @@ const setupServer = () => {
   //   res.status(200).end();
   // });
   return app;
-});
+}};
 
 module.exports = { setupServer };
