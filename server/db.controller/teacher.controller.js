@@ -128,4 +128,53 @@ module.exports = {
     //   return addAccount;
     // }
   },
+
+  async updateResult(results_id) {
+    const reverse = await knex("results")
+      .select("result")
+      .where({
+        id: results_id,
+      })
+      .first();
+    // console.log(reverse);
+    return knex("results")
+      .where({
+        id: results_id,
+      })
+      .update({
+        result: !reverse.result,
+      })
+      .then((res) => {
+        return !reverse.result;
+      });
+  },
+
+  putSelected(teacher_id, test_id) {
+    return knex("selected")
+      .where({ teacher_id: teacher_id })
+      .update({ test_id: test_id })
+      .then((res) => {
+        return knex("selected")
+          .where({
+            teacher_id: teacher_id,
+          })
+          .select({
+            teacher_id: "teacher_id",
+            test_id: "test_id",
+          })
+          .first()
+          .then((res) => {
+            return {
+              status: "ok",
+              data: {
+                teacher_id: res.teacher_id,
+                test_id: res.test_id,
+              },
+            };
+          });
+      })
+      .catch((err) => {
+        return err;
+      });
+  },
 };

@@ -19,8 +19,11 @@ const {
   pickupStudents,
   updatePassword,
   pickupTests,
+  updateResult,
+  putSelected,
   registerQuestion,
 } = require("./db.controller/teacher.controller");
+const { ResetTvSharp } = require("@mui/icons-material");
 // const PORT = process.env.PORT || 3001;
 
 const setupServer = () => {
@@ -43,6 +46,7 @@ const setupServer = () => {
     } else {
       try {
         result = await getTeacherLogin(req.body.user_id, req.body.password);
+        res.send(result).status(200).end();
       } catch (err) {
         res.status(404).end();
       }
@@ -90,6 +94,17 @@ const setupServer = () => {
       res.status(200).end();
     } catch (err) {
       res.status(404).end();
+    }
+  });
+
+  app.put("/answer", async (req, res) => {
+    let result;
+    try {
+      console.log("aaaaaaaaaaaaa");
+      result = await updateResult(req.query.result_id);
+      res.json(result).status(200).end();
+    } catch (err) {
+      res.send(err).status(404).end();
     }
   });
 
@@ -163,6 +178,16 @@ const setupServer = () => {
         req.body.teacher_id,
         req.body.subject_id
       );
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  });
+  app.put("/test", async (req, res) => {
+    let result;
+    try {
+      result = await putSelected(req.query.teacher_id, req.query.test_id);
       res.json(result).status(200).end();
     } catch (err) {
       console.log(err);

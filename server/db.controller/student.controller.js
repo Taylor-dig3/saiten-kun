@@ -86,12 +86,7 @@ module.exports = {
     return knex("results").insert(insertObj);
   },
 
-  async getAnswer(user_id,test_id){
-    // const paperSub = await knex("papers").select({id:"question_id"}).where({"test_id": test_id});
-    // console.log(paperSub);
-    // const questionsSub = await knex("questions").select("*").where(paperSub[0])
-    // console.log(questionsSub);
- 
+  getAnswer(user_id,test_id){
     return knex("results")
       .join("tests","tests.id","=","results.test_id")
       .join("questions","questions.id","=","results.question_id")
@@ -100,7 +95,8 @@ module.exports = {
         question_title:"tests.question_title",
         question:"questions.question",
         answer_img:"results.answer_img",
-        result:"results.result"
+        result:"results.result",
+        result_id:"results.id"
       })
       .where({
         "results.student_id" : user_id,
@@ -117,6 +113,7 @@ module.exports = {
           return {
             question:obj.question,
             answer_img: obj.answer_img,
+            result_id:obj.result_id,
             result: obj.result
           }
         });
