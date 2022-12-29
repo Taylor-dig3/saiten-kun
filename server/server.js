@@ -5,7 +5,12 @@ const {
   getTeacherLogin,
 } = require("./db.controller/login.controller");
 // const { getAllQuestion }= require("./db.controller/tests.controller");
-const { startTest, getTest, postAnswer, getAnswer } = require("./db.controller/student.controller")
+const {
+  startTest,
+  getTest,
+  postAnswer,
+  getAnswer,
+} = require("./db.controller/student.controller");
 //knexをrequire
 const axios = require("axios");
 const e = require("express");
@@ -17,22 +22,20 @@ const {
 } = require("./db.controller/teacher.controller");
 // const PORT = process.env.PORT || 3001;
 
-
-
 const setupServer = () => {
   console.log("first");
 
   const app = express();
   // app.use(express.json());
-  app.use(express.json({ extended: true, limit: '100mb' }));
+  app.use(express.json({ extended: true, limit: "100mb" }));
 
   app.post("/login", async (req, res) => {
     let result = {};
     if (req.body.student_flg) {
       try {
-        result = await getStudentLogin(req.body.user_id,req.body.password);
+        result = await getStudentLogin(req.body.user_id, req.body.password);
         res.send(result).status(200).end();
-      } catch(err) {
+      } catch (err) {
         console.log(err);
         res.send(err).status(404).end();
       }
@@ -43,7 +46,7 @@ const setupServer = () => {
         res.status(404).end();
       }
     }
-  })
+  });
 
   app.get("/questions", async (req, res) => {
     let result;
@@ -57,7 +60,7 @@ const setupServer = () => {
   });
 
   app.get("/tests", async (req, res) => {
-    console.log("開始")
+    console.log("開始");
     let result;
     try {
       console.log("aaaaaaaa");
@@ -67,7 +70,7 @@ const setupServer = () => {
       console.log(err);
       res.send(err).status(404).end();
     }
-  })
+  });
 
   app.get("/answer", async (req, res) => {
     let result1;
@@ -77,8 +80,7 @@ const setupServer = () => {
     } catch (err) {
       console.log(err);
     }
-  })
-
+  });
 
   app.post("/answer", async (req, res) => {
     let result;
@@ -88,7 +90,7 @@ const setupServer = () => {
     } catch (err) {
       res.status(404).end();
     }
-  })
+  });
 
   app.post("/student", (req, res) => {
     let result = {};
@@ -115,12 +117,11 @@ const setupServer = () => {
     try {
       result = pickupStudents(req.query.teacher_id);
       res.json(result).status(200).end();
-    } catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
       res.send(err).status(404).end();
     }
   });
-
 
   app.get("/teacherTests", (req, res) => {
     let result = {};
@@ -147,7 +148,6 @@ const setupServer = () => {
       res.send(err).status(404).end();
     }
   });
-
 
   //テスト結果画面の処理
   app.get("/result", async (req, res) => {

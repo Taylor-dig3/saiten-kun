@@ -12,7 +12,7 @@ exports.seed = async function (knex) {
       make_date: "2022-11-28",
       run_date: "2022-11-30",
       grade_id: 5,
-      subject_id:1,
+      subject_id: 1,
       teacher_id: 1,
     },
     {
@@ -21,7 +21,8 @@ exports.seed = async function (knex) {
       make_date: "2022-12-05",
       run_date: "2022-12-07",
       grade_id: 5,
-      teacher_id: 1
+      subject_id: 1,
+      teacher_id: 1,
     },
     {
       name: "小テスト3",
@@ -29,7 +30,8 @@ exports.seed = async function (knex) {
       make_date: "2022-12-12",
       run_date: "2022-12-14",
       grade_id: 5,
-      teacher_id: 1
+      subject_id: 1,
+      teacher_id: 1,
     },
     {
       name: "宿題テスト",
@@ -38,7 +40,7 @@ exports.seed = async function (knex) {
       run_date: "2022-12-19",
       grade_id: 5,
       subject_id: 1,
-      teacher_id: 1
+      teacher_id: 1,
     },
     {
       name: "宿題テスト2",
@@ -46,7 +48,8 @@ exports.seed = async function (knex) {
       make_date: "2022-12-19",
       run_date: null,
       grade_id: 5,
-      teacher_id: 1
+      subject_id: 1,
+      teacher_id: 1,
     },
   ]);
 };

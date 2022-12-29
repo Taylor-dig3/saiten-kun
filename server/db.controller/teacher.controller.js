@@ -63,15 +63,22 @@ module.exports = {
   },
 
   async pickupTests(reqTeacher_id) {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     const testList = await knex("tests")
-      .select("name", "grade_id", "run_date", "make_date", "subject_id")
+      .select({
+        title: "tests.name",
+        grade: "grade_id",
+        run_date: "run_date",
+        make_date: "make_date",
+        subject: "subjects.name",
+      })
       .from("tests")
-      .join("subjects", "tests.id", "subjects.name")
+      .join("subjects", "tests.subject_id", "subjects.id")
+      .join("papers", "tests.id", "papers.test_id")
+      .groupBy("tests.id", "subjects.id")
+      .count("papers.question_id", { as: "question_count" })
       .where("teacher_id", reqTeacher_id);
 
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     console.log(testList);
-    // return testList;
+    return testList;
   },
 };
