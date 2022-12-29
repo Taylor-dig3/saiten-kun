@@ -111,7 +111,7 @@ const setupServer = () => {
 
   app.post("/student", (req, res) => {
     let result = {};
-    console.log(req);
+    console.log(req.body);
 
     try {
       result = registerId(
@@ -129,7 +129,6 @@ const setupServer = () => {
 
   app.get("/student",async (req, res) => {
     let result = {};
-    console.log("riiiiion")
     console.log(req.query);
 
     try {

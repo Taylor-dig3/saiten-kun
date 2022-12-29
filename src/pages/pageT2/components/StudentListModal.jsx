@@ -27,6 +27,7 @@ export default function StudentListModal({
   setStudentTable,
   studentTable,
   setIsSnackbar,
+  setIsSuccessFlag
 }) {
   const [formInfo, setFormInfo] = useState({});
   const loginInfo = useRecoilValue(login);
@@ -41,117 +42,111 @@ export default function StudentListModal({
         })
         .then((res) => {
           setIsSnackbar(true);
+          setIsSuccessFlag(true);
+          cancelClick(formInfo.userId);
         });
+    }else if(formInfo.validateOkFlag === false){
+        setIsSnackbar(true);
+        setIsSuccessFlag(false);
     }
   }, [formInfo]);
 
   //初回マウント時にテーブルの中身を生成
   useEffect(() => {
-    console.log(loginInfo)
-    axios.get("/student",{
-        params:{
-            teacher_id:loginInfo.userId
-        }
-    }).then((res) => {
-      console.log(res.data);
-      setStudentTable(
-        res.data.map((elem, index) => {
-          return (
-            <TableRow
-              key={elem.user_id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="elem">
-                {elem.user_id}
-              </TableCell>
-              <TableCell component="th" scope="elem">
-                {elem.name}
-              </TableCell>
-              <TableCell component="th" scope="elem">
-                {elem.grade}
-              </TableCell>
-              <TableCell
-                component="th"
-                scope="elem"
-                className="pass-change-container"
+    axios
+      .get("/student", {
+        params: {
+          teacher_id: loginInfo.userId,
+        },
+      })
+      .then((res) => {
+        const sortArr = res.data.sort((a, b) => Number(a.id) - Number(b.id));
+        setStudentTable(
+          res.data.map((elem, index) => {
+            return (
+              <TableRow
+                key={elem.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                {""}
-                <input
-                  type="password"
-                  placeholder="変更後のパスワード"
-                  name="userId"
-                  className={
-                    `change-user-data-edit-${elem.user_id}` +
-                    " " +
-                    "change-user-data-edit" +
-                    " " +
-                    "change-user-data-edit-input" +
-                    " " +
-                    `change-user-data-edit-input-${elem.user_id}`
-                  }
-                />
-                <IconButton
-                  aria-label="lockReset"
-                  className={
-                    `change-user-data-edit-${elem.user_id}` +
-                    " " +
-                    "change-user-data-edit"
-                  }
-                    onClick={() => {
-                      changePassword(elem.user_id, setFormInfo);
-                    }}
+                <TableCell component="th" scope="elem">
+                  {elem.id}
+                </TableCell>
+                <TableCell component="th" scope="elem">
+                  {elem.name}
+                </TableCell>
+                <TableCell component="th" scope="elem">
+                  {elem.grade_id}
+                </TableCell>
+                <TableCell
+                  component="th"
+                  scope="elem"
+                  className="pass-change-container"
                 >
-                  <CheckCircleOutlineSharpIcon
+                  {""}
+                  <input
+                    type="password"
+                    placeholder="変更後のパスワード"
+                    name="userId"
                     className={
-                      `change-user-data-edit-${elem.user_id}` +
+                      `change-user-data-edit-${elem.id}` +
                       " " +
-                      "change-user-data-edit"
+                      "change-user-data-edit" +
+                      " " +
+                      "change-user-data-edit-input" +
+                      " " +
+                      `change-user-data-edit-input-${elem.id}`
                     }
                   />
-                </IconButton>
-                <IconButton
-                  aria-label="lockReset"
-                  className={
-                    `change-user-data-edit-${elem.user_id}` +
-                    " " +
-                    "change-user-data-edit"
-                }
-                onClick={() => {
-                  cancelClick(elem.user_id);
-                }}
-                >
-                  <HighlightOffIcon
-                    className={
-                      `change-user-data-edit-${elem.user_id}` +
-                      " " +
-                      "change-user-data-edit"
-                    }
-                  />
-                </IconButton>
-                <IconButton
-                  aria-label="lockReset"
-                  className={`change-user-data-unlock-${elem.user_id}`}
+                  <IconButton
+                    aria-label="lockReset"
                     onClick={() => {
-                        setIsSnackbar(true)
-                      unlockClick(elem.user_id);
+                      changePassword(elem.id, setFormInfo);
                     }}
-                >
-                  <LockResetIcon
-                    className={`change-user-data-unlock-${elem.user_id}`}
-                  />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          );
-        })
-      );
-    });
+                  >
+                    <CheckCircleOutlineSharpIcon
+                      className={
+                        `change-user-data-edit-${elem.id}` +
+                        " " +
+                        "change-user-data-edit"
+                      }
+                    />
+                  </IconButton>
+                  <IconButton
+                    aria-label="lockReset"
+                    onClick={() => {
+                      cancelClick(elem.id);
+                    }}
+                  >
+                    <HighlightOffIcon
+                      className={
+                        `change-user-data-edit-${elem.id}` +
+                        " " +
+                        "change-user-data-edit"
+                      }
+                    />
+                  </IconButton>
+                  <IconButton
+                    aria-label="lockReset"
+                    onClick={() => {
+                      unlockClick(elem.id);
+                    }}
+                  >
+                    <LockResetIcon
+                      className={`change-user-data-unlock-${elem.id}`}
+                    />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            );
+          })
+        );
+      });
   }, []);
 
   return (
     <>
       <Container maxWidth="lg">
-        <TableContainer component={Paper} sx={{ maxHeight: 880 }}>
+        <TableContainer component={Paper} sx={{ maxHeight: "90%" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>

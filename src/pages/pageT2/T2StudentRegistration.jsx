@@ -5,22 +5,25 @@ import axios from "axios";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { login } from "../../shareComponents/atom";
-import { useRecoilState} from "recoil";
+import { useRecoilState } from "recoil";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import "./T2StudentRegistration.css";
 import StudentListModal from "./components/StudentListModal";
-
+import { useForm } from "react-hook-form";
 const customStyles = {
   content: {
-    top: "30%",
+    // top: "30%",
+    top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
-    marginRight: "-20%",
+    // marginRight: "-20%",
     transform: "translate(-50%, -50%)",
     minWidth: "70%",
     maxWidth: "70%",
+    minHeight: "70%",
+    maxHeight: "70%",
   },
 };
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -41,8 +44,8 @@ export default function T2StudentRegistration() {
     console.log(studentTable);
     setEditModalIsOpen(true);
   };
-  const initialLoginValues = { userId: "", password: "" };
-  const [formValues, setFormValues] = useState(initialLoginValues);
+  const initialRegisterValues = { userName: "", password: "", grade_id: "" };
+  const [formValues, setFormValues] = useState(initialRegisterValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [isRevealPassword, setIsRevealPassword] = useState(false);
@@ -51,13 +54,13 @@ export default function T2StudentRegistration() {
 
   const closeModal = () => setEditModalIsOpen(false);
   const [isSnackbar, setIsSnackbar] = useState(false);
+  const [isSuccessFlag, setIsSuccessFlag] = useState(true);
   const closeSnackbar = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
     setIsSnackbar(false);
   };
-
 
   const formChange = (e) => {
     const { name, value } = e.target;
@@ -66,6 +69,7 @@ export default function T2StudentRegistration() {
   };
   const validate = (values) => {
     const errors = {};
+    console.log(values);
     if (!values.userName) {
       errors.userName = "ユーザー名を入力してください";
     }
@@ -90,26 +94,16 @@ export default function T2StudentRegistration() {
       axios
         .post("/student", {
           name: formValues.userName,
-          grade: formValues.grade,
+          grade_id: formValues.grade,
           teacher_id: loginInfo.userId,
           password: formValues.password,
         })
         .then((res) => {
           console.log(res);
-          const userNameInput = document.querySelector(
-            ".register-form-input-userName"
-          );
-          const gradeInput = document.querySelector(
-            ".register-form-input-grade"
-          );
-          const passWordInput = document.querySelector(
-            ".register-form-input-passWord"
-          );
-
-          userNameInput.value = "";
-          gradeInput.value = "";
-          passWordInput.value = "";
-          setIsSnackbar(true);
+          const formElem = document.getElementById("register-form");
+          formElem.reset();
+          setFormValues(initialRegisterValues);
+          console.log(formElem);
         });
     }
   }, [formErrors]);
@@ -120,11 +114,13 @@ export default function T2StudentRegistration() {
     //バリデーションチェックをする
     setFormErrors(validate(formValues));
     setIsSubmit(true);
+    setIsSnackbar(true);
+    
   };
   return (
     <>
       <div className="form-container">
-        <form onSubmit={(e) => formSubmit(e)}>
+        <form id="register-form" onSubmit={(e) => formSubmit(e)}>
           <h1 className="register-form-name">生徒新規登録</h1>
           <hr />
           <div className="student-register-ui-form">
@@ -132,32 +128,32 @@ export default function T2StudentRegistration() {
               <label> 名前</label>
               <input
                 type="text"
-                placeholder="名前"
+                placeholder="フルネームで入力"
                 name="userName"
                 className="register-form-input-userName"
                 onChange={(e) => formChange(e)}
               />
             </div>
-            <p className="register-error-msg">{formErrors.userId}</p>
+            <p className="register-error-msg">{formErrors.userName}</p>
             <div className="form-field">
               <label> 学年</label>
               <input
                 type="number"
                 min="1"
                 max="6"
-                placeholder="学年"
+                placeholder="1~6を入力"
                 name="grade"
                 className="register-form-input-grade"
                 onChange={(e) => formChange(e)}
               />
             </div>
-            <p className="register-error-msg">{formErrors.userId}</p>
+            <p className="register-error-msg">{formErrors.grade}</p>
             <div className="form-field">
               <label> パスワード</label>
               <div className="register-form-input-password-container">
                 <input
                   type={isRevealPassword ? "text" : "password"}
-                  placeholder="パスワード"
+                  placeholder="英数字4〜15桁で入力"
                   name="password"
                   className="register-form-input-password"
                   onChange={(e) => formChange(e)}
@@ -193,9 +189,9 @@ export default function T2StudentRegistration() {
             >
               戻る
             </button>
-            {formErrors.validateOkFlag && isSubmit && (
+            {/* {formErrors.validateOkFlag && isSubmit && (
               <div className="register-status">{loginStatus}</div>
-            )}
+            )} */}
           </div>
         </form>
       </div>
@@ -208,13 +204,23 @@ export default function T2StudentRegistration() {
         // message="Note archived"
         // action={action}
       >
-        <Alert
-          onClose={closeSnackbar}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          パスワードの変更が完了しました！
-        </Alert>
+        {isSuccessFlag ? (
+          <Alert
+            onClose={closeSnackbar}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            {isSubmit?"生徒の新規登録が完了しました！":"パスワードの変更が完了しました！"}
+          </Alert>
+        ) : (
+          <Alert
+            onClose={closeSnackbar}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            パスワードは英数字4桁以上15桁以下にしてください
+          </Alert>
+        )}
       </Snackbar>
       <Modal
         isOpen={editModalIsOpen}
@@ -226,6 +232,7 @@ export default function T2StudentRegistration() {
           setStudentTable={setStudentTable}
           studentTable={studentTable}
           setIsSnackbar={setIsSnackbar}
+          setIsSuccessFlag={setIsSuccessFlag}
         />
       </Modal>
     </>
