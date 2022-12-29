@@ -87,7 +87,7 @@ const setupServer = () => {
     }
   });
 
-  app.get("/tetst",(req, res) => {
+  
 
   app.get("/teacherTests", (req, res) => {
     let result = {};
@@ -232,6 +232,6 @@ const setupServer = () => {
   //   res.status(200).end();
   // });
   return app;
-});
+};
 
 module.exports = { setupServer };
