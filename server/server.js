@@ -37,8 +37,8 @@ const setupServer = () => {
     let result = {};
     if (req.body.student_flg) {
       try {
-        result = await getStudentLogin(req.body.user_id,req.body.password);
-        console.log("result",result)
+        result = await getStudentLogin(req.body.user_id, req.body.password);
+        console.log("result", result);
         res.send(result).status(200).end();
       } catch (err) {
         console.log(err);
@@ -55,6 +55,7 @@ const setupServer = () => {
   });
 
   app.get("/questions", async (req, res) => {
+    console.log("bbbbbbbbbbbbbbbbbbbbbbbb");
     let result;
     try {
       result = await startTest(req.query.user_id);
@@ -127,9 +128,9 @@ const setupServer = () => {
     }
   });
 
-  app.get("/student",async (req, res) => {
+  app.get("/student", async (req, res) => {
     let result = {};
-    console.log("riiiiion")
+    console.log("riiiiion");
     console.log(req.query);
 
     try {
