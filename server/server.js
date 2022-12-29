@@ -56,17 +56,6 @@ const setupServer = () => {
     }
   });
 
-  app.get("/questions", async (req, res) => {
-    let result;
-    try {
-      result = await startTest(req.query.user_id)
-      res.json(result).status(200).end();
-    } catch (err) {
-      console.log(err);
-      res.send(err).status(404).end();
-    }
-  })
-
   app.get("/tests", async (req, res) => {
     console.log("開始")
     let result;
@@ -132,7 +121,6 @@ const setupServer = () => {
     }
   });
 
-  app.get("/tetst",(req, res) => {
 
   app.get("/teacherTests", (req, res) => {
     let result = {};
@@ -147,7 +135,19 @@ const setupServer = () => {
     }
   });
 
-  app.get("/tetst", (req, res) => {});
+  app.put("/password", (req, res) => {
+    let result = {};
+    console.log(req);
+
+    try {
+      result = updatePassword(req.body.user_id, req.body.password);
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  });
+
 
   //テスト結果画面の処理
   app.get("/result", async (req, res) => {
@@ -204,12 +204,12 @@ const setupServer = () => {
     res.send(resultTable).status(200).end();
   });
 
-  app.post("/questions", async (req, res) => {
-    const testDate = {
-      question: "testQuestion",
-      answer: "testAnswer",
-    };
-  });
+  // app.post("/questions", async (req, res) => {
+  //   const testDate = {
+  //     question: "testQuestion",
+  //     answer: "testAnswer",
+  //   };
+  // });
   // =======
   // app.get("/tests", async (req, res) => {
   //   //knexでDBからtestsテーブルとpaperテーブルを使って必要な中身を全部持ってくる。
@@ -277,6 +277,6 @@ const setupServer = () => {
   //   res.status(200).end();
   // });
   return app;
-}};
+};
 
 module.exports = { setupServer };
