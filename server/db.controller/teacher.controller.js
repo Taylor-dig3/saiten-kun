@@ -1,6 +1,7 @@
 const knex = require("../../knex");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
+const { Sync, NestCamWiredStandTwoTone } = require("@mui/icons-material");
 
 module.exports = {
   async registerId(reqName, reqGrade, reqPassword, reqTeacher_id) {
@@ -80,5 +81,51 @@ module.exports = {
 
     console.log(testList);
     return testList;
+  },
+
+  async registerQuestion(
+    reqTestName,
+    reqQuestionTitle,
+    reqGradeId,
+    reqData,
+    reqTeacherId,
+    reqSubjectId
+  ) {
+    const newtest = {
+      name: reqTestName,
+      question_title: reqQuestionTitle,
+      make_date: new Date(),
+      grade_id: reqGradeId,
+      teacher_id: reqTeacherId,
+      subject_id: reqSubjectId,
+    };
+    console.log(newtest);
+    //データの挿入
+    await knex("tests").insert(newtest);
+    reqData.map(async (newQuestion) => {
+      const newQuestions = {
+        question: newQuestion.question,
+        answer: newQuestion.answer,
+        subject_id: reqSubjectId,
+      };
+      console.log(newQuestions);
+      await knex("questions").insert(newQuestions);
+    });
+
+    //データが正しく挿入されたかの確認処理
+    // const addAccount = await knex("students")
+    //   .select("*")
+    //   .where("name", reqName)
+    //   .andWhere("grade_id", reqGrade)
+    //   .andWhere("password", reqPassword)
+    //   .andWhere("teacher_id", reqTeacher_id);
+
+    // if (!addAccount) {
+    //   console.log("signupError");
+    //   return false;
+    // } else {
+    //   console.log("return add acount");
+    //   return addAccount;
+    // }
   },
 };
