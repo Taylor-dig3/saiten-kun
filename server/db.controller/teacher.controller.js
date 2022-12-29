@@ -1,6 +1,7 @@
 const knex = require("../../knex");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
+const { Sync, NestCamWiredStandTwoTone } = require("@mui/icons-material");
 
 module.exports = {
   async registerId(reqName, reqGrade, reqPassword, reqTeacher_id) {
@@ -63,36 +64,117 @@ module.exports = {
   },
 
   async pickupTests(reqTeacher_id) {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     const testList = await knex("tests")
-      .select("name", "grade_id", "run_date", "make_date", "subject_id")
+      .select({
+        title: "tests.name",
+        grade: "grade_id",
+        run_date: "run_date",
+        make_date: "make_date",
+        subject: "subjects.name",
+      })
       .from("tests")
-      .join("subjects", "tests.id", "subjects.name")
+      .join("subjects", "tests.subject_id", "subjects.id")
+      .join("papers", "tests.id", "papers.test_id")
+      .groupBy("tests.id", "subjects.id")
+      .count("papers.question_id", { as: "question_count" })
       .where("teacher_id", reqTeacher_id);
 
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     console.log(testList);
-    // return testList;
+    return testList;
   },
 
-  async updateResult(results_id){
+  async registerQuestion(
+    reqTestName,
+    reqQuestionTitle,
+    reqGradeId,
+    reqData,
+    reqTeacherId,
+    reqSubjectId
+  ) {
+    const newtest = {
+      name: reqTestName,
+      question_title: reqQuestionTitle,
+      make_date: new Date(),
+      grade_id: reqGradeId,
+      teacher_id: reqTeacherId,
+      subject_id: reqSubjectId,
+    };
+    console.log(newtest);
+    //データの挿入
+    await knex("tests").insert(newtest);
+    reqData.map(async (newQuestion) => {
+      const newQuestions = {
+        question: newQuestion.question,
+        answer: newQuestion.answer,
+        subject_id: reqSubjectId,
+      };
+      console.log(newQuestions);
+      await knex("questions").insert(newQuestions);
+    });
+
+    //データが正しく挿入されたかの確認処理
+    // const addAccount = await knex("students")
+    //   .select("*")
+    //   .where("name", reqName)
+    //   .andWhere("grade_id", reqGrade)
+    //   .andWhere("password", reqPassword)
+    //   .andWhere("teacher_id", reqTeacher_id);
+
+    // if (!addAccount) {
+    //   console.log("signupError");
+    //   return false;
+    // } else {
+    //   console.log("return add acount");
+    //   return addAccount;
+    // }
+  },
+
+  async updateResult(results_id) {
     const reverse = await knex("results")
       .select("result")
-      .where({              
-        "id" : results_id
+      .where({
+        id: results_id,
       })
-      .first()
+      .first();
     // console.log(reverse);
     return knex("results")
       .where({
-        "id" : results_id
+        id: results_id,
       })
       .update({
-        "result" : !reverse.result
+        result: !reverse.result,
       })
-      .then(res => {
-        return !reverse.result
+      .then((res) => {
+        return !reverse.result;
+      });
+  },
+
+  putSelected(teacher_id, test_id) {
+    return knex("selected")
+      .where({ teacher_id: teacher_id })
+      .update({ test_id: test_id })
+      .then((res) => {
+        return knex("selected")
+          .where({
+            teacher_id: teacher_id,
+          })
+          .select({
+            teacher_id: "teacher_id",
+            test_id: "test_id",
+          })
+          .first()
+          .then((res) => {
+            return {
+              status: "ok",
+              data: {
+                teacher_id: res.teacher_id,
+                test_id: res.test_id,
+              },
+            };
+          });
       })
-  }
-  
+      .catch((err) => {
+        return err;
+      });
+  },
 };
