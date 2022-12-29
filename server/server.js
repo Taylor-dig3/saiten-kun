@@ -15,7 +15,9 @@ const {
   updatePassword,
   pickupTests,
   updateResult,
+  putSelected,
 } = require("./db.controller/teacher.controller");
+const { ResetTvSharp } = require("@mui/icons-material");
 // const PORT = process.env.PORT || 3001;
 
 
@@ -40,6 +42,7 @@ const setupServer = () => {
     } else {
       try {
         result = await getTeacherLogin(req.body.user_id, req.body.password);
+        res.send(result).status(200).end();
       } catch (err) {
         res.status(404).end();
       }
@@ -158,6 +161,17 @@ const setupServer = () => {
       console.log(err);
       res.send(err).status(404).end();
     }
+  });
+
+  app.put("/test", async(req, res) => {
+    let result;
+    try {
+      result = await putSelected(req.query.teacher_id,req.query.test_id);
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    } 
   });
 
 
