@@ -3,23 +3,25 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getAllTests } from "../../helperFunctions/useFrontFuncs";
-import { login, testResult } from "../../shareComponents/atom";
+import { login, testResult, testResultList } from "../../shareComponents/atom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import axios from "axios";
 
 const subjects = ["国語", "算数", "理科", "社会"];
-export default function S3ResultList({ setCurrentTestID }) {
+export default function S3ResultList() {
   const navigate = useNavigate();
 
   //test_idとstudent_idをインポートしてくる
-  const testId = 1;
+  const [currentSelectedTestId, setCurrentSelectedTestID] = useState();
   const loginInfo = useRecoilValue(login);
+  const testResultInfo = useRecoilValue(testResultList);
   const [resultInfo, setResultInfo] = useRecoilState(testResult);
+  console.log(testResultInfo);
 
   const s4TestCheckDisplay = () => {
     axios
-      .get("/answerMock", {
-        params: { userId: loginInfo.userId, testId: testId },
+      .get("/answer", {
+        params: { user_id: loginInfo.userId, test_id: currentSelectedTestId },
       })
       .then((res) => {
         console.log(res.data);
@@ -31,49 +33,52 @@ export default function S3ResultList({ setCurrentTestID }) {
   const s1MenuDisplay = () => {
     navigate("../S1Menu");
   };
-  const [allTests, setAllTests] = useState([]);
   // const [listsTable, setListsTable] = useState();
 
   useEffect(() => {
-    getAllTests().then((res) => {
-      setAllTests(res);
-    });
-  }, []);
-  let listsTable = allTests.map((elem, index) => (
+    console.log(testResultInfo);
+    console.log(testResultInfo.data);
+  }, [testResultInfo]);
+
+  let listsTable = testResultInfo.map((elem, index) => (
     <tr key={index}>
       <td>
         <input
           type="radio"
           name="testListsRadio"
           id={`testListsRadio${index}`}
-          value={elem["test_id"]}
+          value={elem.test_id}
           onChange={(e) => {
-            setCurrentTestID(e.target.value);
+            console.log(e.target.value);
+            setCurrentSelectedTestID(e.target.value);
           }}
         />
       </td>
       <td>
-        <label htmlFor={`testListsRadio${index}`}>{elem["comment"]}</label>
+        <label htmlFor={`testListsRadio${index}`}>{elem.title}</label>
       </td>
       <td>
-        <label htmlFor={`testListsRadio${index}`}>{elem["grade"]}</label>
+        <label htmlFor={`testListsRadio${index}`}>{elem.grade}</label>
       </td>
+      <td>
+        <label htmlFor={`testListsRadio${index}`}>{elem.subject}</label>
+      </td>
+      <td>
+        <label htmlFor={`testListsRadio${index}`}>{elem.question_number}</label>
+      </td>
+      {/* <td>
+        <label htmlFor={`testListsRadio${index}`}>{elem["made_date"]}</label>
+      </td> */}
       <td>
         <label htmlFor={`testListsRadio${index}`}>
-          {subjects[Number(elem["subject"])]}
+          {elem.run_date === null
+            ? "-"
+            : new Date(elem.run_date).toLocaleDateString()}
         </label>
-      </td>
-      <td>
-        <label htmlFor={`testListsRadio${index}`}>{elem["question_number"]}</label>
-      </td>
-      <td>
-        <label htmlFor={`testListsRadio${index}`}>{elem["made_date"]}</label>
-      </td>
-      <td>
-        <label htmlFor={`testListsRadio${index}`}>{elem["testdate"]}</label>
       </td>
     </tr>
   ));
+
   return (
     <>
       <button onClick={s4TestCheckDisplay}>結果確認</button>
@@ -91,7 +96,7 @@ export default function S3ResultList({ setCurrentTestID }) {
                 <th>学年</th>
                 <th>科目</th>
                 <th>問題数</th>
-                <th>作成日</th>
+                {/* <th>作成日</th> */}
                 <th>実施日</th>
               </tr>
             </thead>

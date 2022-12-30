@@ -15,7 +15,6 @@ const form1 = new FormData();
 
 export default function S2Test() {
   const [currentAnswer, setCurrentAnswer] = useState({});
-  const [currentTestID, setCurrentTestID] = useState("1");
   const [paper, setPaper] = useState({ data: [0, 1, 2] });
   const testQuestionInfo = useRecoilValue(testQuestion);
   const loginInfo = useRecoilValue(login);

@@ -74,6 +74,7 @@ const setupServer = () => {
     try {
       console.log("aaaaaaaa");
       result = await getTest(req.query.user_id);
+      console.log(result);
       res.json(result).status(200).end();
     } catch (err) {
       console.log(err);
@@ -82,6 +83,7 @@ const setupServer = () => {
   });
 
   app.get("/answer", async (req, res) => {
+    console.log("cccccccccccc");
     let result1;
     try {
       result1 = await getAnswer(req.query.user_id, req.query.test_id);
@@ -172,12 +174,14 @@ const setupServer = () => {
     }
   });
 
-  app.get("/teacherTests", (req, res) => {
+  app.get("/teacherTests", async (req, res) => {
     let result = {};
     console.log(req);
+    console.log("dddddddddd1");
 
     try {
-      result = pickupTests(req.query.teacher_id);
+      result = await pickupTests(req.query.teacher_id);
+      console.log(result);
       res.json(result).status(200).end();
     } catch (err) {
       console.log(err);

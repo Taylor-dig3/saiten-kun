@@ -47,33 +47,37 @@ module.exports = {
           });
       });
   },
-  getTest(user_id) {
-    return (
-      knex("tests")
-        .join("results", "tests.id", "results.test_id")
-        .join("subjects", "subjects.id", "tests.subject_id")
-        .join("students", "students.id", "results.student_id")
-        .join("grades", "grades.id", "students.grade_id")
-        // .join("papers", "papers.test_id", "tests.id")
-        .select({
-          test_id: "tests.id",
-          title: "tests.name",
-          run_date: "tests.run_date",
-          subject: "subjects.name",
-          grade: "grades.grades_number",
-        })
-        .groupBy("tests.id", "subjects.id", "grades.grades_number")
-        .count("results.question_id", { as: "question_number" })
-        .where({
-          "results.student_id": user_id,
-        })
-        // .distinct()
-        .first()
-    );
+
+  async getTest(user_id) {
+    console.log("bbbbbb");
+    const testResultList = await knex("tests")
+      .join("results", "tests.id", "results.test_id")
+      .join("subjects", "subjects.id", "tests.subject_id")
+      .join("students", "students.id", "results.student_id")
+      .join("grades", "grades.id", "students.grade_id")
+      // .join("papers", "papers.test_id", "tests.id")
+      .select({
+        test_id: "tests.id",
+        title: "tests.name",
+        run_date: "tests.run_date",
+        subject: "subjects.name",
+        grade: "grades.grades_number",
+      })
+      .groupBy("tests.id", "subjects.id", "grades.grades_number")
+      .count("results.question_id", { as: "question_number" })
+      .where({
+        "results.student_id": user_id,
+      });
+    // .distinct()
+    // .first();
+
+    console.log(testResultList);
+    return testResultList;
     // .then(res => {
     //   console.log(res);
     // })
   },
+
   postAnswer(resultObj) {
     console.log("postAnswer");
     let insertObj = [];
@@ -92,6 +96,7 @@ module.exports = {
   },
 
   getAnswer(user_id, test_id) {
+    console.log("cccccccccccc2");
     return knex("results")
       .join("tests", "tests.id", "=", "results.test_id")
       .join("questions", "questions.id", "=", "results.question_id")
@@ -122,7 +127,7 @@ module.exports = {
             result: obj.result,
           };
         });
-        // console.log(result);
+        console.log(result);
         return result;
       });
   },
