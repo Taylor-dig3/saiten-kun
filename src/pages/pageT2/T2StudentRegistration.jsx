@@ -2,18 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import axios from "axios";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import { login } from "../../shareComponents/atom";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import "./T2StudentRegistration.css";
 import StudentListModal from "./components/StudentListModal";
-import { useForm } from "react-hook-form";
+import StatusSnackbar from "./components/StatusSnackbar";
+import "./T2StudentRegistration.css";
+
 const customStyles = {
   content: {
-    // top: "30%",
     top: "50%",
     left: "50%",
     right: "auto",
@@ -26,9 +24,6 @@ const customStyles = {
     maxHeight: "70%",
   },
 };
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export default function T2StudentRegistration() {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -47,29 +42,24 @@ export default function T2StudentRegistration() {
   const initialRegisterValues = { userName: "", password: "", grade_id: "" };
   const [formValues, setFormValues] = useState(initialRegisterValues);
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
   const [isRevealPassword, setIsRevealPassword] = useState(false);
-  const [loginStatus, setLoginStatus] = useState("ログイン中です");
-  const [loginInfo, setLoginInfo] = useRecoilState(login);
+  const loginInfo = useRecoilValue(login);
 
   const closeModal = () => setEditModalIsOpen(false);
-  const [isSnackbar, setIsSnackbar] = useState(false);
+  const [isRegisterSnackbar, setIsRegisterSnackbar] = useState(false);
   const [isSuccessFlag, setIsSuccessFlag] = useState(true);
-  const closeSnackbar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setIsSnackbar(false);
-  };
-
+  const [isChangePassSnackbar, setIsChangePassSnackbar] = useState(false);
+  
   const formChange = (e) => {
+    // console.log("入ったよ");
     const { name, value } = e.target;
-    console.log(e.target);
+    console.log(e.target.value);
     setFormValues({ ...formValues, [name]: value });
   };
+
   const validate = (values) => {
     const errors = {};
-    console.log(values);
+    // console.log(values);
     if (!values.userName) {
       errors.userName = "ユーザー名を入力してください";
     }
@@ -99,23 +89,21 @@ export default function T2StudentRegistration() {
           password: formValues.password,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           const formElem = document.getElementById("register-form");
           formElem.reset();
           setFormValues(initialRegisterValues);
           console.log(formElem);
+          setIsRegisterSnackbar(true);
         });
     }
   }, [formErrors]);
 
   const formSubmit = (e) => {
     e.preventDefault();
-    //ログイン情報を送信する
-    //バリデーションチェックをする
+    console.log(formValues);
     setFormErrors(validate(formValues));
-    setIsSubmit(true);
-    setIsSnackbar(true);
-    
+
   };
   return (
     <>
@@ -131,7 +119,8 @@ export default function T2StudentRegistration() {
                 placeholder="フルネームで入力"
                 name="userName"
                 className="register-form-input-userName"
-                onChange={(e) => formChange(e)}
+                // autocomplete="off"
+                onInput={(e) => formChange(e)}
               />
             </div>
             <p className="register-error-msg">{formErrors.userName}</p>
@@ -144,7 +133,8 @@ export default function T2StudentRegistration() {
                 placeholder="1~6を入力"
                 name="grade"
                 className="register-form-input-grade"
-                onChange={(e) => formChange(e)}
+                // autocomplete="off"
+                onInput={(e) => formChange(e)}
               />
             </div>
             <p className="register-error-msg">{formErrors.grade}</p>
@@ -189,39 +179,14 @@ export default function T2StudentRegistration() {
             >
               戻る
             </button>
-            {/* {formErrors.validateOkFlag && isSubmit && (
-              <div className="register-status">{loginStatus}</div>
-            )} */}
           </div>
         </form>
       </div>
 
       <button onClick={t1MenuDisplay}>戻る</button>
-      <Snackbar
-        open={isSnackbar}
-        autoHideDuration={6000}
-        onClose={closeSnackbar}
-        // message="Note archived"
-        // action={action}
-      >
-        {isSuccessFlag ? (
-          <Alert
-            onClose={closeSnackbar}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            {isSubmit?"生徒の新規登録が完了しました！":"パスワードの変更が完了しました！"}
-          </Alert>
-        ) : (
-          <Alert
-            onClose={closeSnackbar}
-            severity="error"
-            sx={{ width: "100%" }}
-          >
-            パスワードは英数字4桁以上15桁以下にしてください
-          </Alert>
-        )}
-      </Snackbar>
+      <StatusSnackbar isSnackbar={isRegisterSnackbar} setIsSnackbar={setIsRegisterSnackbar} isSuccessFlag={isSuccessFlag} successWord ={"生徒の新規登録が完了しました！"}/>
+      <StatusSnackbar isSnackbar={isChangePassSnackbar} setIsSnackbar={setIsChangePassSnackbar} isSuccessFlag={isSuccessFlag} successWord ={"パスワードの変更が完了しました！"}/>
+
       <Modal
         isOpen={editModalIsOpen}
         onRequestClose={closeModal}
@@ -231,7 +196,7 @@ export default function T2StudentRegistration() {
         <StudentListModal
           setStudentTable={setStudentTable}
           studentTable={studentTable}
-          setIsSnackbar={setIsSnackbar}
+          setIsSnackbar={setIsChangePassSnackbar}
           setIsSuccessFlag={setIsSuccessFlag}
         />
       </Modal>

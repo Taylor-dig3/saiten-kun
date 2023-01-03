@@ -27,7 +27,7 @@ export default function StudentListModal({
   setStudentTable,
   studentTable,
   setIsSnackbar,
-  setIsSuccessFlag
+  setIsSuccessFlag,
 }) {
   const [formInfo, setFormInfo] = useState({});
   const loginInfo = useRecoilValue(login);
@@ -41,13 +41,13 @@ export default function StudentListModal({
           password: formInfo.password,
         })
         .then((res) => {
-          setIsSnackbar(true);
           setIsSuccessFlag(true);
+          setIsSnackbar(true);
           cancelClick(formInfo.userId);
         });
-    }else if(formInfo.validateOkFlag === false){
-        setIsSnackbar(true);
-        setIsSuccessFlag(false);
+    } else if (formInfo.validateOkFlag === false) {
+      setIsSuccessFlag(false);
+      setIsSnackbar(true);
     }
   }, [formInfo]);
 
@@ -62,7 +62,7 @@ export default function StudentListModal({
       .then((res) => {
         const sortArr = res.data.sort((a, b) => Number(a.id) - Number(b.id));
         setStudentTable(
-          res.data.map((elem, index) => {
+          sortArr.map((elem, index) => {
             return (
               <TableRow
                 key={elem.id}
