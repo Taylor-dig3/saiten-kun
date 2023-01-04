@@ -1,4 +1,4 @@
-.testLists {
+/* .testLists {
     margin-top: 50px;
   }
   
@@ -23,5 +23,16 @@
     padding-bottom: 5px;
     padding-left: 15px;
     padding-right: 15px;
-  }
+  } */
   
+
+  .T5_container{
+    /* margin: px; */
+    padding: 10px;
+  }
+
+  .T5_button_container{
+    display: flex;
+    justify-content: space-around;
+
+  }

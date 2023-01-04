@@ -150,7 +150,7 @@ module.exports = {
       });
   },
 
-  putSelected(teacher_id, test_id) {
+  putTestStart(teacher_id, test_id) {
     return knex("selected")
       .where({ teacher_id: teacher_id })
       .update({ test_id: test_id })
@@ -178,4 +178,67 @@ module.exports = {
         return err;
       });
   },
+
+  putTestEnd(teacher_id) {
+    return knex("selected")
+      .where({ teacher_id: teacher_id })
+      .update({ test_id: null })
+      .then((res) => {
+        return knex("selected")
+          .where({
+            teacher_id: teacher_id,
+          })
+          .select({
+            teacher_id: "teacher_id",
+            test_id: "test_id",
+          })
+          .first()
+          .then((res) => {
+            return {
+              status: "ok",
+              data: {
+                teacher_id: res.teacher_id,
+                test_id: res.test_id,
+              },
+            };
+          });
+      })
+      .catch((err) => {
+        return err;
+      });
+  },
+  checkTestStatus(teacher_id) {
+    return knex("selected")
+      .where({
+        teacher_id: teacher_id,
+      })
+      .select({
+        teacher_id: "teacher_id",
+        test_id: "test_id",
+      })
+      .first()
+      .then((res) => {
+        return {
+          status: "ok",
+          data: {
+            teacher_id: res.teacher_id,
+            test_id: res.test_id,
+          },
+        };
+      })
+      .catch((err) => {
+        return err;
+      });
+  },
+
+  async getSelectTests(test_id) {
+    return knex("papers")
+      .select("question", "answer")
+      .join("questions", "papers.question_id", "questions.id")
+      .where("papers.test_id", test_id);
+  },
+
+  getStudentIdList(teacher_id){
+    return knex("students").select("id","name","grade_id").where("teacher_id",teacher_id)
+  }
 };

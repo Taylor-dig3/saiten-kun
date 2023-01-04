@@ -20,8 +20,12 @@ const {
   updatePassword,
   pickupTests,
   updateResult,
-  putSelected,
+  putTestStart,
+  putTestEnd,
+  checkTestStatus,
   registerQuestion,
+  getStudentIdList,
+  getSelectTests
 } = require("./db.controller/teacher.controller");
 const { ResetTvSharp } = require("@mui/icons-material");
 // const PORT = process.env.PORT || 3001;
@@ -67,6 +71,18 @@ const setupServer = () => {
       res.send(err).status(404).end();
     }
   });
+
+  app.get("/testDetail",async (req,res)=>{
+    console.log("選択した問題と解答を取得するAPI")
+    let result;
+    try {
+      result = await getSelectTests(Number(req.query.test_id));
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  })
 
   app.get("/tests", async (req, res) => {
     console.log("開始");
@@ -221,16 +237,47 @@ const setupServer = () => {
       res.send(err).status(404).end();
     }
   });
-  app.put("/test", async (req, res) => {
+  app.put("/teacher/testStart", async (req, res) => {
     let result;
     try {
-      result = await putSelected(req.query.teacher_id, req.query.test_id);
+      result = await putTestStart(req.body.teacher_id, req.body.test_id);
       res.json(result).status(200).end();
     } catch (err) {
       console.log(err);
       res.send(err).status(404).end();
     }
   });
+
+  app.put("/teacher/testEnd", async (req, res) => {
+    let result;
+    try {
+      result = await putTestEnd(req.body.teacher_id);
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  });
+  app.get("/teacher/testStatus", async (req, res) => {
+    let result;
+    try {
+      result = await checkTestStatus(req.query.teacher_id);
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  });
+  app.get("/teacher/studentIdList", async (req, res) => {
+    let result;
+    try {
+      result = await getStudentIdList(req.query.teacher_id);
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
+  })
 
   //テスト結果画面の処理
   app.get("/result", async (req, res) => {

@@ -13,7 +13,6 @@ export default function StatusSnackbar({isSnackbar,setIsSnackbar,isSuccessFlag,s
       return;
     }
     setIsSnackbar(false);
-    // setIsSubmit(false);
   };
  
   return (
