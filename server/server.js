@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
 const {
   getStudentLogin,
   getTeacherLogin,
@@ -36,6 +37,7 @@ const setupServer = () => {
   console.log("first");
 
   const app = express();
+  app.use(express.static(path.join(__dirname, "../build")));
   // app.use(express.json());
   app.use(express.json({ extended: true, limit: "100mb" }));
 
@@ -406,6 +408,9 @@ const setupServer = () => {
   //   const result = await apiModule.putSelected(req.body);
   //   res.status(200).end();
   // });
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname,'../build/index.html'));
+  });
   return app;
 };
 
