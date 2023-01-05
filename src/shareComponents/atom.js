@@ -38,3 +38,8 @@ export const questionAndAnswer = atom({
   key: "questionAndAnswer",
   default: {},
 });
+
+export const selectedTestId = atom({
+  key:"selectedTestId",
+  default:""
+})
