@@ -102,15 +102,35 @@ export default function S2Test() {
   function startPoint(e) {
     e.preventDefault();
     ctx[this.index].beginPath();
-    Xpoint = e.layerX;
-    Ypoint = e.layerY;
+    let rect = e.target.getBoundingClientRect();
+    if (e.clientX) {
+      Xpoint = e.clientX - rect.left;
+      Ypoint = e.clientY - rect.top;
+    } else {
+      Xpoint = e.touches[0].clientX - rect.left;
+      Ypoint = e.touches[0].clientY - rect.top;
+      // マルチタッチの場合はズームやスライド等の操作であるため、お絵かきをやめる。
+      if (e.touches.length > 1) {
+        return;
+      }
+    }
     ctx[this.index].moveTo(Xpoint, Ypoint);
   }
 
   function movePoint(e) {
     if (e.buttons === 1 || e.witch === 1 || e.type === "touchmove") {
-      Xpoint = e.layerX;
-      Ypoint = e.layerY;
+      let rect = e.target.getBoundingClientRect();
+      if (e.clientX) {
+        Xpoint = e.clientX - rect.left;
+        Ypoint = e.clientY - rect.top;
+      } else {
+        Xpoint = e.touches[0].clientX - rect.left;
+        Ypoint = e.touches[0].clientY - rect.top;
+        // マルチタッチの場合はズームやスライド等の操作であるため、お絵かきをやめる。
+        if (e.touches.length > 1) {
+          return;
+        }
+      }
       moveflg = 1;
       ctx[this.index].lineTo(Xpoint, Ypoint);
       ctx[this.index].lineCap = "round";
@@ -279,10 +299,11 @@ export default function S2Test() {
 
   let title;
   try {
-    title = paper[0]["name"];
+    title = testQuestionInfo.question_title;
   } catch (err) {
     title = "";
   }
+  console.log("loginInfo : ", loginInfo);
 
   return (
     <>
@@ -308,7 +329,7 @@ export default function S2Test() {
               </td>
               <td className="writeName">名前</td>
               <td className="studentsID" value="ID">
-                名前:{loginInfo.userId}
+                名前:{loginInfo.name}
               </td>
               {/* <canvas id="canvasName" width="460" height="160"></canvas> */}
               {/* <td className="canvasButtonDel0">
