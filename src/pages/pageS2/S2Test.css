@@ -8,50 +8,32 @@ h2 {
   padding-left: 50px;
   padding-bottom: 20px;
   background-color: white;
-  z-index: 11;
+  z-index: 12;
 }
 
 .table1 {
   position: fixed;
   top: 0px;
   background-color: white;
+  width: 100%;
   margin-right: auto;
   border-bottom: 2px solid gray;
-  z-index: 10;
+  z-index: 11;
+}
+
+.questionTitle {
+  font-size: 16pt;
+  color: blue;
+  padding-left: 50px;
+  padding-top: 20px;
 }
 
 .studentsID {
+  font-size: 20pt;
   padding-left: 50px;
-  /* padding-top: 110px; */
+  padding-top: 80px;
   vertical-align: top;
-}
-
-.studentsSelect2 {
-  text-align: center;
-  font-size: 16pt;
-  color: black;
-  padding-right: 5px;
-  border-style: none;
-  background-color: #8df78f;
-  -webkit-appearance: none;
-  appearance: none;
-  /* デフォルトの矢印を非表示 */
-  background-image: url(./tri-down.png);
-  background-position: right top;
-  background-repeat: no-repeat;
-  background-size: 21px 21px;
-  width: 130px;
-}
-
-select.studentsSelect::-ms-expand {
-  display: none;
-  /* デフォルトの矢印を非表示(IE用) */
-}
-
-.writeName {
-  padding: 110px 0px 0px 50px;
-  vertical-align: top;
-  min-width: 38px;
+  z-index: 13;
 }
 
 #canvasName {
@@ -85,18 +67,19 @@ select.studentsSelect::-ms-expand {
   padding: 0px;
   margin: 0px;
   min-width: 70px;
-  padding-top: 65px;
+  padding-top: 60px;
   vertical-align: top;
 }
 
-.canvasButtonDel button {
-  font-size:16pt;
+.canvasButtonDel img {
+  width: 35px;
+  height: auto;
 }
 
 .questionsTable {
   text-align: center;
   margin-left: 50px;
-  padding-top: 240px;
+  padding-top: 200px;
   width: auto;
 }
 

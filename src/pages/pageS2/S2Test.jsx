@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { login, testQuestion } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
+import delImg from "./eraser.png";
 
 // import { Buffer } from "buffer";
 // const FormData = require("form-data");
@@ -291,19 +292,21 @@ export default function S2Test() {
             clearCanvas(index);
           }}
         >
-          ➡🗑️
+          <img src={delImg} alt="delete" />
         </button>
       </td>
     </tr>
   ));
 
   let title;
+  let question;
   try {
-    title = testQuestionInfo.question_title;
+    title = testQuestionInfo.test_id;
+    question = testQuestionInfo.question_title;
   } catch (err) {
     title = "";
+    question = "";
   }
-  console.log("loginInfo : ", loginInfo);
 
   return (
     <>
@@ -325,11 +328,10 @@ export default function S2Test() {
           <tbody>
             <tr>
               <td className="studentsID" value="ID">
-                ID:{loginInfo.userId}
+                ユーザーID：{loginInfo.userId}
               </td>
-              <td className="writeName">名前</td>
               <td className="studentsID" value="ID">
-                名前:{loginInfo.name}
+                名前：{loginInfo.name}
               </td>
               {/* <canvas id="canvasName" width="460" height="160"></canvas> */}
               {/* <td className="canvasButtonDel0">
@@ -342,6 +344,11 @@ export default function S2Test() {
                   リセット
                 </button>
               </td> */}
+            </tr>
+            <tr>
+              <td className="questionTitle" colSpan="2">
+                {question}
+              </td>
             </tr>
           </tbody>
         </table>
