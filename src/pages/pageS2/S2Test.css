@@ -89,6 +89,10 @@ select.studentsSelect::-ms-expand {
   vertical-align: top;
 }
 
+.canvasButtonDel button {
+  font-size:16pt;
+}
+
 .questionsTable {
   text-align: center;
   margin-left: 50px;

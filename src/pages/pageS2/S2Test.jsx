@@ -1,17 +1,15 @@
 import React from "react";
+import axios from "axios";
 import "./S2Test.css";
 import { useState, useEffect } from "react";
-import { startTest } from "../../helperFunctions/useFrontFuncs";
+// import { startTest } from "../../helperFunctions/useFrontFuncs";
 import { useNavigate } from "react-router-dom";
 import { login, testQuestion } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 
-import { Buffer } from "buffer";
-import axios from "axios";
-const FormData = require("form-data");
-const form1 = new FormData();
-
-// import axios from "axios";
+// import { Buffer } from "buffer";
+// const FormData = require("form-data");
+// const form1 = new FormData();
 
 export default function S2Test() {
   const [currentAnswer, setCurrentAnswer] = useState({});
@@ -44,31 +42,6 @@ export default function S2Test() {
   }, [testQuestionInfo]);
 
   useEffect(() => {
-    // canvas[0] = document.getElementById("canvasName");
-    // ctx[0] = canvas[0].getContext("2d");
-    // キャンバスを白色に塗る
-    // ctx[0].fillStyle = "rgb(255,255,255)";
-    // ctx[0].fillRect(0, 0, 460, 160);
-    // PC対応
-    // canvas[0].addEventListener(
-    //   "mousedown",
-    //   { index: 0, handleEvent: startPoint },
-    //   false
-    // );
-    // canvas[0].addEventListener(
-    //   "mousemove",
-    //   { index: 0, handleEvent: movePoint },
-    //   false
-    // );
-    // canvas[0].addEventListener(
-    //   "mouseup",
-    //   { index: 0, handleEvent: endPoint },
-    //   false
-    // );
-    // スマホ対応
-    // canvas.addEventListener('touchstart', startPoint, false);
-    // canvas.addEventListener('touchmove', movePoint, false);
-    // canvas.addEventListener('touchend', endPoint, false);
     console.log("paperやで");
     console.log(paper.data.length);
     console.log(paper.data);
@@ -78,6 +51,7 @@ export default function S2Test() {
       ctx[i] = canvas[i].getContext("2d");
       ctx[i].fillStyle = "rgb(255,255,255)";
       ctx[i].fillRect(0, 0, 460, 160);
+      // PC対応
       canvas[i].addEventListener(
         "mousedown",
         { index: i, handleEvent: startPoint },
@@ -90,6 +64,22 @@ export default function S2Test() {
       );
       canvas[i].addEventListener(
         "mouseup",
+        { index: i, handleEvent: endPoint },
+        false
+      );
+      // スマホ対応
+      canvas[i].addEventListener(
+        "touchstart",
+        { index: i, handleEvent: startPoint },
+        false
+      );
+      canvas[i].addEventListener(
+        "touchmove",
+        { index: i, handleEvent: movePoint },
+        false
+      );
+      canvas[i].addEventListener(
+        "touchend",
         { index: i, handleEvent: endPoint },
         false
       );
@@ -158,6 +148,7 @@ export default function S2Test() {
       ctx[n].canvas.clientHeight
     );
     ctx[n].fillStyle = "rgb(255,255,255)";
+    ctx[n].fillRect(0, 0, 460, 160);
   }
 
   function chgImg(n) {
@@ -274,14 +265,14 @@ export default function S2Test() {
         ></canvas>
       </td>
       <td className="canvasButtonDel">
-        {/* <button
+        <button
           type="button"
           onClick={() => {
             clearCanvas(index);
           }}
         >
-          リセット
-        </button> */}
+          ➡🗑️
+        </button>
       </td>
     </tr>
   ));
