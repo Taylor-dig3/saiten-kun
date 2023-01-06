@@ -91,12 +91,11 @@ module.exports = {
       });
       console.log(obj.question_id);
     });
-    // console.log(insertObj);
+    console.log(insertObj);
     return knex("results").insert(insertObj);
   },
 
   getAnswer(user_id, test_id) {
-    console.log("cccccccccccc2");
     return knex("results")
       .join("tests", "tests.id", "=", "results.test_id")
       .join("questions", "questions.id", "=", "results.question_id")
@@ -104,17 +103,20 @@ module.exports = {
         question_id: "questions.id",
         question_title: "tests.question_title",
         question: "questions.question",
+        answer:"questions.answer",
         answer_img: "results.answer_img",
         result: "results.result",
         result_id: "results.id",
       })
       .where({
         "results.student_id": user_id,
-        "tests.id": test_id,
+        // "tests.id": test_id,
         "results.test_id": test_id,
       })
       .then((res) => {
-        // console.log(res);
+        console.log(user_id);
+        console.log(test_id);
+        console.log(res)
         let result = {
           question_title: res[0].question_title,
           data: [],
@@ -122,12 +124,12 @@ module.exports = {
         result.data = res.map((obj) => {
           return {
             question: obj.question,
+            answer:obj.answer,
             answer_img: obj.answer_img,
             result_id: obj.result_id,
             result: obj.result,
           };
         });
-        console.log(result);
         return result;
       });
   },

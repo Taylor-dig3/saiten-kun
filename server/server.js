@@ -38,7 +38,6 @@ const setupServer = () => {
 
   const app = express();
   app.use(express.static(path.join(__dirname, "../build")));
-  // app.use(express.json());
   app.use(express.json({ extended: true, limit: "100mb" }));
 
   app.post("/login", async (req, res) => {
@@ -153,7 +152,7 @@ const setupServer = () => {
     let result;
     try {
       console.log("aaaaaaaaaaaaa");
-      result = await updateResult(req.query.result_id);
+      result = await updateResult(req.body.result_id);
       res.json(result).status(200).end();
     } catch (err) {
       res.send(err).status(404).end();
