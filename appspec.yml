@@ -5,19 +5,19 @@ files:
     destination: /var/www/html/
 hooks:
   BeforeInstall:
-    - location: hooks/beforeinstall.sh
+    - location: scripts/beforeinstall.sh
       timeout: 300
       runas: ec2-user
   AfterInstall:
-    - location: hooks/afterinstall.sh
+    - location: scripts/afterinstall.sh
       timeout: 300
       # runas: ec2-user
   ApplicationStart:
-    - location: hooks/start_server.sh
+    - location: scripts/start_server.sh
       timeout: 300
       # runas: ec2-user
   ApplicationStop:
-    - location: hooks/stop_server.sh
+    - location: scripts/stop_server.sh
       timeout: 300
       # runas: ec2-user
 
