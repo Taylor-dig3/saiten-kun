@@ -15,15 +15,13 @@ phases:
       - echo "Hello, World! (phase=build)"
       - npm run build
       - ls -al
-      - npm run rollback
-      - npm run migrate
-      - npm run seed
+
       # - rm -rf node_modules/
   post_build:
     commands:
       - echo "Hello, World! (phase=post_build)"
 
-# typoless参考
+# typoles参考
 # version: 0.2
 
 # phases:
@@ -41,13 +39,14 @@ phases:
 #       # - npm run seed1
 #       # - npm run seed2
 #       # - rm -rf node_modules/
-# artifacts:
-#   files:
-#     - 'build//*'
-#     - 'db//'
-#     - 'scripts/**/'
-#     - 'package.json'
-#     - 'server.js'
-#     - 'knex.js'
-#     - 'knexfile.js'
-#     - 'appspec.yml'
+
+artifacts:
+  files:
+    - 'build/**/*'
+    - 'db/**/*'
+    - 'hooks/**/*'
+    - 'package.json'
+    - 'server/**/*'
+    - 'knex.js'
+    - 'knexfile.js'
+    - 'appspec.yml'
