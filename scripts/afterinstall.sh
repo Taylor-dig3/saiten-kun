@@ -22,5 +22,5 @@ npm install
 npm run migrate
 
 echo "after install collect"
-systemctl start httpd
-systemctl enable httpd
+# systemctl start httpd
+# systemctl enable httpd

@@ -4,3 +4,4 @@ pwd
 source ~/.bashrc
 source ~/.bash_profile
 node -v
+forever stopall

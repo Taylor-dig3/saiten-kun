@@ -7,7 +7,7 @@ source ~/.bashrc
 source ~/.bash_profile
 node -v
 cd /var/www/html/
-
+forever start server/launch.js
 # sudo httpd -k start
 # echo "forever install s"
 # npm install -g forever@v4.0.3
