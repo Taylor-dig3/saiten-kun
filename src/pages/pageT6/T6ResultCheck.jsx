@@ -245,7 +245,7 @@ export default function T6ResultCheck() {
           </Container>
         </>
       ) : (
-        <h1>選択されていません</h1>
+        <h1>選択されていません Build確認用</h1>
       )}
     </div>
   );

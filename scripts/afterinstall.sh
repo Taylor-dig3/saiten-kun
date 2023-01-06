@@ -1,5 +1,5 @@
 #!/bin/bash
-yum update -y
+# yum update -y
 # # - npm run rollback
 # # - npm run migrate
 # # - npm run seed

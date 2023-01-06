@@ -1,5 +1,5 @@
 #!/bin/bash
-yum update -y
+# yum update -y
 pwd
 source ~/.bashrc
 source ~/.bash_profile
