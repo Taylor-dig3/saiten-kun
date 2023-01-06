@@ -37,7 +37,7 @@ const setupServer = () => {
   console.log("first");
 
   const app = express();
-  // app.use(express.static(path.join(__dirname, "../build")));
+  app.use(express.static(path.join(__dirname, "../build")));
   app.use(express.json({ extended: true, limit: "100mb" }));
 
   app.post("/login", async (req, res) => {
@@ -407,9 +407,9 @@ const setupServer = () => {
   //   const result = await apiModule.putSelected(req.body);
   //   res.status(200).end();
   // });
-  // app.get('*', (req, res) => {
-  //   res.sendFile(path.join(__dirname,'../build/index.html'));
-  // });
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname,'../build/index.html'));
+  });
   return app;
 };
 
