@@ -1,4 +1,4 @@
-h2 {
+.testTitle {
   position: fixed;
   width: 100%;
   margin: 0px;
@@ -54,15 +54,6 @@ h2 {
   z-index: 10;
 }
 
-.canvasButtonDel0 {
-  padding: 0px;
-  margin: 0px;
-  min-width: 70px;
-  padding-right: 5000px;
-  padding-top: 110px;
-  vertical-align: top;
-}
-
 .canvasButtonDel {
   padding: 0px;
   margin: 0px;
@@ -79,8 +70,11 @@ h2 {
 .questionsTable {
   text-align: center;
   margin-left: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-top: 200px;
   width: auto;
+  background-color: white;
 }
 
 .submitTest {
@@ -97,4 +91,16 @@ h2 {
   color: white;
   border-radius: 10px;
   z-index: 12;
+}
+
+.canvasTd {
+  position: relative;
+}
+
+.bkImg {
+  position: absolute;
+  top: 41px;
+  left: 41px;
+  width: 380px;
+  height: 80px;
 }
