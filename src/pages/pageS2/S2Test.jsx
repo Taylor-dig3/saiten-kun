@@ -179,7 +179,7 @@ export default function S2Test() {
 
   function chgImg(n) {
     let fileData = canvas[n].toDataURL();
-    fileData = fileData.replace(/^data:\w+\/\w+;base64,/, "");
+    // fileData = fileData.replace(/^data:\w+\/\w+;base64,/, "");
     return fileData;
   }
 
@@ -221,7 +221,7 @@ export default function S2Test() {
         console.log("for" + i);
         arr[i] = await axios
           .post("/riontest", {
-            data: elem,
+            data: elem.replace(/^data:\w+\/\w+;base64,/, ""),
             headers: {
               "Access-Control-Allow-Headers": "Content-Type, Authorization",
               "Content-Type": "multipart/form-data",
