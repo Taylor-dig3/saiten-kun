@@ -161,7 +161,7 @@ export default function T6ResultCheck() {
   return (
     <div>
       {/* <h2 className="title">{title}</h2> */}
-      <span className="studentsSelect">
+      <div className="studentsSelect">
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
@@ -203,32 +203,19 @@ export default function T6ResultCheck() {
               })
             : 1}
         </Select>
-        <div className="studentsID" value="ID">
-          ID:{selectStudent.id}
         </div>
-      </span>
-      {/* <span className="studentName">
-        <img
-        className="studentName img"
-        src="./img/test4.png"
-        alt="student name"
-        />
-      </span> */}
+        {selectStudent ?(
+<>
+          <span className="T6StudentsID" value="ID">
+          ID:{selectStudent.id}   
+        </span>
+        <span className="StudentsName" >
+          名前:{selectStudent.name}
+        </span>
       <span className="score">{}</span>
       <span className="scoreUnit">点</span>
       <button onClick={t5TestListDisplay}>戻る</button>
-      {/* <div>
-        <table className="questionTable">
-          <thead>
-            <tr>
-              <th>問題</th>
-              <th>回答</th>
-              <th>正誤修正</th>
-            </tr>
-          </thead> */}
-      {/* <tbody>{questions}</tbody> */}
-      {/* </table>
-      </div> */}
+      
       <Container maxWidth="95%">
         <TableContainer component={Paper} sx={{ maxHeight: "95%" }}>
           <Table stickyHeader aria-label="sticky table">
@@ -245,31 +232,10 @@ export default function T6ResultCheck() {
           </Table>
         </TableContainer>
       </Container>
+        </>
+        )
+        :
+        ("生徒を選択してください")}
     </div>
   );
 }
-// //仮おきデータresultのみ使用
-// const [paper, setPaper] = useState([
-//   { question: "50音を答えろ1", answer_img: "あいうえお", result: true },
-//   { question: "50音を答えろ2", answer_img: "あいうえお", result: true },
-//   { question: "50音を答えろ3", answer_img: "あいうえお", result: false },
-//   { question: "50音を答えろ4", answer_img: "あいうえお", result: true },
-//   { question: "50音を答えろ5", answer_img: "あいうえお", result: false },
-//   { question: "50音を答えろ6", answer_img: "あいうえお", result: true },
-//   { question: "50音を答えろ7", answer_img: "あいうえお", result: true },
-// ]);
-// useEffect(() => {
-
-//   if(studentIdList){
-//     const filterArr = studentIdList.filter((elem)=>{
-//       if(selectGrade !== "全学年"){
-//         return elem.grade_id === selectGrade
-//       }else{
-//         return true
-//       }
-//     })
-//     console.log(filterArr)
-//     setFilterStudentIdList(filterArr)
-//   }
-
-// }, [selectGrade]);
