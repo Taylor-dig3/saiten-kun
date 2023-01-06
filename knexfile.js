@@ -23,3 +23,4 @@ module.exports = {
     directory: "./db/seeds",
   },
 };
+//rion
