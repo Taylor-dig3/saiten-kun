@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { login, testQuestion } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import delImg from "./eraser.png";
+import gridImg from "./grid.png";
 
 // import { Buffer } from "buffer";
 // const FormData = require("form-data");
@@ -25,6 +26,8 @@ export default function S2Test() {
   const answerImg = {};
   let canvas = [];
   let ctx = [];
+  // let background = new Image();
+  // background.src = gridImg;
 
   // useEffect(() => {
   //   startTest(currentTestID).then((res) => {
@@ -50,8 +53,9 @@ export default function S2Test() {
       console.log(paper.data.length);
       canvas[i] = document.getElementById(`canvasAns${i}`);
       ctx[i] = canvas[i].getContext("2d");
-      ctx[i].fillStyle = "rgb(255,255,255)";
+      ctx[i].fillStyle = "rgba(255,255,255,0.5)";
       ctx[i].fillRect(0, 0, 460, 160);
+      // ctx[i].drawImage(background, 40, 40, 380, 80);
       // PC対応
       canvas[i].addEventListener(
         "mousedown",
@@ -168,19 +172,15 @@ export default function S2Test() {
       ctx[n].canvas.clientWidth,
       ctx[n].canvas.clientHeight
     );
-    ctx[n].fillStyle = "rgb(255,255,255)";
+    ctx[n].fillStyle = "rgba(255,255,255,0.65)";
     ctx[n].fillRect(0, 0, 460, 160);
+    // ctx[n].drawImage(background, 40, 40, 380, 80);
   }
 
   function chgImg(n) {
-    console.log(canvas[n]);
-    console.log(canvas[n].toDataURL());
     let fileData = canvas[n].toDataURL();
     fileData = fileData.replace(/^data:\w+\/\w+;base64,/, "");
-    // const decodedFile = Buffer.from(fileData, "base64");
-    // form.append("imgData", decodedFile, "test.jpg");
     return fileData;
-    // return canvas[n].toDataURL();
   }
 
   function initLocalStorage() {
@@ -277,13 +277,14 @@ export default function S2Test() {
     <tr key={index}>
       <td>{elem["question_id"]}</td>
       <td>{elem["question"]}</td>
-      <td>
+      <td className="canvasTd">
         <canvas
           id={`canvasAns${index}`}
           className="canvasAns"
           width="460"
           height="160"
         ></canvas>
+        <img className="bkImg" src={gridImg} alt="backgroundImg" />
       </td>
       <td className="canvasButtonDel">
         <button
@@ -311,7 +312,7 @@ export default function S2Test() {
   return (
     <>
       <div>
-        <h2>{title}</h2>
+        <h2 className="testTitle">{title}</h2>
         <span className="submitTest">
           <button className="back-button" onClick={s1MenuDisplay}>
             戻る
