@@ -2,7 +2,7 @@ version: 0.2
 
 phases:
   install:
-  run-as: root
+  # run-as: root
     commands:
       - echo "Hello, World! (phase=install)"
       - npm install
@@ -10,7 +10,7 @@ phases:
     commands:
       - echo "Hello, World! (phase=pre_build)"
   build:
-    run-as: root
+    # run-as: root
     commands:
       - echo "Hello, World! (phase=build)"
       - npm run build
