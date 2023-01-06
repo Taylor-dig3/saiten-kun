@@ -2,15 +2,52 @@ version: 0.2
 
 phases:
   install:
+  # run-as: root
     commands:
       - echo "Hello, World! (phase=install)"
+      - npm install
   pre_build:
     commands:
       - echo "Hello, World! (phase=pre_build)"
   build:
+    # run-as: root
     commands:
       - echo "Hello, World! (phase=build)"
+      - npm run build
       - ls -al
+      - npm run rollback
+      - npm run migrate
+      - npm run seed
+      # - rm -rf node_modules/
   post_build:
     commands:
       - echo "Hello, World! (phase=post_build)"
+
+# typoless参考
+# version: 0.2
+
+# phases:
+#   install:
+#     # run-as: root
+#     commands:
+#       - npm install
+#   build:
+#     # run-as: root
+#     commands:
+#       - echo Build started on date akaishiwassyoi
+#       - npm run build
+#       # - ls -l
+#       # - npm run migrate
+#       # - npm run seed1
+#       # - npm run seed2
+#       # - rm -rf node_modules/
+# artifacts:
+#   files:
+#     - 'build//*'
+#     - 'db//'
+#     - 'scripts/**/'
+#     - 'package.json'
+#     - 'server.js'
+#     - 'knex.js'
+#     - 'knexfile.js'
+#     - 'appspec.yml'
