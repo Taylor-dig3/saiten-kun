@@ -104,6 +104,7 @@ module.exports = {
         question_id: "questions.id",
         question_title: "tests.question_title",
         question: "questions.question",
+        answer:"questions.answer",
         answer_img: "results.answer_img",
         result: "results.result",
         result_id: "results.id",
@@ -114,7 +115,7 @@ module.exports = {
         "results.test_id": test_id,
       })
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         let result = {
           question_title: res[0].question_title,
           data: [],
@@ -122,12 +123,12 @@ module.exports = {
         result.data = res.map((obj) => {
           return {
             question: obj.question,
+            answer:obj.answer,
             answer_img: obj.answer_img,
             result_id: obj.result_id,
             result: obj.result,
           };
         });
-        console.log(result);
         return result;
       });
   },

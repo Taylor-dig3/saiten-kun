@@ -153,7 +153,7 @@ const setupServer = () => {
     let result;
     try {
       console.log("aaaaaaaaaaaaa");
-      result = await updateResult(req.query.result_id);
+      result = await updateResult(req.body.result_id);
       res.json(result).status(200).end();
     } catch (err) {
       res.send(err).status(404).end();

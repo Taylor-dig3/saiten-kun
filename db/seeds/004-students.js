@@ -10,7 +10,7 @@ exports.seed = async function (knex) {
       name: "リオンくん抜歯待ち",
       password: "$2b$10$YqKtwP2taSc10F3.CgIeqOexEtfYEnybnR06tkbK9PcQKslBvwd3S",
       grade_id: 5,
-      teacher_id: 2,
+      teacher_id: 1,
     },
     {
       name: "飯田　健",
@@ -22,7 +22,7 @@ exports.seed = async function (knex) {
       name: "遠藤　幹雄",
       password: "$2b$10$tDPb7nCnyVu1034TKKOQTONptvfsqYPhDXOreMXGL4KeIgVYxIHKG",
       grade_id: 5,
-      teacher_id: 2,
+      teacher_id: 1,
     },
   ]);
 };
