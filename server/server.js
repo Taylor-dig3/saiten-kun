@@ -38,7 +38,6 @@ const setupServer = () => {
 
   const app = express();
   app.use(express.static(path.join(__dirname, "../build")));
-  // app.use(express.json());
   app.use(express.json({ extended: true, limit: "100mb" }));
 
   app.post("/login", async (req, res) => {
