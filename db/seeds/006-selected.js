@@ -7,6 +7,6 @@ exports.seed = async function (knex) {
   await knex("selected").del();
   await knex("selected").insert([
     { teacher_id: 2, test_id: 1 },
-    { teacher_id: 1, test_id: 3 },
+    { teacher_id: 1, test_id: null },
   ]);
 };

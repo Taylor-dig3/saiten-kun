@@ -15,6 +15,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Container } from "@mui/material";
+import {createDate} from "../../helperFunctions/createDate"
+
 import "./T6ResultCheck.css";
 
 export default function T6ResultCheck() {
@@ -188,7 +190,7 @@ export default function T6ResultCheck() {
         <>
           <span>テスト名:{selectTestInfo.title}</span>
           <span>問題数:{selectTestInfo.question_count}</span>
-          <span>実施日:{selectTestInfo.run_date}</span>
+          <span>実施日:{createDate(selectTestInfo.run_date)}</span>
           <span className="T6StudentsID" value="ID">
             ID:{("0000" + selectStudent.id).slice(-4)}
           </span>

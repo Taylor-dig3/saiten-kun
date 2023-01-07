@@ -21,12 +21,16 @@ export const testQuestion = atom({
 });
 
 export const testResultList = atom({
-  key: "testQuestion",
+  key: "testResultList",
   default: [],
 });
 
 export const testList = atom({
-  key: "testQuestion",
+  key: "testList",
+  default: [],
+});
+export const studentTestList = atom({
+  key: "studentTestQuestion",
   default: [],
 });
 
@@ -41,5 +45,9 @@ export const questionAndAnswer = atom({
 
 export const selectedTestInfo = atom({
   key:"selectedTestInfo",
+  default:{test_id:"",title:"",grade:"",subject:"",make_date:"",question_count:"",run_date:""}
+})
+export const studentSelectedTestInfo = atom({
+  key:"studentSelectedTestInfo",
   default:{test_id:"",title:"",grade:"",subject:"",make_date:"",question_count:"",run_date:""}
 })

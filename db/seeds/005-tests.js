@@ -9,8 +9,8 @@ exports.seed = async function (knex) {
     {
       name: "小テスト1",
       question_title: "漢字をひらがなに直しなさい",
-      make_date: "2022-11-28",
-      run_date: "2022-11-30",
+      make_date: new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)),
+      run_date: null,
       grade_id: 5,
       subject_id: 1,
       teacher_id: 1,
@@ -18,8 +18,8 @@ exports.seed = async function (knex) {
     {
       name: "小テスト2",
       question_title: "漢字をひらがなに直しなさい",
-      make_date: "2022-12-05",
-      run_date: "2022-12-07",
+      make_date: new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)),
+      run_date: null,
       grade_id: 5,
       subject_id: 1,
       teacher_id: 1,
@@ -27,8 +27,8 @@ exports.seed = async function (knex) {
     {
       name: "小テスト3",
       question_title: "漢字をひらがなに直しなさい",
-      make_date: "2022-12-12",
-      run_date: "2022-12-14",
+      make_date: new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)),
+      run_date: null,
       grade_id: 5,
       subject_id: 1,
       teacher_id: 1,
@@ -36,8 +36,8 @@ exports.seed = async function (knex) {
     {
       name: "宿題テスト",
       question_title: "漢字をひらがなに直しなさい",
-      make_date: "2022-12-19",
-      run_date: "2022-12-19",
+      make_date: new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)),
+      run_date: null,
       grade_id: 5,
       subject_id: 1,
       teacher_id: 1,

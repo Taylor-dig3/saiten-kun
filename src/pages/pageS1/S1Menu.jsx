@@ -4,16 +4,15 @@ import {
   login,
   testQuestion,
   testResult,
-  testResultList,
+  studentTestList,
 } from "../../shareComponents/atom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import axios from "axios";
 import LogoutButton from "../../shareComponents/LogoutButton";
 export default function S1Menu() {
   const loginInfo = useRecoilValue(login);
-  const testId = 1;
   const [testQuestionInfo, setTestQuestionInfo] = useRecoilState(testQuestion);
-  const [testResultInfo, setTestResultInfo] = useRecoilState(testResultList);
+  const [tesList, setTestList] = useRecoilState(studentTestList);
 
   const navigate = useNavigate();
   const s2Test = () => {
@@ -36,7 +35,14 @@ export default function S1Menu() {
       .then((res) => {
         console.log("S3pe-zi");
         console.log(res.data);
-        setTestResultInfo(res.data);
+        if(res.data.length){
+          const filterTest = res.data.filter((elem)=>{
+           return elem.run_date
+          })
+          setTestList(filterTest);
+        }else{
+          setTestList(false)
+        }
         navigate("../S3ResultList");
       });
   };

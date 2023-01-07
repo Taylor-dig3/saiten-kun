@@ -70,7 +70,6 @@ module.exports = {
       });
     // .distinct()
     // .first();
-
     console.log(testResultList);
     return testResultList;
     // .then(res => {

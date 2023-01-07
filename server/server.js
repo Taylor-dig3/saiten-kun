@@ -14,7 +14,6 @@ const {
 } = require("./db.controller/student.controller");
 //knexをrequire
 const axios = require("axios");
-const e = require("express");
 const {
   registerId,
   pickupStudents,
@@ -242,6 +241,7 @@ const setupServer = () => {
     let result;
     try {
       result = await putTestStart(req.body.teacher_id, req.body.test_id);
+      console.log(result)
       res.json(result).status(200).end();
     } catch (err) {
       console.log(err);

@@ -2,6 +2,7 @@ const knex = require("../../knex");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const { Sync, NestCamWiredStandTwoTone } = require("@mui/icons-material");
+const { response } = require("express");
 
 module.exports = {
   async registerId(reqName, reqGrade, reqPassword, reqTeacher_id) {
@@ -95,7 +96,7 @@ module.exports = {
     const newtest = {
       name: reqTestName,
       question_title: reqQuestionTitle,
-      make_date: new Date(),
+      make_date: new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)),
       grade_id: reqGradeId,
       teacher_id: reqTeacherId,
       subject_id: reqSubjectId,
@@ -165,13 +166,18 @@ module.exports = {
           })
           .first()
           .then((res) => {
-            return {
-              status: "ok",
-              data: {
-                teacher_id: res.teacher_id,
-                test_id: res.test_id,
-              },
-            };
+            return knex("tests")
+            .where({id:test_id})
+            .update({run_date:new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000))})
+            .then(response=>{
+              return {
+                status: "ok",
+                data: {
+                  teacher_id: res.teacher_id,
+                  test_id: res.test_id,
+                },
+              };
+            })
           });
       })
       .catch((err) => {
