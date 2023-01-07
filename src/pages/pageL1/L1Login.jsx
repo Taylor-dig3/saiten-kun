@@ -98,10 +98,11 @@ console.log(formValues);
     }else if(loginInfo.loginState === "teacherLogin"){
       navigate("T1Menu");
     }else{
-     console.log("ログイン失敗")
+      setLoginStatus("ログイン失敗")
     }
 
   },[loginInfo])
+  
   return (
     <>
       <div className="form-container">
