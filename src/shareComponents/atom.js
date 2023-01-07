@@ -39,7 +39,7 @@ export const questionAndAnswer = atom({
   default: {},
 });
 
-export const selectedTestId = atom({
-  key:"selectedTestId",
-  default:""
+export const selectedTestInfo = atom({
+  key:"selectedTestInfo",
+  default:{test_id:"",title:"",grade:"",subject:"",make_date:"",question_count:"",run_date:""}
 })

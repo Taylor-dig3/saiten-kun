@@ -117,20 +117,25 @@ module.exports = {
         console.log(user_id);
         console.log(test_id);
         console.log(res)
-        let result = {
-          question_title: res[0].question_title,
-          data: [],
-        };
-        result.data = res.map((obj) => {
-          return {
-            question: obj.question,
-            answer:obj.answer,
-            answer_img: obj.answer_img,
-            result_id: obj.result_id,
-            result: obj.result,
+        if(res.length!==0){
+
+          let result = {
+            question_title: res[0].question_title,
+            data: [],
           };
-        });
-        return result;
+          result.data = res.map((obj) => {
+            return {
+              question: obj.question,
+              answer:obj.answer,
+              answer_img: obj.answer_img,
+              result_id: obj.result_id,
+              result: obj.result,
+            };
+          });
+          return result;
+        }else{
+          return false
+        }
       });
   },
 };

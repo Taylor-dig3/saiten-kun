@@ -10,23 +10,29 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-
+import {selectedTestInfo } from "../../../shareComponents/atom";
 import axios from "axios";
-import { Radio, RadioGroup, FormControlLabel } from "@mui/material";
+import { Radio} from "@mui/material";
+
+import {useRecoilState } from "recoil";
 
 import "../T5TestList.css";
 
-export default function CreateTableRow({ row, setSelectedTestInfo }) {
+export default function CreateTableRow({ row }) {
+  const [selectTestInfo,setSelectTestInfo] = useRecoilState(selectedTestInfo);
   const [open, setOpen] = useState(false);
   const [testDetail, setTestDetails] = useState([{ question: "", answer: "" }]);
-  const radioChange = (id, title, grade, subject) => {
-    setSelectedTestInfo((prev) => {
+  const radioChange = (id, title, grade, subject,count,makeDate,runDate) => {
+    setSelectTestInfo((prev) => {
       return {
         ...prev,
         test_id: id,
         title: title,
         grade: grade,
         subject: subject,
+        question_count:count,
+        make_date:makeDate,
+        run_date:runDate
       };
     });
   };
@@ -51,7 +57,7 @@ export default function CreateTableRow({ row, setSelectedTestInfo }) {
             value={row.title}
             control={<Radio />}
             onChange={() =>
-              radioChange(row.test_id, row.title, row.grade, row.subject)
+              radioChange(row.test_id, row.title, row.grade, row.subject,row.question_count,row.make_date,row.run_date)
             }
           />
         </TableCell>

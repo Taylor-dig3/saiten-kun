@@ -126,7 +126,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import { login, testList, testResult,selectedTestId } from "../../shareComponents/atom";
+import { login, testList, testResult,selectedTestInfo } from "../../shareComponents/atom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import axios from "axios";
 import { Radio, RadioGroup, FormControlLabel } from "@mui/material";
@@ -146,18 +146,15 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function CollapsibleTable() {
   const loginInfo = useRecoilValue(login);
-  const [selectTestId,setSelectTestId] = useRecoilState(selectedTestId);
+  const [selectTestInfo,setSelectTestInfo] = useRecoilState(selectedTestInfo);
   const testInfo = useRecoilValue(testList);
-  const  [selectedTestInfo,setSelectedTestInfo] = useState({test_id:"",title:"",grade:"",subject:"",make_date:"",question_count:"",run_date:""})
   const [testStatus,setTestStatus] = useState({statusWord:"テスト開始",style:"inherit",testId:""})
   const [isSnackbar,setIsSnackbar] = useState(false)
   console.log(testInfo);
   const navigate = useNavigate();
   
   const t6ResultCheckDisplay = () => {
-    if(selectedTestInfo.test_id !== ""){
-
-      setSelectTestId(selectedTestInfo.test_id) 
+    if(selectTestInfo.test_id !== ""){
       navigate("../T6ResultCheck");
     }else{
       setIsSnackbar(true)
@@ -175,11 +172,11 @@ export default function CollapsibleTable() {
   };
 
   const changeTestStatus = ()=>{
-    if(selectedTestInfo.test_id !== ""){
+    if(selectTestInfo.test_id !== ""){
       if(testStatus.statusWord === "テスト開始"){
         axios.put("/teacher/testStart",{
           teacher_id:loginInfo.userId,
-          test_id:selectedTestInfo.test_id
+          test_id:selectTestInfo.test_id
       }).then(res=>{
         console.log(res);
         setTestStatus({statusWord:"テスト開始中",style:"primary",testId:res.data.data.test_id})
@@ -239,7 +236,7 @@ export default function CollapsibleTable() {
             </TableHead>
             <TableBody>
               {testInfo.map((row) => (
-                <CreateTableRow key={row.test_id} row={row} setSelectedTestInfo={setSelectedTestInfo} />
+                <CreateTableRow key={row.test_id} row={row} setSelectedTestInfo={setSelectTestInfo} />
               ))}
             </TableBody>
           </Table>

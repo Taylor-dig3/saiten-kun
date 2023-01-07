@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login, testResult, selectedTestId } from "../../shareComponents/atom";
+import { login, selectedTestInfo } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
 import { Buffer } from "buffer";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 import Table from "@mui/material/Table";
@@ -19,13 +19,10 @@ import "./T6ResultCheck.css";
 
 export default function T6ResultCheck() {
   const loginInfo = useRecoilValue(login);
-  const resultInfo = useRecoilValue(testResult);
-  const selectTestId = useRecoilValue(selectedTestId);
+  const selectTestInfo = useRecoilValue(selectedTestInfo);
   const [studentIdList, setStudentIdList] = useState();
-  const [gradeOpen, setGradeOpen] = useState(false);
   const [filterStudentIdList, setFilterStudentIdList] = useState();
   const [selectGrade, setSelectGrade] = useState("全学年");
-  const [studentListOpen, setStudentListOpen] = useState();
   const [selectStudent, setSelectStudent] = useState();
   const [paper, setPaper] = useState();
   const [tablePaper, setTablePaper] = useState();
@@ -34,13 +31,6 @@ export default function T6ResultCheck() {
   const navigate = useNavigate();
   const t5TestListDisplay = () => {
     navigate("../T5TestList");
-  };
-  const handleClose = () => {
-    setGradeOpen(false);
-  };
-
-  const handleOpen = () => {
-    setGradeOpen(true);
   };
 
   const gradeChange = (e) => {
@@ -59,17 +49,7 @@ export default function T6ResultCheck() {
     setFilterStudentIdList(filterArr);
   };
 
-  const studentListHandleClose = () => {
-    setStudentListOpen(false);
-  };
-
-  const studentListHandleOpen = () => {
-    setStudentListOpen(true);
-  };
-
   const selectStudentChange = (e) => {
-    console.log(e.target);
-    console.log(e.target.value.split("&%", 2));
     const valueArr = e.target.value.split("&%", 2);
     const studentInfo = { id: Number(valueArr[0]), name: valueArr[1] };
     setSelectStudent(studentInfo);
@@ -77,7 +57,7 @@ export default function T6ResultCheck() {
       .get("/answer", {
         params: {
           user_id: studentInfo.id,
-          test_id: selectTestId,
+          test_id: selectTestInfo.test_id,
         },
       })
       .then((res) => {
@@ -99,15 +79,8 @@ export default function T6ResultCheck() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   console.log(resultInfo);
-  //   console.log(resultInfo.data);
-  // }, [resultInfo]);
-
-  let title = "結果確認";
-
   useEffect(() => {
-    if (paper) {
+    if (paper!==false && paper!==undefined) {
       console.log("object");
       console.log(paper);
 
@@ -164,20 +137,19 @@ export default function T6ResultCheck() {
             </TableRow>
           );
         })
-        );
-      }
-    }, [paper]);
-    
-    return (
-      <div>
-      <h1 className="T6titleqqqq">{title}</h1>
+      );
+    }else if(paper===false){
+      setScore("")
+    }
+  }, [paper]);
+
+  return (
+    <div>
+      <h1 className="T6title">結果確認</h1>
       <div className="studentsSelect">
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
-          open={gradeOpen}
-          onClose={handleClose}
-          onOpen={handleOpen}
           value={selectGrade}
           label="Age"
           onChange={gradeChange}
@@ -202,50 +174,59 @@ export default function T6ResultCheck() {
             ? filterStudentIdList.map((elem, index) => {
                 return (
                   <MenuItem
-                  key={elem.id}
-                  value={`${elem.id}&%${elem.name}`}
+                    key={elem.id}
+                    value={`${elem.id}&%${elem.name}`}
                   >{`ID:${("0000" + elem.id).slice(-4)}　 ${
                     elem.name
                   }`}</MenuItem>
-                  );
-                })
-                : 1}
+                );
+              })
+            : 1}
         </Select>
       </div>
       {selectStudent ? (
         <>
+          <span>テスト名:{selectTestInfo.title}</span>
+          <span>問題数:{selectTestInfo.question_count}</span>
+          <span>実施日:{selectTestInfo.run_date}</span>
           <span className="T6StudentsID" value="ID">
             ID:{("0000" + selectStudent.id).slice(-4)}
           </span>
+
           <span className="StudentsName">名前:{selectStudent.name}</span>
           <span className="score">{}</span>
           <span className="scoreUnit">{score}点</span>
           <button onClick={t5TestListDisplay}>戻る</button>
-
-          <Container maxWidth="95%">
-            <TableContainer component={Paper} sx={{ maxHeight: "95%" }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell style={{ width: "40%" }}>問題</TableCell>
-                    <TableCell style={{ width: "25%" }}>正解</TableCell>
-                    <TableCell
-                      style={{ width: "15%" }}
-                      colSpan={2}
-                      align="center"
-                    >
-                      解答{" "}
-                    </TableCell>
-                    <TableCell style={{ width: "10%" }}>正誤修正</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>{tablePaper}</TableBody>
-              </Table>
-            </TableContainer>
-          </Container>
+          {paper !== false ? (
+            // <>
+            <Container maxWidth="95%">
+              <TableContainer component={Paper} sx={{ maxHeight: "95%" }}>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ width: "40%" }}>問題</TableCell>
+                      <TableCell style={{ width: "25%" }}>正解</TableCell>
+                      <TableCell
+                        style={{ width: "15%" }}
+                        colSpan={2}
+                        align="center"
+                      >
+                        解答{" "}
+                      </TableCell>
+                      <TableCell style={{ width: "10%" }}>正誤修正</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>{tablePaper}</TableBody>
+                </Table>
+              </TableContainer>
+            </Container>
+          // </>
+          ) : (
+            "未実施"
+          )}
         </>
       ) : (
-        <h1>選択されていません Build確認用</h1>
+        <h1>生徒が選択されていません</h1>
       )}
     </div>
   );
