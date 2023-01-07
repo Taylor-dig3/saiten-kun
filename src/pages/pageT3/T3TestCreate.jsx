@@ -19,7 +19,10 @@ export default function T3TestCreate() {
 
   const navigate = useNavigate();
   const t4ConfirmationCreatedTestDisplay = () => {
-    const API_KEY = "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";
+    const loadingContainer = document.querySelector("#T3-loading-container")
+    loadingContainer.className = "T3-loading-visible"
+    console.log(loadingContainer)
+    const API_KEY = process.env.REACT_APP_API_KEY;
     axios
       .post(
         "https://api.openai.com/v1/completions",
@@ -28,7 +31,6 @@ export default function T3TestCreate() {
           prompt: `小学校${selectGrade}年生向けの${selectSubject}の問題をください。絶対に${selectQuestionAmount}問出題してください。"Question:"と"Answer:"に分けて改行して出力してください。Answerは単語または数字にしてください。`,
           max_tokens: 1000,
           temperature: 0.3,
-          // top_p: 1,
           frequency_penalty: 0.5,
           presence_penalty: 0.0,
         }),
@@ -46,7 +48,6 @@ export default function T3TestCreate() {
         const arr = getText
           .map((elem) => elem.trim())
           .filter((elem) => {
-            // return !(elem.search(/\n/) > -1 || elem.search(/\t/) > -1 || elem === "" ||(elem.indexOf("Question") > -1 && elem.length < 11)||(elem.indexOf("Answer") > -1 && elem.length < 10));
             return !(elem.search(/\n/) > -1 || elem.search(/\t/) > -1 || elem === "" );
           });
           console.log(arr)
@@ -105,6 +106,7 @@ export default function T3TestCreate() {
           data:qAndAArry
         }
         setChatGptQAndA(resultObj);
+        loadingContainer.className = "T3-loading-hidden"
         navigate("../T4ConfirmationCreatedTest");
       });
 
@@ -133,6 +135,15 @@ export default function T3TestCreate() {
       </div>
       <button onClick={t4ConfirmationCreatedTestDisplay}>作成</button>
       <button onClick={t1MenuDisplay}>戻る</button>
+      <div className="T3-loading-hidden" id="T3-loading-container">
+      <div id="div-loading">
+            
+            <div id="loading-background"></div>
+            
+            <div id="loading-text">テスト作成中...</div>
+               
+        </div>
+      </div>
     </>
   );
 }
