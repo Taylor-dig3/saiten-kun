@@ -73,7 +73,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login, selectedTestInfo } from "../../shareComponents/atom";
+import { login, studentSelectedTestInfo } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
 import { Buffer } from "buffer";
@@ -94,8 +94,7 @@ import "./S4TestCheck.css";
 
 export default function T6ResultCheck() {
   const loginInfo = useRecoilValue(login);
-  const selectTestInfo = useRecoilValue(selectedTestInfo);
-  const [selectStudent, setSelectStudent] = useState();
+  const selectTestInfo = useRecoilValue(studentSelectedTestInfo);
   const [paper, setPaper] = useState();
   const [tablePaper, setTablePaper] = useState();
   const [score, setScore] = useState();
@@ -105,22 +104,6 @@ export default function T6ResultCheck() {
     navigate("../T5TestList");
   };
 
-  const selectStudentChange = (e) => {
-    const valueArr = e.target.value.split("&%", 2);
-    const studentInfo = { id: Number(valueArr[0]), name: valueArr[1] };
-    setSelectStudent(studentInfo);
-    axios
-      .get("/answer", {
-        params: {
-          user_id: studentInfo.id,
-          test_id: selectTestInfo.test_id,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setPaper(res.data);
-      });
-  };
   useEffect(() => {
     if (paper!==false && paper!==undefined) {
       console.log("object");
@@ -159,6 +142,22 @@ export default function T6ResultCheck() {
       setScore("")
     }
   }, [paper]);
+
+useEffect(()=>{
+  axios
+  .get("/answer", {
+    params: {
+      user_id: loginInfo.userId,
+      test_id: selectTestInfo.test_id,
+    },
+  })
+  .then((res) => {
+    console.log(res.data);
+    setPaper(res.data);
+  });
+},[])
+
+  
 
   return (
     <div>
