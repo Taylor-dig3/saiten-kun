@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Radio, RadioGroup, FormControlLabel } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -21,6 +21,7 @@ export default function L1Login() {
   const navigate = useNavigate();
   const changeValue = () => setStudentFlag((prev) => !prev);
 
+  const isFirstRender = useRef(false)
   const togglePassword = () => {
     setIsRevealPassword((prevState) => !prevState);
   };
@@ -50,8 +51,6 @@ export default function L1Login() {
 
   const formSubmit = (e) => {
     e.preventDefault();
-    //ログイン情報を送信する
-    //バリデーションチェックをする
     setFormErrors(validate(formValues));
     setIsSubmit(true);
   };
@@ -93,16 +92,22 @@ console.log(formValues);
 
 
   useEffect(()=>{
-    if(loginInfo.loginState === "studentLogin"){
-      navigate("S1Menu");
-    }else if(loginInfo.loginState === "teacherLogin"){
-      navigate("T1Menu");
-    }else{
-      setLoginStatus("ログイン失敗")
+   if(isFirstRender.current){
+     if(loginInfo.loginState === "studentLogin"){
+       navigate("S1Menu");
+      }else if(loginInfo.loginState === "teacherLogin"){
+        navigate("T1Menu");
+      }else{
+        setLoginStatus("ログイン失敗")
+      }
     }
 
   },[loginInfo])
-  
+
+
+  useEffect(() => { 
+    isFirstRender.current = true
+  }, [])
   return (
     <>
       <div className="form-container">

@@ -173,7 +173,7 @@ export default function CollapsibleTable() {
       {/* <Button variant="contained" onClick={changeTestStatus} color={testStatus.style}>{testStatus.statusWord}</Button> */}
       <button onClick={t6ResultCheckDisplay}>テスト結果確認</button>
      </div>
-    { studentTestList ?
+    { testList ?
       <TableContainer component={Paper}>
         <RadioGroup row>
           <Table aria-label="collapsible table">
