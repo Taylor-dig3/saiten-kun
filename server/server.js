@@ -37,7 +37,7 @@ const setupServer = () => {
   console.log("first");
 
   const app = express();
-  app.use(express.static(path.join(__dirname, "../build")));
+  // app.use(express.static(path.join(__dirname, "../build")));
   app.use(express.json({ extended: true, limit: "100mb" }));
 
   app.post("/login", async (req, res) => {
@@ -110,14 +110,13 @@ const setupServer = () => {
     }
   });
 
-  app.post("/riontest", async (req, res) => {
+  app.post("/riontest",  (req, res) => {
     const form = new FormData();
 
     const decodedFile = Buffer.from(req.body.data, "base64");
     console.log(decodedFile);
     form.append("imgData", decodedFile, "test.jpg");
-
-    const result = await axios({
+    axios({
       method: "post",
       url: "https://ocr-api.userlocal.jp/recognition/cropped",
       data: form,
@@ -126,15 +125,16 @@ const setupServer = () => {
         "Content-Type": "multipart/form-data",
       },
     })
-      .then((res) => {
-        console.log("res.data", res.data);
-        return res.data;
+      .then((response) => {
+        console.log("response.data", response.data);
+        res.send(response.data).status(200).end();
+        // return res.data;
       })
       .catch((err) => {
         console.log("err", err);
+        res.send(err).status(400).end();
       });
 
-    res.send(result).status(200).end();
   });
 
   app.post("/answer", async (req, res) => {
@@ -407,9 +407,9 @@ const setupServer = () => {
   //   const result = await apiModule.putSelected(req.body);
   //   res.status(200).end();
   // });
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname,'../build/index.html'));
-  });
+  // app.get('*', (req, res) => {
+  //   res.sendFile(path.join(__dirname,'../build/index.html'));
+  // });
   return app;
 };
 

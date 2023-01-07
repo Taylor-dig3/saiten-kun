@@ -8,7 +8,7 @@ import {
 } from "../../shareComponents/atom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import axios from "axios";
-
+import LogoutButton from "../../shareComponents/LogoutButton";
 export default function S1Menu() {
   const loginInfo = useRecoilValue(login);
   const testId = 1;
@@ -47,7 +47,8 @@ export default function S1Menu() {
       <div>
         <button onClick={s2Test}>テスト開始</button>
         <button onClick={s3ResultListDisplay}>過去のテスト一覧</button>
-        <button onClick={l1LoginDisplay}>ログアウト</button>
+        {/* <button onClick={l1LoginDisplay}>ログアウト</button> */}
+        <LogoutButton />
       </div>
     </>
   );
