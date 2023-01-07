@@ -109,7 +109,11 @@ console.log(formValues);
     isFirstRender.current = true
   }, [])
   return (
-    <>
+    <div className="T1-container">
+    <div className="logo-container">
+    <img src="./img/risu.png" className="saitenkun-risu"/>
+    <img src="./img/saitenkunzidake.png" className="saitenkun-logo"/>
+    </div>
       <div className="form-container">
         <form onSubmit={(e) => formSubmit(e)}>
           <h1 className="login-form-name">ログインしてください</h1>
@@ -173,6 +177,6 @@ console.log(formValues);
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
