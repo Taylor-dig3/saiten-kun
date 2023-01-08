@@ -8,7 +8,7 @@ import { login, testQuestion } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import delImg from "./eraser.png";
 import gridImg from "./grid.png";
-
+import CountDownTimer from "./components/CountDownTimer";
 // import { Buffer } from "buffer";
 // const FormData = require("form-data");
 // const form1 = new FormData();
@@ -16,6 +16,7 @@ import gridImg from "./grid.png";
 export default function S2Test() {
   const [currentAnswer, setCurrentAnswer] = useState({});
   const [paper, setPaper] = useState({ data: [0, 1, 2] });
+  const [timeUpFlag, setTimeUpFlag] = useState(false);
   const testQuestionInfo = useRecoilValue(testQuestion);
   const loginInfo = useRecoilValue(login);
   const navigate = useNavigate();
@@ -37,6 +38,12 @@ export default function S2Test() {
   //     setPaper(res);
   //   });
   // }, [currentTestID, setPaper]);
+  useEffect(()=>{
+    if(timeUpFlag){
+      
+    }
+  },[timeUpFlag])
+
 
   //S1のテスト開始ボタンでtestQuestionInfoが変わった時にtestQuestionを持ってくる
   useEffect(() => {
@@ -317,6 +324,7 @@ export default function S2Test() {
           <button className="back-button" onClick={s1MenuDisplay}>
             戻る
           </button>
+          <CountDownTimer timeLimit={10}  setTimeUpFlag={setTimeUpFlag}/>
           <input
             type="button"
             value="提 出"
