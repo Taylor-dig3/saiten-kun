@@ -151,10 +151,10 @@ module.exports = {
       });
   },
 
-  putTestStart(teacher_id, test_id) {
+  putTestStart(teacher_id, test_id,time_limit) {
     return knex("selected")
       .where({ teacher_id: teacher_id })
-      .update({ test_id: test_id })
+      .update({ test_id: test_id ,time_limit:time_limit})
       .then((res) => {
         return knex("selected")
           .where({

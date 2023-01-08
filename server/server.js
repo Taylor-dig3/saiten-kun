@@ -240,7 +240,7 @@ const setupServer = () => {
   app.put("/teacher/testStart", async (req, res) => {
     let result;
     try {
-      result = await putTestStart(req.body.teacher_id, req.body.test_id);
+      result = await putTestStart(req.body.teacher_id, req.body.test_id,req.body.time_limit);
       console.log(result)
       res.json(result).status(200).end();
     } catch (err) {
@@ -408,7 +408,7 @@ const setupServer = () => {
   //   res.status(200).end();
   // });
   // app.get('*', (req, res) => {
-  //   res.sendFile(path.join(__dirname,'../build/index.html'));
+  //   res.sendFile(path.join(__dirname,'/index.html'));
   // });
   return app;
 };

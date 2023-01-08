@@ -7,6 +7,7 @@ module.exports = {
       .select({
         teacher_id: "selected.teacher_id",
         test_id: "selected.test_id",
+        time_limit: "selected.time_limit",
       })
       .where({
         "students.id": user_id,
@@ -31,6 +32,7 @@ module.exports = {
             console.log(testres);
             let result = {
               test_id: testres[0].test_id,
+              time_limit: res.time_limit,
               question_title: testres[0].question_title,
               data: [],
             };

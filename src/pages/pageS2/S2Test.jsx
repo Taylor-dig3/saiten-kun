@@ -38,13 +38,9 @@ export default function S2Test() {
   //     setPaper(res);
   //   });
   // }, [currentTestID, setPaper]);
-  useEffect(()=>{
-    if(timeUpFlag){
-      
-    }
-  },[timeUpFlag])
-
-
+  
+  
+  
   //S1のテスト開始ボタンでtestQuestionInfoが変わった時にtestQuestionを持ってくる
   useEffect(() => {
     console.log(testQuestionInfo);
@@ -53,7 +49,6 @@ export default function S2Test() {
   }, [testQuestionInfo]);
 
   useEffect(() => {
-    console.log("paperやで");
     console.log(paper.data.length);
     console.log(paper.data);
     for (let i = 0; i < paper.data.length; i++) {
@@ -278,7 +273,6 @@ export default function S2Test() {
     }
   }
 
-  console.log("object");
   let questions = [];
   questions = paper.data.map((elem, index) => (
     <tr key={index}>
@@ -324,7 +318,7 @@ export default function S2Test() {
           <button className="back-button" onClick={s1MenuDisplay}>
             戻る
           </button>
-          <CountDownTimer timeLimit={10}  setTimeUpFlag={setTimeUpFlag}/>
+          <CountDownTimer timeLimit={testQuestionInfo.time_limit}  setTimeUpFlag={setTimeUpFlag}/>
           <input
             type="button"
             value="提 出"
