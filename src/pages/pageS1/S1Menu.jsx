@@ -14,7 +14,7 @@ export default function S1Menu() {
   const loginInfo = useRecoilValue(login);
   const [testQuestionInfo, setTestQuestionInfo] = useRecoilState(testQuestion);
   const [tesList, setTestList] = useRecoilState(studentTestList);
-console.log(testQuestionInfo)
+  console.log(testQuestionInfo)
   const navigate = useNavigate();
   const s2Test = () => {
     axios
@@ -22,24 +22,26 @@ console.log(testQuestionInfo)
         params: { user_id: loginInfo.userId },
       })
       .then((res) => {
-        if(res.data.length){
-          const filterTest = res.data.filter((elem)=>{
-           return elem.run_date
+        if (res.data.length) {
+          const filterTest = res.data.filter((elem) => {
+            return elem.run_date
           })
           setTestList(filterTest);
-        }else{
+        } else {
           setTestList(false)
         }
         axios
-        .get("/questions", {
-          params: { user_id: loginInfo.userId },
-        })
-        .then((res) => {
-          console.log("S1pe-zi");
-          console.log(res.data);
-          setTestQuestionInfo(res.data);
-          navigate("../S2Test");
-        });
+          .get("/questions", {
+            params: { user_id: loginInfo.userId },
+          })
+          .then((res) => {
+            console.log("S1pe-zi");
+            console.log(res.data);
+            setTestQuestionInfo(res.data);
+            if (res.data.test_id) {
+              navigate("../S2Test");
+            }
+          });
       });
     // axios
     //   .get("/questions", {
@@ -61,12 +63,12 @@ console.log(testQuestionInfo)
       .then((res) => {
         console.log("S3pe-zi");
         console.log(res.data);
-        if(res.data.length){
-          const filterTest = res.data.filter((elem)=>{
-           return elem.run_date
+        if (res.data.length) {
+          const filterTest = res.data.filter((elem) => {
+            return elem.run_date
           })
           setTestList(filterTest);
-        }else{
+        } else {
           setTestList(false)
         }
         navigate("../S3ResultList");
@@ -77,7 +79,7 @@ console.log(testQuestionInfo)
   return (
     <>
       <div className="S1-container">
-      <div className="S1-title">生徒メニュー画面</div>
+        <div className="S1-title">生徒メニュー画面</div>
         <button onClick={s2Test} className={"S1-button"}>テスト開始</button>
         <button onClick={s3ResultListDisplay} className={"S1-button"}>過去のテスト一覧</button>
         <LogoutButton />

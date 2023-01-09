@@ -18,7 +18,6 @@ export default function S2Test() {
   const [paper, setPaper] = useState({ data: [] });
   const [timeUpFlag, setTimeUpFlag] = useState(false);
   const testList = useRecoilValue(studentTestList);
-  console.log(testList);
   const testQuestionInfo = useRecoilValue(testQuestion);
   const loginInfo = useRecoilValue(login);
   const navigate = useNavigate();
