@@ -143,18 +143,18 @@ export default function L1Login() {
   };
 
   return (
-    <div className="T1-container">
+    <div className="L1-container">
     <div className="logo-container">
         <img src="./img/risu.png" className="saitenkun-risu" />
         <img src="./img/saitenkunzidake.png" className="saitenkun-logo" />
         <img src="./img/risu2.png" className="saitenkun-risu" />
 
       </div>
-      <div className="T1-login-button-container">
+      <div className="L1-login-button-container">
 
     <MotionConfig transition={transition}>
       <motion.button
-      className="T1-login-button"
+      className="L1-login-button"
       ref={ref}
       initial={false}
       animate={isHover ? "hover" : "rest"}

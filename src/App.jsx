@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate,useLocation} from "react-router-dom";
 import "./App.css";
 // import TestLists from "./TestLists";
 import { useState } from "react";
@@ -19,18 +19,13 @@ import T6ResultCheck from "./pages/pageT6/T6ResultCheck";
 // import { RouteAuthGuard } from "./RouteAuthGuard";
 import { RecoilRoot, useRecoilValue, useRecoilState } from "recoil";
 import { login } from "./shareComponents/atom";
-
 export default function App() {
-  const [dispNo, setDispNo] = useState(0);
-  const [currentAnswer, setCurrentAnswer] = useState({});
-  const [currentTestID, setCurrentTestID] = useState("0");
-  const [paper, setPaper] = useState([{}]);
-  const [student_ID, setStudent_ID] = useState(-1);
   const loginInfo = useRecoilValue(login);
   console.log(loginInfo);
   const checkLoginState = (checkState) => {
     return loginInfo.loginState === checkState;
   };
+
 
   return (
     // <RecoilRoot>
@@ -42,11 +37,11 @@ export default function App() {
           element={
             checkLoginState("studentLogin") ? (
               <S1Menu />
-            ) : (
-              <Navigate replace to="/" />
-            )
-          }
-        />
+              ) : (
+                <Navigate replace to="/" />
+                )
+              }
+              />
         {/* <Route path="/S2Test" element={checkLoginState("studentLogin")?<S2Test />:<Navigate replace to="/" />} /> */}
         <Route path="/S2Test" element={<S2Test />} />
         <Route path="/S3ResultList" element={<S3ResultList />} />
@@ -56,42 +51,42 @@ export default function App() {
           element={
             checkLoginState("teacherLogin") ? (
               <T1Menu />
-            ) : (
-              <Navigate replace to="/" />
-            )
-          }
-        />
+              ) : (
+                <Navigate replace to="/" />
+                )
+              }
+              />
         <Route
           path="/T2StudentRegistration"
           element={
             checkLoginState("teacherLogin") ? (
               <T2StudentRegistration />
-            ) : (
-              <Navigate replace to="/" />
-            )
-          }
-        />
+              ) : (
+                <Navigate replace to="/" />
+                )
+              }
+              />
         <Route path="/T3TestCreate" element={<T3TestCreate />} />
         <Route
           path="/T4ConfirmationCreatedTest"
           element={
             checkLoginState("teacherLogin") ? (
               <T4ConfirmationCreatedTest />
-            ) : (
-              <Navigate replace to="/" />
-            )
-          }
-        />
+              ) : (
+                <Navigate replace to="/" />
+                )
+              }
+              />
         <Route
           path="/T5TestList"
           element={
             checkLoginState("teacherLogin") ? (
               <T5TestList />
-            ) : (
-              <Navigate replace to="/" />
-            )
+              ) : (
+                <Navigate replace to="/" />
+                )
           }
-        />
+          />
         <Route path="/T6ResultCheck" element={<T6ResultCheck />} />
       </Routes>
     </BrowserRouter>
