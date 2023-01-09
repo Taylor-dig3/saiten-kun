@@ -128,3 +128,7 @@
       margin-top: 15px;
   
   }
+
+  .student-list-container{
+    width: 100% !important;
+  }

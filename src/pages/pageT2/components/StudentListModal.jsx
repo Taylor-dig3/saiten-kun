@@ -145,15 +145,16 @@ export default function StudentListModal({
 
   return (
     <>
-      <Container maxWidth="lg">
+      <Container maxWidth="x-lg">
+      {/* <Container className="student-list-container"> */}
         <TableContainer component={Paper} sx={{ maxHeight: "90%" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
                 <TableCell style={{ width: "25%" }}>ユーザーID</TableCell>
-                <TableCell style={{ width: "25%" }}>名前</TableCell>
+                <TableCell style={{ width: "35%" }}>名前</TableCell>
                 <TableCell style={{ width: "25%" }}>学年</TableCell>
-                <TableCell style={{ width: "25%" }}>
+                <TableCell style={{ width: "15%" }}>
                   パスワードリセット
                 </TableCell>
               </TableRow>
