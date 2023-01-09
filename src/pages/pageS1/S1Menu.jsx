@@ -14,7 +14,6 @@ export default function S1Menu() {
   const loginInfo = useRecoilValue(login);
   const [testQuestionInfo, setTestQuestionInfo] = useRecoilState(testQuestion);
   const [tesList, setTestList] = useRecoilState(studentTestList);
-  console.log(testQuestionInfo)
   const navigate = useNavigate();
   const s2Test = () => {
     axios
@@ -43,16 +42,6 @@ export default function S1Menu() {
             }
           });
       });
-    // axios
-    //   .get("/questions", {
-    //     params: { user_id: loginInfo.userId },
-    //   })
-    //   .then((res) => {
-    //     console.log("S1pe-zi");
-    //     console.log(res.data);
-    //     setTestQuestionInfo(res.data);
-    //     navigate("../S2Test");
-    //   });
   };
 
   const s3ResultListDisplay = () => {
