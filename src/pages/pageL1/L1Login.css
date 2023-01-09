@@ -1,6 +1,4 @@
-.T1-container{
-  
-}
+@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
 
 .saitenkun-risu{
   width: 10%;
@@ -31,7 +29,7 @@
   justify-content: center;
 }
 
-.T1-login-button-container{
+.L1-login-button-container{
   display: flex;
   justify-content: center;
   /* text-align: center; */
@@ -75,7 +73,7 @@
 }
 
 
-.T1-form-close-button{
+.L1-form-close-button{
 position: absolute !important;
 right: 1%;
 top: 1%;
@@ -84,6 +82,7 @@ top: 1%;
 
 .login-form-name {
   text-align: center;
+  font-family: 'Potta One', cursive;
 }
 
 .ui-form {
@@ -143,8 +142,9 @@ margin-bottom: 3px;
     border-radius: 5px;
     padding: 10px 30px;
     color: white;
-    font-size:15px;
+    font-size:20px;
     transition: all 0.4s;
+    font-family: 'Potta One', cursive;
 }
 
 
@@ -162,5 +162,5 @@ margin-bottom: 3px;
 .login-status {
     color: black;
     margin-top: 15px;
-
+    font-family: 'Potta One', cursive;
 }

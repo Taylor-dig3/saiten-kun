@@ -2,7 +2,7 @@ import React from "react";
 import { login } from "./atom";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-
+import "./LogoutButton.css"
 
 export default function LogoutButton() {
   const [loginInfo, setLoginInfo] = useRecoilState(login);

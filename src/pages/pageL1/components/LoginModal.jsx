@@ -109,7 +109,7 @@ export default function LoginModal({setIsLoginModal}) {
   return (
   <div className="form-container">
         <form onSubmit={(e) => formSubmit(e)}>
-          <IconButton className="T1-form-close-button" onClick={()=>setIsLoginModal(false)}>
+          <IconButton className="L1-form-close-button" onClick={()=>setIsLoginModal(false)}>
     <HighlightOffIcon  sx={{ fontSize: 35 }}/>
           </IconButton>
           <h1 className="login-form-name">ログインしてください</h1>
