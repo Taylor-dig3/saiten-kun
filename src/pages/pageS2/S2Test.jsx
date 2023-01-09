@@ -4,7 +4,7 @@ import "./S2Test.css";
 import { useState, useEffect } from "react";
 // import { startTest } from "../../helperFunctions/useFrontFuncs";
 import { useNavigate } from "react-router-dom";
-import { login, testQuestion } from "../../shareComponents/atom";
+import { login, studentTestList, testQuestion } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import delImg from "./eraser.png";
 import gridImg from "./grid.png";
@@ -15,8 +15,10 @@ import CountDownTimer from "./components/CountDownTimer";
 
 export default function S2Test() {
   const [currentAnswer, setCurrentAnswer] = useState({});
-  const [paper, setPaper] = useState({ data: [0, 1, 2] });
+  const [paper, setPaper] = useState({ data: [] });
   const [timeUpFlag, setTimeUpFlag] = useState(false);
+  const testList = useRecoilValue(studentTestList);
+  console.log(testList);
   const testQuestionInfo = useRecoilValue(testQuestion);
   const loginInfo = useRecoilValue(login);
   const navigate = useNavigate();
@@ -38,15 +40,21 @@ export default function S2Test() {
   //     setPaper(res);
   //   });
   // }, [currentTestID, setPaper]);
-  
-  
-  
+
+
+
   //S1のテスト開始ボタンでtestQuestionInfoが変わった時にtestQuestionを持ってくる
   useEffect(() => {
-    console.log(testQuestionInfo);
-    console.log(testQuestionInfo.data);
+    // console.log(testQuestionInfo);
+    // console.log(testQuestionInfo.data);
     setPaper(testQuestionInfo);
   }, [testQuestionInfo]);
+
+  // useEffect(() => {
+  //   if (timeUpFlag) {
+  //     submitTest();
+  //   }
+  // }, [timeUpFlag]);
 
   useEffect(() => {
     console.log(paper.data.length);
@@ -199,10 +207,19 @@ export default function S2Test() {
     }, 0);
   }
 
-  async function submitTest() {
-    if (
-      window.confirm("見直しは終わりましたか？提出しますがよろしいですか？")
-    ) {
+  async function submitTest(isTimeUp) {
+    let flag = false;
+    if (isTimeUp) {
+      window.alert("テストは終わりです。提出します。");
+      flag = true;
+    } else {
+      if (
+        window.confirm("見直しは終わりましたか？提出しますがよろしいですか？")
+      ) {
+        flag = true;
+      }
+    }
+    if (flag) {
       console.log("submit start");
       // answerImg["student_id"] = student_ID;
       // answerImg["student_name"] = chgImg(0);
@@ -236,8 +253,6 @@ export default function S2Test() {
         i++;
       }
       console.log(arr);
-
-      console.log(testQuestionInfo.data[0].answer);
 
       const answerResult = [];
       for (let i = 0; i < testQuestionInfo.data.length; i++) {
@@ -303,7 +318,7 @@ export default function S2Test() {
   let title;
   let question;
   try {
-    title = testQuestionInfo.test_id;
+    title = testList[0].title;
     question = testQuestionInfo.question_title;
   } catch (err) {
     title = "";
@@ -318,14 +333,14 @@ export default function S2Test() {
           <button className="back-button" onClick={s1MenuDisplay}>
             戻る
           </button>
-          <CountDownTimer timeLimit={testQuestionInfo.time_limit}  setTimeUpFlag={setTimeUpFlag}/>
           <input
             type="button"
             value="提 出"
             onClick={() => {
-              submitTest();
+              submitTest(false);
             }}
           />
+          <CountDownTimer timeLimit={testQuestionInfo.time_limit} setTimeUpFlag={setTimeUpFlag} submitTest={submitTest} />
         </span>
         <table className="table1">
           <tbody>

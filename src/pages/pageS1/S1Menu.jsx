@@ -17,15 +17,39 @@ console.log(testQuestionInfo)
   const navigate = useNavigate();
   const s2Test = () => {
     axios
-      .get("/questions", {
+      .get("/tests", {
         params: { user_id: loginInfo.userId },
       })
       .then((res) => {
-        console.log("S1pe-zi");
-        console.log(res.data);
-        setTestQuestionInfo(res.data);
-        navigate("../S2Test");
+        if(res.data.length){
+          const filterTest = res.data.filter((elem)=>{
+           return elem.run_date
+          })
+          setTestList(filterTest);
+        }else{
+          setTestList(false)
+        }
+        axios
+        .get("/questions", {
+          params: { user_id: loginInfo.userId },
+        })
+        .then((res) => {
+          console.log("S1pe-zi");
+          console.log(res.data);
+          setTestQuestionInfo(res.data);
+          navigate("../S2Test");
+        });
       });
+    // axios
+    //   .get("/questions", {
+    //     params: { user_id: loginInfo.userId },
+    //   })
+    //   .then((res) => {
+    //     console.log("S1pe-zi");
+    //     console.log(res.data);
+    //     setTestQuestionInfo(res.data);
+    //     navigate("../S2Test");
+    //   });
   };
   
   const s3ResultListDisplay = () => {
