@@ -18,7 +18,6 @@ export default function S2Test() {
   const [paper, setPaper] = useState({ data: [] });
   const [timeUpFlag, setTimeUpFlag] = useState(false);
   const testList = useRecoilValue(studentTestList);
-  console.log(testList);
   const testQuestionInfo = useRecoilValue(testQuestion);
   const loginInfo = useRecoilValue(login);
   const navigate = useNavigate();
@@ -220,6 +219,7 @@ export default function S2Test() {
       }
     }
     if (flag) {
+      s1MenuDisplay();
       console.log("submit start");
       // answerImg["student_id"] = student_ID;
       // answerImg["student_name"] = chgImg(0);
@@ -330,9 +330,9 @@ export default function S2Test() {
       <div>
         <h2 className="testTitle">{title}</h2>
         <span className="submitTest">
-          <button className="back-button" onClick={s1MenuDisplay}>
+          {/* <button className="back-button" onClick={s1MenuDisplay}>
             戻る
-          </button>
+          </button> */}
           <input
             type="button"
             value="提 出"
