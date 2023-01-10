@@ -1,0 +1,144 @@
+.T4-title {
+  font-family: "Potta One", cursive;
+  font-size: 60px;
+  margin-bottom: 0%;
+}
+
+.T4-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.T4-subtitle {
+  font-family: "Potta One", cursive;
+  font-size: 30px;
+  margin-top: 2%;
+}
+
+.T4-container-qa {
+  text-align: left;
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1%;
+}
+
+.T4-subtitle-qa {
+  width: 100%;
+  font-family: "Potta One", cursive;
+  font-size: 30px;
+  margin-top: 2%;
+  text-align: left;
+}
+
+.T4-subtitle-qa-blank {
+  width: 100%;
+  margin-top: 2%;
+}
+
+.T4-text-container {
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.T4-question-no {
+  font-family: "Potta One", cursive;
+  font-size: 30px;
+  width: 100px;
+}
+
+.T4-text {
+  width: 350px;
+  position: relative;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 0.8em 1em;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+  background-color: rgb(216, 235, 246);
+  border-radius: 10px;
+  color: rgb(17, 16, 16);
+  font-weight: 300;
+  font-size: 30px;
+  /* font-family: inherit; */
+  font-family: "Potta One", cursive;
+  z-index: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.T4-pulldown-select {
+  font-size: 30px !important;
+  font-family: "Potta One", cursive !important;
+  height: 40px;
+}
+
+@keyframes sh0 {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: rotate(7deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(-7deg) translate3d(0, 0, 0);
+  }
+
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+.T4-pulldown:hover span {
+  animation: storm 0.7s ease-in-out both;
+  animation-delay: 0.06s;
+}
+
+.T4-pulldown::before,
+.T4-pulldown::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgb(154, 114, 114);
+  opacity: 0;
+  transition: transform 0.15s cubic-bezier(0.02, 0.01, 0.47, 1),
+    opacity 0.15s cubic-bezier(0.02, 0.01, 0.47, 1);
+  z-index: -1;
+  transform: translate(100%, -25%) translate3d(0, 0, 0);
+}
+
+.T4-pulldown:hover::before,
+.T4-pulldown:hover::after {
+  opacity: 0.15;
+  transition: transform 0.2s cubic-bezier(0.02, 0.01, 0.47, 1),
+    opacity 0.2s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.T4-pulldown:hover::before {
+  transform: translate3d(50%, 0, 0) scale(0.9);
+}
+
+.T4-pulldown:hover::after {
+  transform: translate(50%, 0) scale(1.1);
+}
