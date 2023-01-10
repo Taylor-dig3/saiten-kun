@@ -86,7 +86,7 @@ module.exports = {
       insertObj.push({
         student_id: resultObj.user_id,
         test_id: resultObj.test_id,
-        // result: obj.result,
+        result: null,
         question_id: obj.question_id,
         answer_img: obj.answer_img,
       });

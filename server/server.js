@@ -25,7 +25,9 @@ const {
   checkTestStatus,
   registerQuestion,
   getStudentIdList,
-  getSelectTests
+  getSelectTests,
+  checkResultStatus,
+  automaticGrading
 } = require("./db.controller/teacher.controller");
 const { ResetTvSharp } = require("@mui/icons-material");
 // const PORT = process.env.PORT || 3001;
@@ -310,7 +312,7 @@ const setupServer = () => {
       });
   });
 
-  app.get("/answerMock", (req, res) => {
+  app.get("/answerMock", async(req, res) => {
     console.log("answerMock");
     const resultTable = {
       question_title: "漢字をひらがなに直しなさい",
@@ -335,6 +337,19 @@ const setupServer = () => {
     res.send(resultTable).status(200).end();
   });
 
+  app.get("/teacher/checkResultStatus", async(req, res) => {
+    console.log("checkResultStatus");
+    
+    const result = await checkResultStatus(req.query.test_id)
+    res.send(result).status(200).end();
+  });
+
+  app.get("/teacher/automaticGrading", async(req, res) => {
+    console.log("checkResultStatus");
+    
+    const result = await automaticGrading(req.query.test_id)
+    res.send(result).status(200).end();
+  });
   // app.post("/questions", async (req, res) => {
   //   const testDate = {
   //     question: "testQuestion",

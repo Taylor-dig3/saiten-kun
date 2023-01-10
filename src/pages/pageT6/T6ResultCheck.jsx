@@ -29,7 +29,7 @@ export default function T6ResultCheck() {
   const [paper, setPaper] = useState();
   const [tablePaper, setTablePaper] = useState();
   const [score, setScore] = useState();
-
+  const [resultStatus, setResultStatus] = useState()
   const navigate = useNavigate();
   const t5TestListDisplay = () => {
     navigate("../T5TestList");
@@ -67,7 +67,18 @@ export default function T6ResultCheck() {
         setPaper(res.data);
       });
   };
+
+
   useEffect(() => {
+    axios.get("/teacher/checkResultStatus",{
+      params:{
+        test_id:selectTestInfo.test_id
+      }
+    }).then(res=>{
+      console.log(res.data)
+      setResultStatus(res.data)
+    })
+
     axios
       .get("/teacher/studentIdList", {
         params: {
@@ -145,9 +156,24 @@ export default function T6ResultCheck() {
     }
   }, [paper]);
 
+const automaticGrading = ()=>{
+  //TODO　ローディング開始
+  axios.get("/teacher/automaticGrading",{
+    params:{
+      test_id:selectTestInfo.test_id
+    }
+  }).then(res=>{
+    console.log(res.data)
+    console.log("採点が完了しました。")
+    setResultStatus(true);//TODOこれはDBに保存しておく必要あるかも
+  //TODO　ローディング終了
+
+  })
+}
+
   return (
     <div>
-      <h1 className="T6title">結果確認</h1>
+      <h1 className="T6title">結果確認</h1><span>{resultStatus?"自動採点実施実施済みです":"自動採点未実施です"}</span><button onClick={automaticGrading}>自動採点</button>
       <div className="studentsSelect">
         <Select
           labelId="demo-controlled-open-select-label"
