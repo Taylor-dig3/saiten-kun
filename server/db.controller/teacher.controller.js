@@ -96,23 +96,45 @@ module.exports = {
     const newtest = {
       name: reqTestName,
       question_title: reqQuestionTitle,
-      make_date: new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)),
+      make_date: new Date(
+        Date.now() + (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000
+      ),
       grade_id: reqGradeId,
       teacher_id: reqTeacherId,
       subject_id: reqSubjectId,
     };
     console.log(newtest);
+
     //データの挿入
     await knex("tests").insert(newtest);
-    reqData.map(async (newQuestion) => {
+
+    const insertTestId = await knex("tests")
+      .max("id")
+      .then((res) => {
+        return res[0].max;
+      });
+
+    const newPapers = [];
+
+    for (const newQuestion of reqData) {
       const newQuestions = {
         question: newQuestion.question,
         answer: newQuestion.answer,
         subject_id: reqSubjectId,
       };
-      console.log(newQuestions);
+      // console.log(newQuestions);
       await knex("questions").insert(newQuestions);
-    });
+
+      await knex("questions")
+        .max("id")
+        .then((res) => {
+          console.log(res);
+          newPapers.push({ test_id: insertTestId, question_id: res[0].max });
+        });
+
+      // console.log(newPapers);
+    }
+    await knex("papers").insert(newPapers);
 
     //データが正しく挿入されたかの確認処理
     // const addAccount = await knex("students")
@@ -151,10 +173,10 @@ module.exports = {
       });
   },
 
-  putTestStart(teacher_id, test_id,time_limit) {
+  putTestStart(teacher_id, test_id, time_limit) {
     return knex("selected")
       .where({ teacher_id: teacher_id })
-      .update({ test_id: test_id ,time_limit:time_limit})
+      .update({ test_id: test_id, time_limit: time_limit })
       .then((res) => {
         return knex("selected")
           .where({
@@ -167,17 +189,22 @@ module.exports = {
           .first()
           .then((res) => {
             return knex("tests")
-            .where({id:test_id})
-            .update({run_date:new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000))})
-            .then(response=>{
-              return {
-                status: "ok",
-                data: {
-                  teacher_id: res.teacher_id,
-                  test_id: res.test_id,
-                },
-              };
-            })
+              .where({ id: test_id })
+              .update({
+                run_date: new Date(
+                  Date.now() +
+                    (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000
+                ),
+              })
+              .then((response) => {
+                return {
+                  status: "ok",
+                  data: {
+                    teacher_id: res.teacher_id,
+                    test_id: res.test_id,
+                  },
+                };
+              });
           });
       })
       .catch((err) => {
@@ -244,7 +271,9 @@ module.exports = {
       .where("papers.test_id", test_id);
   },
 
-  getStudentIdList(teacher_id){
-    return knex("students").select("id","name","grade_id").where("teacher_id",teacher_id)
-  }
+  getStudentIdList(teacher_id) {
+    return knex("students")
+      .select("id", "name", "grade_id")
+      .where("teacher_id", teacher_id);
+  },
 };
