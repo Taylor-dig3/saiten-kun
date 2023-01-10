@@ -21,14 +21,14 @@
     overflow: hidden;
   }
 
-.form-container {
+.T2-form-container {
     height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .form-container form {
+  .T2-form-container form {
     background-color: #f8ecec;
     width: 70%;
     max-width: 450px;
@@ -51,7 +51,7 @@
     height: 600px;
   }
   
-  .form-field {
+  .T2-form-field {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -85,14 +85,14 @@
       border-radius: 4px;
       
   }
-  .password-visual {
+  .T2-password-visual {
       left: auto;
       position:absolute;
       bottom: 30%;
       left:90%
     }
   
-  .form-field label {
+  .T2-form-field label {
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 3px;
@@ -127,4 +127,8 @@
       color: black;
       margin-top: 15px;
   
+  }
+
+  .student-list-container{
+    width: 100% !important;
   }

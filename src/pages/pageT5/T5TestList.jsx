@@ -248,37 +248,42 @@ export default function CollapsibleTable() {
 
   return (
     <div className="T5_container">
-      <div className="T5_button_container">
-        <ArrowCircleLeftIcon
-          onClick={t1MenuDisplay}
-          fontSize="large"
-          color="primary"
-        ></ArrowCircleLeftIcon>
-        <TextField
-          label="制限時間(分)"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          InputProps={{
-            inputProps: { 
-                max: 200, min: 0 
-            }
-        }}
-          variant="filled"
-          value={timeLimit}
-          onChange={(e) => setTimeLimit(e.target.value)}
-        />
-        <Button
-          variant="contained"
-          onClick={changeTestStatus}
-          color={testStatus.style}
-        >
-          {testStatus.statusWord}
-        </Button>
+      <h1 className="T5-title">テスト一覧</h1>
         <StatusMessage testStatus={testStatus} />
-        <button onClick={t6ResultCheckDisplay}>生徒テスト結果確認</button>
-      </div>
+          <div className="T5_button_container">
+            <button
+              onClick={t1MenuDisplay}
+              className="T5-button"
+              id="T5-back-button"
+            >
+              戻る
+            </button>
+            <span>
+            <TextField
+              label="制限時間(分)"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              InputProps={{
+                inputProps: { 
+                  max: 200, min: 0 
+                }
+              }}
+              variant="filled"
+              value={timeLimit}
+              onChange={(e) => setTimeLimit(e.target.value)}
+              />
+            <Button
+              variant="contained"
+              onClick={changeTestStatus}
+              color={testStatus.style}
+              >
+              {testStatus.statusWord}
+            </Button>
+              </span>
+            <button onClick={t6ResultCheckDisplay} className="T5-button" id="T5-result-check-button" >生徒テスト結果確認</button>
+          </div>
       <TableContainer component={Paper}>
         <RadioGroup row>
           <Table aria-label="collapsible table">
