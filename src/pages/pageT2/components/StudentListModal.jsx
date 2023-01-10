@@ -66,7 +66,7 @@ export default function StudentListModal({
             return (
               <TableRow
                 key={elem.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="elem">
                   {elem.id}
@@ -147,10 +147,10 @@ export default function StudentListModal({
     <>
       <Container maxWidth="x-lg">
       {/* <Container className="student-list-container"> */}
-        <TableContainer component={Paper} sx={{ maxHeight: "90%" }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
+        <TableContainer component={Paper} sx={{ maxHeight: "90%" , border: 1}}>
+          <Table stickyHeader aria-label="sticky table" sx={{ border: 1}}>
+            <TableHead sx={{ border: 1}}>
+              <TableRow >
                 <TableCell style={{ width: "25%" }}>ユーザーID</TableCell>
                 <TableCell style={{ width: "35%" }}>名前</TableCell>
                 <TableCell style={{ width: "25%" }}>学年</TableCell>

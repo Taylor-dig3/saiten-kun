@@ -107,12 +107,12 @@ export default function T2StudentRegistration() {
   };
   return (
     <>
-      <div className="form-container">
+      <div className="T2-form-container">
         <form id="register-form" onSubmit={(e) => formSubmit(e)}>
           <h1 className="register-form-name">生徒新規登録</h1>
           <hr />
           <div className="student-register-ui-form">
-            <div className="form-field">
+            <div className="T2-form-field">
               <label> 名前</label>
               <input
                 type="text"
@@ -124,7 +124,7 @@ export default function T2StudentRegistration() {
               />
             </div>
             <p className="register-error-msg">{formErrors.userName}</p>
-            <div className="form-field">
+            <div className="T2-form-field">
               <label> 学年</label>
               <input
                 type="number"
@@ -138,7 +138,7 @@ export default function T2StudentRegistration() {
               />
             </div>
             <p className="register-error-msg">{formErrors.grade}</p>
-            <div className="form-field">
+            <div className="T2-form-field">
               <label> パスワード</label>
               <div className="register-form-input-password-container">
                 <input
@@ -152,12 +152,12 @@ export default function T2StudentRegistration() {
                 {isRevealPassword ? (
                   <VisibilityOffIcon
                     onClick={() => setIsRevealPassword(false)}
-                    className="password-visual"
+                    className="T2-password-visual"
                   />
                 ) : (
                   <VisibilityIcon
                     onClick={() => setIsRevealPassword(true)}
-                    className="password-visual"
+                    className="T2-password-visual"
                   />
                 )}
               </div>

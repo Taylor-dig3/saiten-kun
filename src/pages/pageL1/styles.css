@@ -13,7 +13,7 @@ html {
   --blue: #61dafb;
 
   appearance: none;
-  border: none;
+  border: solid 2px;
   cursor: pointer;
   background-color: #acc7ed;
   color: #fff;
