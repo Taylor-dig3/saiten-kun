@@ -15,7 +15,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Container } from "@mui/material";
-import {createDate} from "../../helperFunctions/createDate"
+import { createDate } from "../../helperFunctions/createDate";
 
 import "./T6ResultCheck.css";
 
@@ -29,7 +29,7 @@ export default function T6ResultCheck() {
   const [paper, setPaper] = useState();
   const [tablePaper, setTablePaper] = useState();
   const [score, setScore] = useState();
-  const [resultStatus, setResultStatus] = useState()
+  const [resultStatus, setResultStatus] = useState();
   const navigate = useNavigate();
   const t5TestListDisplay = () => {
     navigate("../T5TestList");
@@ -68,16 +68,17 @@ export default function T6ResultCheck() {
       });
   };
 
-
   useEffect(() => {
-    axios.get("/teacher/checkResultStatus",{
-      params:{
-        test_id:selectTestInfo.test_id
-      }
-    }).then(res=>{
-      console.log(res.data)
-      setResultStatus(res.data)
-    })
+    axios
+      .get("/teacher/checkResultStatus", {
+        params: {
+          test_id: selectTestInfo.test_id,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setResultStatus(res.data);
+      });
 
     axios
       .get("/teacher/studentIdList", {
@@ -93,7 +94,7 @@ export default function T6ResultCheck() {
   }, []);
 
   useEffect(() => {
-    if (paper!==false && paper!==undefined) {
+    if (paper !== false && paper !== undefined) {
       console.log("object");
       console.log(paper);
 
@@ -116,11 +117,11 @@ export default function T6ResultCheck() {
                 <img className="answer" src={decodedFile} alt="answer" />
               </TableCell>
               <TableCell>
-                {elem["result"] ? (
+                {elem["result"] === true ? (
                   <img className="T6marubatsu" src="./img/maru.png" alt="" />
-                ) : (
+                ) : elem["result"] === false ? (
                   <img className="T6marubatsu" src="./img/batsu.png" alt="" />
-                )}
+                ):""}
               </TableCell>
               <TableCell>
                 <button
@@ -151,29 +152,36 @@ export default function T6ResultCheck() {
           );
         })
       );
-    }else if(paper===false){
-      setScore("")
+    } else if (paper === false) {
+      setScore("");
     }
   }, [paper]);
 
-const automaticGrading = ()=>{
-  //TODO　ローディング開始
-  axios.get("/teacher/automaticGrading",{
-    params:{
-      test_id:selectTestInfo.test_id
-    }
-  }).then(res=>{
-    console.log(res.data)
-    console.log("採点が完了しました。")
-    setResultStatus(true);//TODOこれはDBに保存しておく必要あるかも
-  //TODO　ローディング終了
+  const  automaticGrading = async () => {
+    const loadingContainer = document.querySelector("#T6-loading-container");
+    loadingContainer.className = "T6-loading-visible";
 
-  })
-}
+    await axios
+      .get("/teacher/automaticGrading", {
+        params: {
+          test_id: selectTestInfo.test_id,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        console.log("採点が完了しました。");
+        setResultStatus(true); 
+      });
+        loadingContainer.className = "T6-loading-hidden";
+  };
 
   return (
     <div>
-      <h1 className="T6title">結果確認</h1><span>{resultStatus?"自動採点実施実施済みです":"自動採点未実施です"}</span><button onClick={automaticGrading}>自動採点</button>
+      <h1 className="T6title">結果確認</h1>
+      <span>
+        {resultStatus ? "自動採点実施実施済みです" : "自動採点未実施です"}
+      </span>
+      <button onClick={automaticGrading}>自動採点</button>
       <div className="studentsSelect">
         <Select
           labelId="demo-controlled-open-select-label"
@@ -248,14 +256,22 @@ const automaticGrading = ()=>{
                 </Table>
               </TableContainer>
             </Container>
-          // </>
           ) : (
+            // </>
             "未実施"
           )}
         </>
       ) : (
         <h1>生徒が選択されていません</h1>
       )}
+
+      <div className="T6-loading-hidden" id="T6-loading-container">
+        <div id="T6-div-loading">
+          <div id="T6-loading-background"></div>
+
+          <div id="T6-loading-text">テスト採点中...</div>
+        </div>
+      </div>
     </div>
   );
 }

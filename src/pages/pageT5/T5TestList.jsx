@@ -137,18 +137,11 @@ import axios from "axios";
 import { Radio, RadioGroup, FormControlLabel } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import StatusMessage from "./components/StatusMessage";
 import T5Snackbar from "./components/T5Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import CreateTableRow from "./components/CreateTableRow";
 
 import "./T5TestList.css";
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export default function CollapsibleTable() {
   const loginInfo = useRecoilValue(login);
@@ -179,7 +172,7 @@ export default function CollapsibleTable() {
   };
 
   const changeTestStatus = () => {
-    if (selectTestInfo.test_id !== "") {
+    if (selectTestInfo.test_id !== "" || testStatus.statusWord === "テスト開始中" ) {
       if (testStatus.statusWord === "テスト開始") {
         if(timeLimit > 0){
 
@@ -215,7 +208,7 @@ export default function CollapsibleTable() {
             });
           });
       }
-    } else {
+    } else  {
       setErrorWord("テストを選択してください！");
       setIsSnackbar(true);
     }
@@ -258,7 +251,7 @@ export default function CollapsibleTable() {
             >
               戻る
             </button>
-            <span>
+            <span className="T5-action-button-container">
             <TextField
               label="制限時間(分)"
               type="number"
@@ -272,17 +265,18 @@ export default function CollapsibleTable() {
               }}
               variant="filled"
               value={timeLimit}
+              className="T5-time-limit"
               onChange={(e) => setTimeLimit(e.target.value)}
               />
-            <Button
-              variant="contained"
+            <button
+              className="T5-button"
+              id={testStatus.statusWord==="テスト開始中" ? "T5-status-button":""}
               onClick={changeTestStatus}
-              color={testStatus.style}
               >
               {testStatus.statusWord}
-            </Button>
-              </span>
+            </button>
             <button onClick={t6ResultCheckDisplay} className="T5-button" id="T5-result-check-button" >生徒テスト結果確認</button>
+              </span>
           </div>
       <TableContainer component={Paper}>
         <RadioGroup row>
