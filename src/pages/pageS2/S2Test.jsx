@@ -209,11 +209,11 @@ export default function S2Test() {
   async function submitTest(isTimeUp) {
     let flag = false;
     if (isTimeUp) {
-      window.alert("テストは終わりです。提出します。");
+      window.alert("テストはおわりです。提出します。");
       flag = true;
     } else {
       if (
-        window.confirm("見直しは終わりましたか？提出しますがよろしいですか？")
+        window.confirm("見なおしをしましたか？　提出しますがよいですか？")
       ) {
         flag = true;
       }
@@ -327,7 +327,10 @@ export default function S2Test() {
 
   return (
     <>
-      <div>
+      <div className="S2-div">
+        <div className="user-info">
+          {loginInfo.name}
+        </div>
         <h2 className="testTitle">{title}</h2>
         <span className="submitTest">
           {/* <button className="back-button" onClick={s1MenuDisplay}>
@@ -340,17 +343,17 @@ export default function S2Test() {
               submitTest(false);
             }}
           />
-          <CountDownTimer timeLimit={testQuestionInfo.time_limit} setTimeUpFlag={setTimeUpFlag} submitTest={submitTest} />
         </span>
+        <CountDownTimer timeLimit={testQuestionInfo.time_limit} setTimeUpFlag={setTimeUpFlag} submitTest={submitTest} />
         <table className="table1">
           <tbody>
             <tr>
-              <td className="studentsID" value="ID">
+              {/* <td className="studentsID" value="ID">
                 ユーザーID：{loginInfo.userId}
               </td>
               <td className="studentsID" value="ID">
                 名前：{loginInfo.name}
-              </td>
+              </td> */}
               {/* <canvas id="canvasName" width="460" height="160"></canvas> */}
               {/* <td className="canvasButtonDel0">
                 <button
@@ -364,7 +367,7 @@ export default function S2Test() {
               </td> */}
             </tr>
             <tr>
-              <td className="questionTitle" colSpan="2">
+              <td className="questionTitle">
                 {question}
               </td>
             </tr>
