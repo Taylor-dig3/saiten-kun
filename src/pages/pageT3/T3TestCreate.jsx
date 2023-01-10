@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { questionAndAnswer } from '../../shareComponents/atom';
+import { questionAndAnswer } from "../../shareComponents/atom";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 
@@ -15,13 +15,13 @@ export default function T3TestCreate() {
   const [selectGrade, setSelectGrade] = useState(1);
   const [selectSubject, setSelectSubject] = useState("算数");
   const [selectQuestionAmount, setSelectQuestionAmount] = useState(10);
-  const [chatGptQAndA,setChatGptQAndA] = useRecoilState(questionAndAnswer);
+  const [chatGptQAndA, setChatGptQAndA] = useRecoilState(questionAndAnswer);
 
   const navigate = useNavigate();
   const t4ConfirmationCreatedTestDisplay = () => {
-    const loadingContainer = document.querySelector("#T3-loading-container")
-    loadingContainer.className = "T3-loading-visible"
-    console.log(loadingContainer)
+    const loadingContainer = document.querySelector("#T3-loading-container");
+    loadingContainer.className = "T3-loading-visible";
+    console.log(loadingContainer);
     const API_KEY = process.env.REACT_APP_API_KEY;
     axios
       .post(
@@ -44,13 +44,17 @@ export default function T3TestCreate() {
       .then((res) => {
         let getText = res.data.choices[0].text;
         getText = getText.split(/(\n|\s{3,}|\t)/);
-        console.log(getText)
+        console.log(getText);
         const arr = getText
           .map((elem) => elem.trim())
           .filter((elem) => {
-            return !(elem.search(/\n/) > -1 || elem.search(/\t/) > -1 || elem === "" );
+            return !(
+              elem.search(/\n/) > -1 ||
+              elem.search(/\t/) > -1 ||
+              elem === ""
+            );
           });
-          console.log(arr)
+        console.log(arr);
         const questionArr = arr
           .filter((elem, index) => {
             return index % 2 === 0;
@@ -63,11 +67,11 @@ export default function T3TestCreate() {
             const spaceIndex = elem.indexOf(" ");
             if (colonIndex > -1) {
               newWord = newWord.slice(colonIndex + 1);
-            }else if(colonZenkakuIndex > -1){
+            } else if (colonZenkakuIndex > -1) {
               newWord = newWord.slice(colonZenkakuIndex + 1);
-            }else if(commaIndex > -1){
+            } else if (commaIndex > -1) {
               newWord = newWord.slice(commaIndex + 1);
-            }else if(spaceIndex > -1){
+            } else if (spaceIndex > -1) {
               newWord = newWord.slice(spaceIndex + 1);
             }
             return newWord.trim();
@@ -85,11 +89,11 @@ export default function T3TestCreate() {
             const spaceIndex = elem.indexOf(" ");
             if (colonIndex > -1) {
               newWord = newWord.slice(colonIndex + 1);
-            }else if(colonZenkakuIndex > -1){
+            } else if (colonZenkakuIndex > -1) {
               newWord = newWord.slice(colonZenkakuIndex + 1);
-            }else if(commaIndex > -1){
+            } else if (commaIndex > -1) {
               newWord = newWord.slice(commaIndex + 1);
-            }else if(spaceIndex > -1){
+            } else if (spaceIndex > -1) {
               newWord = newWord.slice(spaceIndex + 1);
             }
             return newWord.trim();
@@ -101,15 +105,14 @@ export default function T3TestCreate() {
           qAndAArry.push(obj);
         }
         const resultObj = {
-          grade:selectGrade,
-          subject:selectSubject,
-          data:qAndAArry
-        }
+          grade: selectGrade,
+          subject: selectSubject,
+          data: qAndAArry,
+        };
         setChatGptQAndA(resultObj);
-        loadingContainer.className = "T3-loading-hidden"
+        loadingContainer.className = "T3-loading-hidden";
         navigate("../T4ConfirmationCreatedTest");
       });
-
   };
 
   const t1MenuDisplay = () => {
@@ -117,33 +120,45 @@ export default function T3TestCreate() {
   };
 
   return (
-    <>
-      <div>先生テスト作成画面</div>
-      <div className="creation-conditions-container">
-        <GradeSelection
-          selectGrade={selectGrade}
-          setSelectGrade={setSelectGrade}
-        />
-        <SubjectSelection
-          selectSubject={selectSubject}
-          setSelectSubject={setSelectSubject}
-        />
-        <QuestionAmountSelection
-          selectQuestionAmount={selectQuestionAmount}
-          setSelectQuestionAmount={setSelectQuestionAmount}
-        />
-      </div>
-      <button onClick={t4ConfirmationCreatedTestDisplay}>作成</button>
-      <button onClick={t1MenuDisplay}>戻る</button>
+    <div className="T1-container">
+      <div className="T3-title">テスト作成</div>
+      <div className="T3-subtitle">学年</div>
+      <GradeSelection
+        // className={"T1-button"}
+        selectGrade={selectGrade}
+        setSelectGrade={setSelectGrade}
+      />
+      <div className="T3-subtitle">教科</div>
+      <SubjectSelection
+        // className={"T1-button"}
+        selectSubject={selectSubject}
+        setSelectSubject={setSelectSubject}
+      />
+      <div className="T3-subtitle">問題数</div>
+      <QuestionAmountSelection
+        // className={"T1-button"}
+        selectQuestionAmount={selectQuestionAmount}
+        setSelectQuestionAmount={setSelectQuestionAmount}
+      />
+      <br></br>
+      <br></br>
+      <br></br>
+      <button
+        className={"T1-button"}
+        onClick={t4ConfirmationCreatedTestDisplay}
+      >
+        作成
+      </button>
+      <button className={"T1-button"} onClick={t1MenuDisplay}>
+        戻る
+      </button>
       <div className="T3-loading-hidden" id="T3-loading-container">
-      <div id="div-loading">
-            
-            <div id="loading-background"></div>
-            
-            <div id="loading-text">テスト作成中...</div>
-               
+        <div id="div-loading">
+          <div id="loading-background"></div>
+
+          <div id="loading-text">テスト作成中...</div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

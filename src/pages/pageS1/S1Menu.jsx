@@ -64,9 +64,12 @@ export default function S1Menu() {
       });
   };
 
-
+  console.log(loginInfo);
   return (
     <>
+      <div className="user-info">
+        {loginInfo.name}
+      </div>
       <div className="S1-container">
         <div className="S1-title">生徒メニュー画面</div>
         <button onClick={s2Test} className={"S1-button"}>テスト開始</button>

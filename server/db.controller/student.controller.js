@@ -92,8 +92,23 @@ module.exports = {
       });
       console.log(obj.question_id);
     });
-    console.log(insertObj);
-    return knex("results").insert(insertObj);
+    knex("results")
+      .select("*")
+      .where({
+        "student_id" : insertObj[0].student_id,
+        "test_id": insertObj[0].test_id
+      })
+      .first()
+      .then(res => {
+        // console.log("aaaaaaaa",res);
+        if(res){
+          // console.log("error");
+          return "error"
+        } else {
+          // console.log("insert",res);
+          return knex("results").insert(insertObj);
+        }
+      })
   },
 
   getAnswer(user_id, test_id) {

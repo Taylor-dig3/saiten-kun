@@ -209,17 +209,16 @@ export default function S2Test() {
   async function submitTest(isTimeUp) {
     let flag = false;
     if (isTimeUp) {
-      window.alert("テストは終わりです。提出します。");
+      window.alert("テストはおわりです。提出します。");
       flag = true;
     } else {
       if (
-        window.confirm("見直しは終わりましたか？提出しますがよろしいですか？")
+        window.confirm("見なおしをしましたか？　提出しますがよいですか？")
       ) {
         flag = true;
       }
     }
     if (flag) {
-      s1MenuDisplay();
       console.log("submit start");
       // answerImg["student_id"] = student_ID;
       // answerImg["student_name"] = chgImg(0);
@@ -233,46 +232,46 @@ export default function S2Test() {
       console.log(answerImg);
 
       //ユーザーローカルに画像を入力して、文字列の配列を出力する関数
-      // const promises = [];
-      const arr = [];
-      let i = 0;
-      for (const elem of answerImg.answer) {
-        console.log("for" + i);
-        arr[i] = await axios
-          .post("/riontest", {
-            data: elem.replace(/^data:\w+\/\w+;base64,/, ""),
-            headers: {
-              "Access-Control-Allow-Headers": "Content-Type, Authorization",
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((res) => {
-            console.log("then");
-            return res.data.text;
-          });
-        i++;
-      }
-      console.log(arr);
+      // const arr = [];
+      // let i = 0;
+      // for (const elem of answerImg.answer) {
+      //   console.log("for" + i);
+      //   arr[i] = await axios
+      //     .post("/riontest", {
+      //       data: elem.replace(/^data:\w+\/\w+;base64,/, ""),
+      //       headers: {
+      //         "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      //         "Content-Type": "multipart/form-data",
+      //       },
+      //     })
+      //     .then((res) => {
+      //       console.log("then");
+      //       return res.data.text;
+      //     });
+      //   i++;
+      // }
+      // console.log(arr);
 
-      const answerResult = [];
-      for (let i = 0; i < testQuestionInfo.data.length; i++) {
-        if (testQuestionInfo.data[i].answer === arr[i]) {
-          answerResult.push(true);
-        } else {
-          answerResult.push(false);
-        }
-      }
+      // const answerResult = [];
+      // for (let i = 0; i < testQuestionInfo.data.length; i++) {
+      //   if (testQuestionInfo.data[i].answer === arr[i]) {
+      //     answerResult.push(true);
+      //   } else {
+      //     answerResult.push(false);
+      //   }
+      // }
+      // console.log(answerResult);
 
-      console.log(answerResult);
       const dataArray = [];
       for (let i = 0; i < testQuestionInfo.data.length; i++) {
         const dataObj = {
           question_id: testQuestionInfo.data[i].question_id,
           answer_img: answerImg.answer[i],
-          result: answerResult[i],
+          // result: answerResult[i],
         };
         dataArray.push(dataObj);
       }
+      console.log(dataArray);
 
       //アンサーデータをDBに送信
       await axios
@@ -283,6 +282,7 @@ export default function S2Test() {
         })
         .then((res) => {
           console.log("then");
+          s1MenuDisplay();
           return res.data.text;
         });
     }
@@ -291,7 +291,7 @@ export default function S2Test() {
   let questions = [];
   questions = paper.data.map((elem, index) => (
     <tr key={index}>
-      <td>{elem["question_id"]}</td>
+      <td>{index + 1}</td>
       <td>{elem["question"]}</td>
       <td className="canvasTd">
         <canvas
@@ -327,7 +327,10 @@ export default function S2Test() {
 
   return (
     <>
-      <div>
+      <div className="S2-div">
+        <div className="user-info">
+          {loginInfo.name}
+        </div>
         <h2 className="testTitle">{title}</h2>
         <span className="submitTest">
           {/* <button className="back-button" onClick={s1MenuDisplay}>
@@ -340,17 +343,17 @@ export default function S2Test() {
               submitTest(false);
             }}
           />
-          <CountDownTimer timeLimit={testQuestionInfo.time_limit} setTimeUpFlag={setTimeUpFlag} submitTest={submitTest} />
         </span>
+        <CountDownTimer timeLimit={testQuestionInfo.time_limit} setTimeUpFlag={setTimeUpFlag} submitTest={submitTest} />
         <table className="table1">
           <tbody>
             <tr>
-              <td className="studentsID" value="ID">
+              {/* <td className="studentsID" value="ID">
                 ユーザーID：{loginInfo.userId}
               </td>
               <td className="studentsID" value="ID">
                 名前：{loginInfo.name}
-              </td>
+              </td> */}
               {/* <canvas id="canvasName" width="460" height="160"></canvas> */}
               {/* <td className="canvasButtonDel0">
                 <button
@@ -364,7 +367,7 @@ export default function S2Test() {
               </td> */}
             </tr>
             <tr>
-              <td className="questionTitle" colSpan="2">
+              <td className="questionTitle">
                 {question}
               </td>
             </tr>

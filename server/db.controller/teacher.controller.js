@@ -110,17 +110,37 @@ module.exports = {
       subject_id: reqSubjectId,
     };
     console.log(newtest);
+
     //データの挿入
     await knex("tests").insert(newtest);
-    reqData.map(async (newQuestion) => {
+
+    const insertTestId = await knex("tests")
+      .max("id")
+      .then((res) => {
+        return res[0].max;
+      });
+
+    const newPapers = [];
+
+    for (const newQuestion of reqData) {
       const newQuestions = {
         question: newQuestion.question,
         answer: newQuestion.answer,
         subject_id: reqSubjectId,
       };
-      console.log(newQuestions);
+      // console.log(newQuestions);
       await knex("questions").insert(newQuestions);
-    });
+
+      await knex("questions")
+        .max("id")
+        .then((res) => {
+          console.log(res);
+          newPapers.push({ test_id: insertTestId, question_id: res[0].max });
+        });
+
+      // console.log(newPapers);
+    }
+    await knex("papers").insert(newPapers);
 
     //データが正しく挿入されたかの確認処理
     // const addAccount = await knex("students")
