@@ -222,7 +222,8 @@ const setupServer = () => {
 
   app.post("/question", (req, res) => {
     let result = {};
-    console.log(req);
+    console.log("rrrrrrrrrrrrrr")
+    console.log(req.body);
 
     try {
       result = registerQuestion(

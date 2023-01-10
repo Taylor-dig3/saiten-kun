@@ -85,7 +85,8 @@ module.exports = {
       .join("papers", "tests.id", "papers.test_id")
       .groupBy("tests.id", "subjects.id", "papers.test_id")
       .count("papers.question_id", { as: "question_count" })
-      .where("teacher_id", reqTeacher_id);
+      .where("teacher_id", reqTeacher_id)
+      .orderBy("test_id",'desc');
 
     console.log(testList);
     return testList;
