@@ -1,8 +1,14 @@
 const knex = require("../../knex");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const { Sync, NestCamWiredStandTwoTone } = require("@mui/icons-material");
+const {
+  Sync,
+  NestCamWiredStandTwoTone,
+  RingVolumeRounded,
+} = require("@mui/icons-material");
 const { response } = require("express");
+const axios = require("axios");
+const FormData = require("form-data");
 
 module.exports = {
   async registerId(reqName, reqGrade, reqPassword, reqTeacher_id) {
@@ -96,7 +102,9 @@ module.exports = {
     const newtest = {
       name: reqTestName,
       question_title: reqQuestionTitle,
-      make_date: new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000)),
+      make_date: new Date(
+        Date.now() + (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000
+      ),
       grade_id: reqGradeId,
       teacher_id: reqTeacherId,
       subject_id: reqSubjectId,
@@ -151,10 +159,10 @@ module.exports = {
       });
   },
 
-  putTestStart(teacher_id, test_id,time_limit) {
+  putTestStart(teacher_id, test_id, time_limit) {
     return knex("selected")
       .where({ teacher_id: teacher_id })
-      .update({ test_id: test_id ,time_limit:time_limit})
+      .update({ test_id: test_id, time_limit: time_limit })
       .then((res) => {
         return knex("selected")
           .where({
@@ -167,17 +175,22 @@ module.exports = {
           .first()
           .then((res) => {
             return knex("tests")
-            .where({id:test_id})
-            .update({run_date:new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000))})
-            .then(response=>{
-              return {
-                status: "ok",
-                data: {
-                  teacher_id: res.teacher_id,
-                  test_id: res.test_id,
-                },
-              };
-            })
+              .where({ id: test_id })
+              .update({
+                run_date: new Date(
+                  Date.now() +
+                    (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000
+                ),
+              })
+              .then((response) => {
+                return {
+                  status: "ok",
+                  data: {
+                    teacher_id: res.teacher_id,
+                    test_id: res.test_id,
+                  },
+                };
+              });
           });
       })
       .catch((err) => {
@@ -244,7 +257,70 @@ module.exports = {
       .where("papers.test_id", test_id);
   },
 
-  getStudentIdList(teacher_id){
-    return knex("students").select("id","name","grade_id").where("teacher_id",teacher_id)
-  }
+  getStudentIdList(teacher_id) {
+    return knex("students")
+      .select("id", "name", "grade_id")
+      .where("teacher_id", teacher_id);
+  },
+
+  checkResultStatus(test_id) {
+    return knex("results")
+      .select("test_id", "result")
+      .where("test_id", test_id)
+      .first()
+      .then((res) => {
+        console.log(res.result);
+        if (res.result === null) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+  },
+
+  async automaticGrading(test_id) {
+    console.log("riiiion");
+    const resultList = await knex("results")
+      .join("questions", "results.question_id", "questions.id")
+      .select(
+        "results.id",
+        "results.answer_img",
+        "results.result",
+        "questions.answer"
+      )
+      .where("test_id", test_id);
+    const userLocalArr = [];
+console.log(resultList)
+    for (const elem of resultList) {
+      // console.log(Buffer.from( elem.answer_img, 'base64').toString());
+      const replaceImg = Buffer.from( elem.answer_img, 'base64').toString().replace(/^data:\w+\/\w+;base64,/, "");
+      const form = new FormData();
+
+      const decodedFile = Buffer.from(replaceImg, "base64");
+      console.log(decodedFile);
+      form.append("imgData", decodedFile, "test.jpg");
+      await axios({
+        method: "post",
+        url: "https://ocr-api.userlocal.jp/recognition/cropped",
+        data: form,
+        headers: {
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Content-Type": "multipart/form-data",
+        },
+      }).then(res=>{
+        console.log(res.data)
+        userLocalArr.push(res.data.text)
+        const answerResult = res.data.text === elem.answer
+        console.log(elem.result)
+        console.log(answerResult)
+        return knex("results")
+              .where({ id: elem.id })
+              .update({
+                result:answerResult,
+              })
+        
+    })
+    }
+    return true
+  },
 };
