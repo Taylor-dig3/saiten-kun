@@ -291,7 +291,7 @@ export default function S2Test() {
   let questions = [];
   questions = paper.data.map((elem, index) => (
     <tr key={index}>
-      <td>{elem["question_id"]}</td>
+      <td>{index + 1}</td>
       <td>{elem["question"]}</td>
       <td className="canvasTd">
         <canvas
