@@ -86,14 +86,29 @@ module.exports = {
       insertObj.push({
         student_id: resultObj.user_id,
         test_id: resultObj.test_id,
-        result: obj.result,
+        // result: obj.result,
         question_id: obj.question_id,
         answer_img: obj.answer_img,
       });
       console.log(obj.question_id);
     });
-    console.log(insertObj);
-    return knex("results").insert(insertObj);
+    knex("results")
+      .select("*")
+      .where({
+        "student_id" : insertObj[0].student_id,
+        "test_id": insertObj[0].test_id
+      })
+      .first()
+      .then(res => {
+        // console.log("aaaaaaaa",res);
+        if(res){
+          // console.log("error");
+          return "error"
+        } else {
+          // console.log("insert",res);
+          return knex("results").insert(insertObj);
+        }
+      })
   },
 
   getAnswer(user_id, test_id) {

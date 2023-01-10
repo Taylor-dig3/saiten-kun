@@ -1,30 +1,30 @@
-import React from 'react'
-import {FormControl,InputLabel,Select,MenuItem} from "@mui/material"
+import React from "react";
+import { FormControl, InputLabel, NativeSelect, MenuItem } from "@mui/material";
 
+export default function GradeSelection({ selectGrade, setSelectGrade }) {
+  const grade = [1, 2, 3, 4, 5, 6];
+  const handleChange = (e) => {
+    setSelectGrade(e.target.value);
+  };
 
-export default function GradeSelection({selectGrade,setSelectGrade}) {
-
-    const grade = [1,2,3,4,5,6];
-    const handleChange = (e)=>{
-        setSelectGrade(e.target.value)
-    }
-    
   return (
-    <FormControl sx={{ minWidth: "200px"}}>
-    <InputLabel id="grade-selection-label">学年選択</InputLabel>
-    <Select
-      labelId="grade-selection-label"
-      id="grade-selection"
-      value={selectGrade}
-      label="Age"
-      onChange={handleChange}
+    <FormControl className={"T3-pulldown"} sx={{ minWidth: "200px" }}>
+      <NativeSelect
+        className={"T3-pulldown-select"}
+        labelId="grade-selection-label"
+        id="grade-selection"
+        value={selectGrade}
+        label="Age"
+        onChange={handleChange}
       >
-      {grade.map((elem,index)=>{
-        return(
-            <MenuItem  key={index} value={elem}>{elem}</MenuItem>
-        )
-      })}
-    </Select>
-  </FormControl>
-  )
+        {grade.map((elem, index) => {
+          return (
+            <option value={elem} MenuItem key={index}>
+              {elem}
+            </option>
+          );
+        })}
+      </NativeSelect>
+    </FormControl>
+  );
 }
