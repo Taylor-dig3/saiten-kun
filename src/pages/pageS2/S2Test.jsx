@@ -2,16 +2,12 @@ import React from "react";
 import axios from "axios";
 import "./S2Test.css";
 import { useState, useEffect } from "react";
-// import { startTest } from "../../helperFunctions/useFrontFuncs";
 import { useNavigate } from "react-router-dom";
 import { login, studentTestList, testQuestion } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import delImg from "./eraser.png";
 import gridImg from "./grid.png";
 import CountDownTimer from "./components/CountDownTimer";
-// import { Buffer } from "buffer";
-// const FormData = require("form-data");
-// const form1 = new FormData();
 
 export default function S2Test() {
   const [currentAnswer, setCurrentAnswer] = useState({});
@@ -24,36 +20,15 @@ export default function S2Test() {
   const s1MenuDisplay = () => {
     navigate("../S1Menu");
   };
-  // const [student_ID, setStudent_ID] = useState(-1);
   const answerImg = {};
+
   let canvas = [];
   let ctx = [];
-  // let background = new Image();
-  // background.src = gridImg;
-
-  // useEffect(() => {
-  //   startTest(currentTestID).then((res) => {
-  //     console.log(res);
-  //     console.log("startTest実行中");
-
-  //     setPaper(res);
-  //   });
-  // }, [currentTestID, setPaper]);
-
-
 
   //S1のテスト開始ボタンでtestQuestionInfoが変わった時にtestQuestionを持ってくる
   useEffect(() => {
-    // console.log(testQuestionInfo);
-    // console.log(testQuestionInfo.data);
     setPaper(testQuestionInfo);
   }, [testQuestionInfo]);
-
-  // useEffect(() => {
-  //   if (timeUpFlag) {
-  //     submitTest();
-  //   }
-  // }, [timeUpFlag]);
 
   useEffect(() => {
     console.log(paper.data.length);
@@ -64,7 +39,7 @@ export default function S2Test() {
       ctx[i] = canvas[i].getContext("2d");
       ctx[i].fillStyle = "rgba(255,255,255,0.5)";
       ctx[i].fillRect(0, 0, 460, 160);
-      // ctx[i].drawImage(background, 40, 40, 380, 80);
+
       // PC対応
       canvas[i].addEventListener(
         "mousedown",
@@ -167,23 +142,15 @@ export default function S2Test() {
   }
 
   function clearCanvas(n) {
-    // if (confirm('Canvasを初期化しますか？')) {
     initLocalStorage();
     temp[n] = [];
     resetCanvas(n);
-    // }
   }
 
   function resetCanvas(n) {
-    ctx[n].clearRect(
-      0,
-      0,
-      ctx[n].canvas.clientWidth,
-      ctx[n].canvas.clientHeight
-    );
+    ctx[n].clearRect(0, 0, ctx[n].canvas.clientWidth, ctx[n].canvas.clientHeight);
     ctx[n].fillStyle = "rgba(255,255,255,0.65)";
     ctx[n].fillRect(0, 0, 460, 160);
-    // ctx[n].drawImage(background, 40, 40, 380, 80);
   }
 
   function chgImg(n) {
@@ -333,39 +300,16 @@ export default function S2Test() {
         </div>
         <h2 className="testTitle">{title}</h2>
         <span className="submitTest">
-          {/* <button className="back-button" onClick={s1MenuDisplay}>
-            戻る
-          </button> */}
-          <input
-            type="button"
-            value="提 出"
+          <button
+            className="submitButton"
             onClick={() => {
               submitTest(false);
-            }}
-          />
+            }}>提 出
+          </button>
         </span>
         <CountDownTimer timeLimit={testQuestionInfo.time_limit} setTimeUpFlag={setTimeUpFlag} submitTest={submitTest} />
         <table className="table1">
           <tbody>
-            <tr>
-              {/* <td className="studentsID" value="ID">
-                ユーザーID：{loginInfo.userId}
-              </td>
-              <td className="studentsID" value="ID">
-                名前：{loginInfo.name}
-              </td> */}
-              {/* <canvas id="canvasName" width="460" height="160"></canvas> */}
-              {/* <td className="canvasButtonDel0">
-                <button
-                  type="button"
-                  onClick={() => {
-                    clearCanvas(0);
-                  }}
-                >
-                  リセット
-                </button>
-              </td> */}
-            </tr>
             <tr>
               <td className="questionTitle">
                 {question}

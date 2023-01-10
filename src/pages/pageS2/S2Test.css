@@ -17,11 +17,9 @@
   z-index: 12;
   border-bottom: 3px gray solid;
   background: rgb(130, 176, 189);
-  background: linear-gradient(
-    90deg,
-    rgba(130, 176, 189, 1) 13%,
-    rgba(186, 216, 222, 1) 75%
-  );
+  background: linear-gradient(90deg,
+      rgba(130, 176, 189, 1) 13%,
+      rgba(186, 216, 222, 1) 75%);
 }
 
 .table1 {
@@ -96,26 +94,93 @@
 .submitTest {
   position: fixed;
   top: 35px;
-  right: 225px;
+  right: 250px;
   z-index: 12;
+  display: flex;
+  justify-content: space-between;
 }
 
-.submitTest input {
+.submitButton {
+  position: relative;
   font-size: 24pt;
   font-family: 'Potta One', cursive;
-  margin-left: 50px;
-  padding: 5px 30px 5px 30px;
+  padding: 5px 40px 5px 40px;
   background-color: rgb(216, 235, 246);
   color: rgb(17, 16, 16);
   border-radius: 10px;
-  z-index: 12;
+  z-index: 15;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  border: none;
+  text-transform: uppercase;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
 }
 
-.submitTest input:hover {
+.submitButton:hover {
   animation: sh0 0.5s ease-in-out both;
+}
+
+@keyframes sh0 {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: rotate(7deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(-7deg) translate3d(0, 0, 0);
+  }
+
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+.submitButton::before,
+.submitButton::after {
+  content: "";
+  position: absolute;
+  top: -13px;
+  right: 0;
+  bottom: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgb(154, 114, 114);
+  opacity: 0;
+  transition: transform 0.15s cubic-bezier(0.02, 0.01, 0.47, 1),
+    opacity 0.15s cubic-bezier(0.02, 0.01, 0.47, 1);
+  z-index: 14;
+  transform: translate(100%, -25%) translate3d(0, 0, 0);
+}
+
+.submitButton:hover::before,
+.submitButton:hover::after {
+  opacity: 0.15;
+  transition: transform 0.2s cubic-bezier(0.02, 0.01, 0.47, 1),
+    opacity 0.2s cubic-bezier(0.02, 0.01, 0.47, 1);
+  z-index: 15;
+}
+
+.submitButton:hover::before {
+  transform: translate3d(60%, 0, 0) scale(0.9);
+  z-index: 15;
+}
+
+.submitButton:hover::after {
+  transform: translate(60%, 0) scale(1.1);
+  z-index: 15;
 }
 
 .canvasTd {
