@@ -18,24 +18,38 @@
 }
 
 .T4-container-qa {
-  text-align: left;
-  width: 90%;
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 1%;
-}
-
-.T4-subtitle-qa {
+  margin-top: 20px;
   width: 100%;
-  font-family: "Potta One", cursive;
-  font-size: 30px;
-  margin-top: 2%;
-  text-align: left;
+  display: flex;
 }
 
 .T4-subtitle-qa-blank {
-  width: 100%;
-  margin-top: 2%;
+  position: relative;
+  width: 10%;
+  margin-left: 50px;
+  margin-bottom: 20px;
+}
+
+.T4-subtitle-question {
+  width: 80%;
+  font-family: "Potta One", cursive;
+  font-size: 30px;
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 0em 1em;
+  text-align: center;
+}
+
+.T4-subtitle-answer {
+  width: 10%;
+  font-family: "Potta One", cursive;
+  font-size: 30px;
+  margin-left: 10px;
+  margin-right: 50px;
+  margin-bottom: 20px;
+  padding: 0em 1em;
+  text-align: center;
 }
 
 .T4-text-container {
@@ -47,8 +61,11 @@
 
 .T4-question-no {
   /* font-family: "Potta One", cursive; */
+  position: relative;
+  width: 10%;
+  margin-left: 50px;
+  margin-bottom: 20px;
   font-size: 30px;
-  width: 200px;
 }
 
 .T4-text {
@@ -73,6 +90,58 @@
   font-size: 30px;
   /* font-family: inherit; */
   /* font-family: "Potta One", cursive; */
+  z-index: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.T4-text-question {
+  width: 80%;
+  position: relative;
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 0.8em 1em;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+  background-color: rgb(216, 235, 246);
+  border-radius: 10px;
+  color: rgb(17, 16, 16);
+  font-weight: 300;
+  font-size: 30px;
+  font-family: inherit;
+  z-index: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.T4-text-answer {
+  width: 10%;
+  position: relative;
+  margin-left: 10px;
+  margin-right: 50px;
+  margin-bottom: 20px;
+  padding: 0.8em 1em;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+  background-color: rgb(216, 235, 246);
+  border-radius: 10px;
+  color: rgb(17, 16, 16);
+  font-weight: 300;
+  font-size: 30px;
+  font-family: inherit;
   z-index: 0;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
