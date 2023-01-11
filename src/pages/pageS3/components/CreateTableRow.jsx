@@ -10,21 +10,21 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import {studentSelectedTestInfo } from "../../../shareComponents/atom";
-import {createDate} from "../../../helperFunctions/createDate"
+import { studentSelectedTestInfo } from "../../../shareComponents/atom";
+import { createDate } from "../../../helperFunctions/createDate"
 
 import axios from "axios";
-import { Radio} from "@mui/material";
+import { Radio } from "@mui/material";
 
-import {useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 import "../S3ResultList.css";
 
 export default function CreateTableRow({ row }) {
-  const [selectTestInfo,setSelectTestInfo] = useRecoilState(studentSelectedTestInfo);
+  const [selectTestInfo, setSelectTestInfo] = useRecoilState(studentSelectedTestInfo);
   const [open, setOpen] = useState(false);
   const [testDetail, setTestDetails] = useState([{ question: "", answer: "" }]);
-  const radioChange = (id, title, grade, subject,count,makeDate,runDate) => {
+  const radioChange = (id, title, grade, subject, count, makeDate, runDate, score) => {
     console.log(id)
     setSelectTestInfo((prev) => {
       return {
@@ -33,9 +33,10 @@ export default function CreateTableRow({ row }) {
         title: title,
         grade: grade,
         subject: subject,
-        question_count:count,
-        make_date:makeDate,
-        run_date:runDate
+        question_count: count,
+        make_date: makeDate,
+        run_date: runDate,
+        totalScore: score
       };
     });
   };
@@ -61,18 +62,19 @@ export default function CreateTableRow({ row }) {
             value={row.title}
             control={<Radio />}
             onChange={() =>
-              radioChange(row.test_id, row.title, row.grade, row.subject,row.question_number,row.run_date)
+              radioChange(row.test_id, row.title, row.grade, row.subject, row.question_number, row.run_date, row.totalScore)
             }
           />
         </TableCell>
         <TableCell align="center">{row.title}</TableCell>
-        
+
         <TableCell align="center">{row.grade}</TableCell>
         <TableCell align="center">{row.subject}</TableCell>
         <TableCell align="center">{row.question_number}</TableCell>
         <TableCell align="center">{createDate(row.run_date)}</TableCell>
+        <TableCell align="center">{row.totalScore}</TableCell>
       </TableRow>
-      
+
     </React.Fragment>
   );
 }
