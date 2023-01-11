@@ -71,9 +71,9 @@ export default function S1Menu() {
         {loginInfo.name}
       </div>
       <div className="S1-container">
-        <div className="S1-title">生徒メニュー画面</div>
-        <button onClick={s2Test} className={"S1-button"}>テスト開始</button>
-        <button onClick={s3ResultListDisplay} className={"S1-button"}>過去のテスト一覧</button>
+        <div className="S1-title">どれにする？</div>
+        <button onClick={s2Test} className={"S1-button"}>テストをはじめる</button>
+        <button onClick={s3ResultListDisplay} className={"S1-button"}>いままでのテスト</button>
         <LogoutButton />
       </div>
     </>
