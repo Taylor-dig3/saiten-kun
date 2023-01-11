@@ -20,11 +20,11 @@ import { useRecoilState } from "recoil";
 
 import "../S3ResultList.css";
 
-export default function CreateTableRow({ row }) {
+export default function CreateTableRow({ row, score }) {
   const [selectTestInfo, setSelectTestInfo] = useRecoilState(studentSelectedTestInfo);
   const [open, setOpen] = useState(false);
   const [testDetail, setTestDetails] = useState([{ question: "", answer: "" }]);
-  const radioChange = (id, title, grade, subject, count, makeDate, runDate, score) => {
+  const radioChange = (id, title, grade, subject, count, makeDate, runDate) => {
     console.log(id)
     setSelectTestInfo((prev) => {
       return {
@@ -35,8 +35,7 @@ export default function CreateTableRow({ row }) {
         subject: subject,
         question_count: count,
         make_date: makeDate,
-        run_date: runDate,
-        totalScore: score
+        run_date: runDate
       };
     });
   };
@@ -53,7 +52,7 @@ export default function CreateTableRow({ row }) {
         setTestDetails(res.data);
       });
   }, []);
-
+  
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -62,7 +61,7 @@ export default function CreateTableRow({ row }) {
             value={row.title}
             control={<Radio />}
             onChange={() =>
-              radioChange(row.test_id, row.title, row.grade, row.subject, row.question_number, row.run_date, row.totalScore)
+              radioChange(row.test_id, row.title, row.grade, row.subject, row.question_number, row.run_date)
             }
           />
         </TableCell>
@@ -72,7 +71,7 @@ export default function CreateTableRow({ row }) {
         <TableCell align="center">{row.subject}</TableCell>
         <TableCell align="center">{row.question_number}</TableCell>
         <TableCell align="center">{createDate(row.run_date)}</TableCell>
-        <TableCell align="center">{row.totalScore}</TableCell>
+        <TableCell align="center">{score}</TableCell>
       </TableRow>
 
     </React.Fragment>
