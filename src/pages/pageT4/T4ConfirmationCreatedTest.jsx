@@ -69,7 +69,7 @@ export default function T4ConfirmationCreatedTest() {
         subject_id: subjectId(),
       })
       .then((res) => {
-        console.log("then");
+        // console.log("then");
         console.log(res);
         // loadingContainer.className = "T4-registering-hidden";
         navigate("../T1Menu");
