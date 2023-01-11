@@ -112,7 +112,7 @@ export default function LoginModal({setIsLoginModal}) {
           <IconButton className="L1-form-close-button" onClick={()=>setIsLoginModal(false)}>
     <HighlightOffIcon  sx={{ fontSize: 35 }}/>
           </IconButton>
-          <h1 className="login-form-name">ログインしてください</h1>
+          <h1 className="login-form-name">ログインしてね</h1>
           <hr />
           <RadioGroup defaultValue="生徒" row>
             <FormControlLabel

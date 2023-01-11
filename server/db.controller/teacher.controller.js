@@ -80,7 +80,6 @@ module.exports = {
         subject: "subjects.name",
         test_id: "papers.test_id",
       })
-      .from("tests")
       .join("subjects", "tests.subject_id", "subjects.id")
       .join("papers", "tests.id", "papers.test_id")
       .groupBy("tests.id", "subjects.id", "papers.test_id")
