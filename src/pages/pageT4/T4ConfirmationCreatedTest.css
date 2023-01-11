@@ -39,16 +39,16 @@
 }
 
 .T4-text-container {
-  width: 60%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
 .T4-question-no {
-  font-family: "Potta One", cursive;
+  /* font-family: "Potta One", cursive; */
   font-size: 30px;
-  width: 100px;
+  width: 200px;
 }
 
 .T4-text {
@@ -72,7 +72,7 @@
   font-weight: 300;
   font-size: 30px;
   /* font-family: inherit; */
-  font-family: "Potta One", cursive;
+  /* font-family: "Potta One", cursive; */
   z-index: 0;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
@@ -141,4 +141,96 @@
 
 .T4-pulldown:hover::after {
   transform: translate(50%, 0) scale(1.1);
+}
+
+.T4-registering-hidden {
+  visibility: hidden;
+}
+.T4-registering-visible {
+  position: fixed;
+  visibility: visible;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(240, 230, 230, 0.5);
+}
+
+#div-registering,
+#registering-text,
+#registering-background {
+  overflow: hidden;
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  margin: 0 auto;
+}
+
+#div-registering {
+  left: calc(50% - 125px);
+  top: calc(50% - 125px);
+
+  width: 250px;
+  height: 250px;
+
+  background-color: #6c7fa0;
+}
+
+#registering-text {
+  z-index: 1;
+
+  margin-left: 50px;
+  margin-top: 50px;
+
+  font-size: 20px;
+
+  box-sizing: border-box;
+
+  width: 150px;
+  height: 150px;
+
+  border: 5px dashed white;
+
+  color: white;
+
+  text-align: center;
+
+  line-height: 140px;
+}
+
+#registering-background {
+  z-index: 0;
+
+  width: 250px;
+  height: 250px;
+
+  background-image: url("http://i.imgur.com/eMq5Gds.png");
+
+  background-repeat: no-repeat;
+
+  background-position: 12px 91px;
+
+  background-size: 30px 67px;
+
+  -webkit-animation: turningspaceship 1.5s ease-in-out infinite; /* Chrome, Safari, Opera */
+  animation: turningspaceship 1.5s ease-in-out infinite;
+}
+
+@-webkit-keyframes turningspaceship {
+  from {
+    transform: rotate(270deg);
+  }
+  to {
+    transform: rotate(630deg);
+  }
+}
+
+@keyframes turningspaceship {
+  from {
+    transform: rotate(270deg);
+  }
+  to {
+    transform: rotate(630deg);
+  }
 }

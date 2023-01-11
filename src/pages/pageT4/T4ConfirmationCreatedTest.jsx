@@ -17,9 +17,17 @@ export default function T4ConfirmationCreatedTest() {
     navigate("../T3TestCreate");
   };
 
+  const T1MenuDisplay = () => {
+    // navigate("../T1Menu");
+  };
+
   const register = async () => {
-    const editQuestions = document.querySelectorAll(".question-input");
-    const editAnswers = document.querySelectorAll(".answer-input");
+    // const registeringContainer = document.querySelector(
+    //   "#T4-registering-container"
+    // );
+    // registeringContainer.className = "T4-registering-visible";
+    const editQuestions = document.querySelectorAll("#question-input");
+    const editAnswers = document.querySelectorAll("#answer-input");
     const qAndAArr = [];
 
     for (let i = 0; i < editQuestions.length; i++) {
@@ -28,6 +36,7 @@ export default function T4ConfirmationCreatedTest() {
         answer: editAnswers[i].value,
       });
     }
+    console.log(qAndAArr);
 
     const registerQandAObj = {
       ...qAndA,
@@ -36,6 +45,7 @@ export default function T4ConfirmationCreatedTest() {
       question_title: description,
       data: qAndAArr,
     };
+    console.log(registerQandAObj);
 
     const subjects = ["国語", "算数", "理科", "社会", "英語"];
     const subjectId = () => {
@@ -60,11 +70,13 @@ export default function T4ConfirmationCreatedTest() {
       })
       .then((res) => {
         console.log("then");
+        console.log(res);
+        // loadingContainer.className = "T4-registering-hidden";
+        navigate("../T1Menu");
         return res.data.text;
       });
 
     console.log(registerQandAObj);
-    navigate("../T1Menu");
   };
 
   const descriptionChange = (e) => {
@@ -111,11 +123,13 @@ export default function T4ConfirmationCreatedTest() {
                 No.{index + 1}
               </div>
               <input
+                id="question-input"
                 type="text"
                 className="T4-text"
                 defaultValue={elem.question}
               />
               <input
+                id="answer-input"
                 type="text"
                 className="T4-text"
                 defaultValue={elem.answer}
@@ -130,6 +144,13 @@ export default function T4ConfirmationCreatedTest() {
       <button className={"T1-button"} onClick={t3TestCreateDisplay}>
         戻る
       </button>
+      <div className="T4-registering-hidden" id="T4-registering-container">
+        <div id="div-registering">
+          <div id="registering-background"></div>
+
+          <div id="registering-text">テスト登録中...</div>
+        </div>
+      </div>
     </div>
   );
 }
