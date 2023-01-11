@@ -44,7 +44,7 @@ artifacts:
   files:
     - 'build/**/*'
     - 'db/**/*'
-    - 'hooks/**/*'
+    - 'scripts/**/*'
     - 'package.json'
     - 'server/**/*'
     - 'knex.js'
