@@ -100,8 +100,8 @@ export default function T6ResultCheck() {
   const [score, setScore] = useState();
 
   const navigate = useNavigate();
-  const t5TestListDisplay = () => {
-    navigate("../T5TestList");
+  const s3TestListDisplay = () => {
+    navigate("../S3ResultList");
   };
 
   useEffect(() => {
@@ -174,7 +174,7 @@ useEffect(()=>{
           <span className="StudentsName">名前:{loginInfo.name}</span>
           <span className="score">{}</span>
           <span className="scoreUnit">{score}点</span>
-          <button onClick={t5TestListDisplay}>戻る</button>
+          <button onClick={s3TestListDisplay}>戻る</button>
           {paper !== false ? (
             // <>
             <Container maxWidth="95%">

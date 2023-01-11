@@ -6,13 +6,11 @@
   position: fixed;
   font-family: 'Potta One', cursive;
   font-size: 60px;
+  height: 90px;
   width: 100%;
   margin: 0px;
   top: 0px;
-  padding-right: auto;
-  padding-top: 20px;
-  padding-left: 200px;
-  padding-bottom: 20px;
+  padding: 20px 0px 20px 200px;
   background-color: white;
   z-index: 12;
   border-bottom: 3px gray solid;
