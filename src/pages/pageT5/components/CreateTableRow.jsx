@@ -57,7 +57,7 @@ export default function CreateTableRow({ row }) {
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell align="center">
           <Radio
-            value={row.title}
+            value={row.test_id}
             control={<Radio />}
             onChange={() =>
               radioChange(row.test_id, row.title, row.grade, row.subject,row.question_count,row.make_date,row.run_date)
