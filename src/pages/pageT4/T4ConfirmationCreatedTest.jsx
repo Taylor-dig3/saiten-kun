@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { questionAndAnswer, login } from "../../shareComponents/atom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import axios from "axios";
 
 import "./T4ConfirmationCreatedTest.css";
@@ -10,16 +10,16 @@ export default function T4ConfirmationCreatedTest() {
   const loginInfo = useRecoilValue(login);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
-  const [qAndA, setQAndA] = useRecoilState(questionAndAnswer);
+  const qAndA = useRecoilValue(questionAndAnswer);
   const navigate = useNavigate();
 
   const t3TestCreateDisplay = () => {
     navigate("../T3TestCreate");
   };
 
-  const T1MenuDisplay = () => {
-    // navigate("../T1Menu");
-  };
+  // const T1MenuDisplay = () => {
+  //   // navigate("../T1Menu");
+  // };
 
   const register = async () => {
     // const registeringContainer = document.querySelector(
@@ -111,8 +111,8 @@ export default function T4ConfirmationCreatedTest() {
       />
       <div className="T4-container-qa">
         <div className="T4-subtitle-qa-blank"></div>
-        <div className="T4-subtitle-qa">問題</div>
-        <div className="T4-subtitle-qa">解答</div>
+        <div className="T4-subtitle-question">問題</div>
+        <div className="T4-subtitle-answer">解答</div>
       </div>
 
       {qAndA.data.map((elem, index) => {
@@ -125,13 +125,13 @@ export default function T4ConfirmationCreatedTest() {
               <input
                 id="question-input"
                 type="text"
-                className="T4-text"
+                className="T4-text-question"
                 defaultValue={elem.question}
               />
               <input
                 id="answer-input"
                 type="text"
-                className="T4-text"
+                className="T4-text-answer"
                 defaultValue={elem.answer}
               />
             </div>
