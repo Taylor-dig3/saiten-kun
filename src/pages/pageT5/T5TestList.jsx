@@ -292,6 +292,7 @@ export default function CollapsibleTable() {
                 <TableCell align="center">問題数</TableCell>
                 <TableCell align="center">作成日</TableCell>
                 <TableCell align="center">実施日</TableCell>
+                <TableCell align="center">採点</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

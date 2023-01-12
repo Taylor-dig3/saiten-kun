@@ -79,6 +79,8 @@ export default function CreateTableRow({ row }) {
         <TableCell align="center">{row.question_count}</TableCell>
         <TableCell align="center">{createDate(row.make_date)}</TableCell>
         <TableCell align="center">{createDate(row.run_date)}</TableCell>
+        <TableCell align="center">実施済み</TableCell>
+
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
