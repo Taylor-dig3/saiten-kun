@@ -1,3 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+
+.T6-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.T6-title{
+  font-family: 'Potta One', cursive;
+  font-weight: lighter;
+  font-size: 60px;
+  margin-bottom: 1%;
+}
+
+.T6-button-container{
+  display: flex;
+}
+
+.T6-test-result-info{
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 25px;
+}
+
+.T6-user-info{
+  /* width: 15%; */
+  display: flex;
+  justify-content: space-between;
+}
+
 .T6marubatsu {
     width: 100px;
   }

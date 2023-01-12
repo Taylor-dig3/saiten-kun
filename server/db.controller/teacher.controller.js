@@ -289,7 +289,7 @@ module.exports = {
       .where("test_id", test_id)
       .first()
       .then((res) => {
-        console.log(res.result);
+        console.log(res);
         if (res.result === null) {
           return false;
         } else {

@@ -173,14 +173,16 @@ export default function T6ResultCheck() {
         setResultStatus(true); 
       });
         loadingContainer.className = "T6-loading-hidden";
-  };
-
-  return (
-    <div>
-      <h1 className="T6title">結果確認</h1>
+      };
+      
+      return (
+        <div className="T6-container">
+      <h1 className="T6-title">テスト結果確認</h1>
       <span>
-        {resultStatus ? "自動採点実施実施済みです" : "自動採点未実施です"}
+        {resultStatus ? "採点済みです" : "採点未実施です"}
       </span>
+      <div className="T6-button-container">
+      <button onClick={t5TestListDisplay}>戻る</button>
       <button onClick={automaticGrading}>自動採点</button>
       <div className="studentsSelect">
         <Select
@@ -204,37 +206,39 @@ export default function T6ResultCheck() {
           defaultValue={0}
           label="Age"
           onChange={selectStudentChange}
-        >
+          >
           <MenuItem value={0}>生徒を選択してください</MenuItem>
           {filterStudentIdList
             ? filterStudentIdList.map((elem, index) => {
-                return (
-                  <MenuItem
-                    key={elem.id}
-                    value={`${elem.id}&%${elem.name}`}
-                  >{`ID:${("0000" + elem.id).slice(-4)}　 ${
-                    elem.name
-                  }`}</MenuItem>
+              return (
+                <MenuItem
+                key={elem.id}
+                value={`${elem.id}&%${elem.name}`}
+                >{`ID:${("0000" + elem.id).slice(-4)}　 ${
+                  elem.name
+                }`}</MenuItem>
                 );
               })
-            : 1}
+              : 1}
         </Select>
+      </div>
       </div>
       {selectStudent ? (
         <>
-          <span>テスト名:{selectTestInfo.title}</span>
+        <div className="T6-test-result-info">
+
+          <span>{selectTestInfo.title}</span>
           <span>問題数:{selectTestInfo.question_count}</span>
           <span>実施日:{createDate(selectTestInfo.run_date)}</span>
+        <span className="T6-user-info">
           <span className="T6StudentsID" value="ID">
             ID:{("0000" + selectStudent.id).slice(-4)}
           </span>
-
-          <span className="StudentsName">名前:{selectStudent.name}</span>
-          <span className="score">{}</span>
+          <span className="StudentsName">  名前:{selectStudent.name}</span>
+        </span>
           <span className="scoreUnit">{score}点</span>
-          <button onClick={t5TestListDisplay}>戻る</button>
+        </div>
           {paper !== false ? (
-            // <>
             <Container maxWidth="95%">
               <TableContainer component={Paper} sx={{ maxHeight: "95%" }}>
                 <Table stickyHeader aria-label="sticky table">
@@ -257,7 +261,6 @@ export default function T6ResultCheck() {
               </TableContainer>
             </Container>
           ) : (
-            // </>
             "未実施"
           )}
         </>
@@ -268,7 +271,6 @@ export default function T6ResultCheck() {
       <div className="T6-loading-hidden" id="T6-loading-container">
         <div id="T6-div-loading">
           <div id="T6-loading-background"></div>
-
           <div id="T6-loading-text">テスト採点中...</div>
         </div>
       </div>
