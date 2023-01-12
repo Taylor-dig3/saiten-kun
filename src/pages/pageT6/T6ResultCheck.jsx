@@ -249,12 +249,14 @@ export default function T6ResultCheck() {
                 名前 : {selectStudent.name}
               </span>
             </div>
+            {paper !== false ? (
             <div className="T6-test-info">
               <span>{selectTestInfo.title}</span>
               <span>問題数 : {selectTestInfo.question_count}</span>
               <span>実施日 : {createDate(selectTestInfo.run_date)}</span>
               <span className="T6-test-score">{score}点</span>
-            </div>
+            </div>)
+            :("")}
           </div>
           {paper !== false ? (
             <Container maxWidth="95%">
@@ -279,7 +281,7 @@ export default function T6ResultCheck() {
               </TableContainer>
             </Container>
           ) : (
-            "未実施"
+            <h1 className="T6-not-student">この生徒はテスト未実施です!</h1>
           )}
         </>
       ) : (
