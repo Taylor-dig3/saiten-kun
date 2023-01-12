@@ -7,6 +7,7 @@
 
 .S3_container {
   /* margin: px; */
+  min-width: 768px;
   padding: 5px;
   display: flex;
   /* justify-content: space-around; */
@@ -29,7 +30,7 @@
 }
 #S3-back-button {
   width: 150px;
-  left: 150px;
+  left: 10px;
 }
 
 .S3-button {

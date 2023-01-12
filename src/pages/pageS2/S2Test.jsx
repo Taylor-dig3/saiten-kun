@@ -259,7 +259,7 @@ export default function S2Test() {
   questions = paper.data.map((elem, index) => (
     <tr key={index}>
       <td>{index + 1}</td>
-      <td>{elem["question"]}</td>
+      <td className="S2-question">{elem["question"]}</td>
       <td className="canvasTd">
         <canvas
           id={`canvasAns${index}`}
@@ -299,6 +299,7 @@ export default function S2Test() {
           {loginInfo.name}
         </div>
         <h2 className="testTitle">{title}</h2>
+        <CountDownTimer timeLimit={testQuestionInfo.time_limit} setTimeUpFlag={setTimeUpFlag} submitTest={submitTest} />
         <span className="submitTest">
           <button
             className="submitButton"
@@ -307,7 +308,6 @@ export default function S2Test() {
             }}>提 出
           </button>
         </span>
-        <CountDownTimer timeLimit={testQuestionInfo.time_limit} setTimeUpFlag={setTimeUpFlag} submitTest={submitTest} />
         <table className="table1">
           <tbody>
             <tr>

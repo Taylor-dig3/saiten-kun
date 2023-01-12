@@ -66,7 +66,7 @@ export default function CollapsibleTable() {
         .then((res) => {
           const questionCount = res.data.data.length;
           const correctCount = res.data.data.filter((elem) => elem.result).length;
-          return Math.round((correctCount / questionCount) * 1000) / 10;
+          return Math.round((correctCount / questionCount) * 100);
         });
     })
     Promise.all(getScore).then(values => {
