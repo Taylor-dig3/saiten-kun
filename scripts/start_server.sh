@@ -7,7 +7,7 @@ source ~/.bashrc
 source ~/.bash_profile
 node -v
 cd /var/www/html/
-sudo apachectl graceful
+# sudo apachectl graceful
 forever start server/launch.js
 # sudo httpd -k start
 # echo "forever install s"
