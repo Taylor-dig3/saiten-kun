@@ -23,6 +23,7 @@ import "../T5TestList.css";
 export default function CreateTableRow({ row }) {
   const [selectTestInfo,setSelectTestInfo] = useRecoilState(selectedTestInfo);
   const [open, setOpen] = useState(false);
+  const [resultStatus, setResultStatus] = useState();
   const [testDetail, setTestDetails] = useState([{ question: "", answer: "" }]);
   const radioChange = (id, title, grade, subject,count,makeDate,runDate) => {
     setSelectTestInfo((prev) => {
@@ -50,7 +51,42 @@ export default function CreateTableRow({ row }) {
         console.log(res.data);
         setTestDetails(res.data);
       });
+      axios
+        .get("/teacher/checkResultStatus", {
+          params: {
+            test_id: row.test_id,
+          },
+        })
+        .then((res) => {
+          console.log("ここですよ",res.data);
+          setResultStatus(res.data);
+        });
+
   }, []);
+
+  // useEffect(() => {
+  //     axios
+  //       .get("/teacher/checkResultStatus", {
+  //         params: {
+  //           test_id: row.test_id,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         console.log("ここですよ",res.data);
+  //         setResultStatus(res.data);
+  //       });
+  //     // axios
+  //     //   .get("/teacher/studentIdList", {
+  //     //     params: {
+  //     //       teacher_id: loginInfo.userId,
+  //     //     },
+  //     //   })
+  //     //   .then((res) => {
+  //     //     console.log(res.data);
+  //     //     setStudentIdList(res.data);
+  //     //     setFilterStudentIdList(res.data);
+  //     //   });
+  //   },[]);
 
   return (
     <React.Fragment>
@@ -79,7 +115,8 @@ export default function CreateTableRow({ row }) {
         <TableCell align="center">{row.question_count}</TableCell>
         <TableCell align="center">{createDate(row.make_date)}</TableCell>
         <TableCell align="center">{createDate(row.run_date)}</TableCell>
-        <TableCell align="center">実施済み</TableCell>
+        <TableCell align="center">{resultStatus
+          ? "実施済み" : "未実施"}</TableCell>
 
       </TableRow>
       <TableRow>
