@@ -114,7 +114,7 @@ export default function T6ResultCheck() {
               <TableCell>{elem["question"]}</TableCell>
               <TableCell>{elem["answer"]}</TableCell>
               <TableCell>
-                <img className="answer" src={decodedFile} alt="answer" />
+                <img className="T6-answer" src={decodedFile} alt="answer" />
               </TableCell>
               <TableCell>
                 {elem["result"] === true ? (

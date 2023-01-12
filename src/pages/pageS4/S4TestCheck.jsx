@@ -1,76 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import "./S4TestCheck.css";
-// import { login, testResult } from "../../shareComponents/atom";
-// import { useRecoilValue } from "recoil";
-// import { useNavigate } from "react-router-dom";
-// import { Buffer } from "buffer";
-
-// export default function S4TestCheck() {
-//   const loginInfo = useRecoilValue(login);
-//   const resultInfo = useRecoilValue(testResult);
-//   const navigate = useNavigate();
-//   const s3ResultListDisplay = () => navigate("../S3ResultList");
-
-//   useEffect(() => {
-//     console.log(resultInfo);
-//     console.log(resultInfo.data);
-//   }, [resultInfo]);
-
-//   const questions = resultInfo.data.map((elem, index) => {
-//     const decodedFile = Buffer.from(elem["answer_img"], "base64").toString();
-//     return (
-//       <tr key={index}>
-//         <td>{elem["question"]}</td>
-//         <td>
-//           <img className="answer" src={decodedFile} alt="answer" />
-//           {elem["result"] ? (
-//             <img className="marubatsu" src="./img/maru.png" alt="" />
-//           ) : (
-//             <img className="marubatsu" src="./img/batsu.png" alt="" />
-//           )}
-//         </td>
-//       </tr>
-//     );
-//   });
-
-//   return (
-//     <div>
-//       <h1 className="title">{resultInfo.question_title}</h1>
-
-//       <>
-//         <span className="studentsSelect">
-//           <div className="studentsID" value="ID">
-//             ID:{loginInfo.userId}
-//           </div>
-//         </span>
-//         <span className="studentName">
-//           <img
-//             className="studentName img"
-//             src="./img/test4.png"
-//             alt="student name"
-//           />
-//         </span>
-//         <span className="score">{}</span>
-//         <span className="scoreUnit">点</span>
-//       </>
-//       <button onClick={s3ResultListDisplay}>閉じる</button>
-//       <div>
-//         <table className="questionTable">
-//           <thead>
-//             <tr>
-//               <th>問題</th>
-//               <th>回答</th>
-//             </tr>
-//           </thead>
-//           <tbody>{questions}</tbody>
-//         </table>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login, studentSelectedTestInfo } from "../../shareComponents/atom";
@@ -88,7 +15,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Container } from "@mui/material";
-import {createDate} from "../../helperFunctions/createDate"
+import { createDate } from "../../helperFunctions/createDate";
 
 import "./S4TestCheck.css";
 
@@ -105,14 +32,25 @@ export default function T6ResultCheck() {
   };
 
   useEffect(() => {
-    if (paper!==false && paper!==undefined) {
+    if (paper !== false && paper !== undefined) {
       console.log("object");
       console.log(paper);
 
       const questionCount = paper.data.length;
-      const correctCount = paper.data.filter((elem) => elem.result).length;
-      console.log((correctCount / questionCount) * 100);
-      setScore(Math.round((correctCount / questionCount) * 100));
+      let resultNullFlag = false 
+      const correctCount = paper.data.filter((elem) =>{
+      if(elem.result === null){
+        resultNullFlag = true
+      }  
+         return elem.result
+      }
+      ).length;
+      // console.log((correctCount / questionCount) * 100);
+      if(!resultNullFlag){
+        setScore(Math.round((correctCount / questionCount) * 100));
+      }else{
+        setScore("未採")
+      }
       setTablePaper(
         paper.data.map((elem, index) => {
           console.log(elem);
@@ -124,82 +62,85 @@ export default function T6ResultCheck() {
             <TableRow key={index}>
               <TableCell>{elem["question"]}</TableCell>
               <TableCell>
-                <img className="answer" src={decodedFile} alt="answer" />
+                <img className="S4-answer" src={decodedFile} alt="answer" />
               </TableCell>
               <TableCell>
                 {elem["result"] ? (
-                  <img className="T6marubatsu" src="./img/maru.png" alt="" />
+                  <img className="S4marubatsu" src="./img/maru.png" alt="" />
                 ) : (
-                  <img className="T6marubatsu" src="./img/batsu.png" alt="" />
+                  <img className="S4marubatsu" src="./img/batsu.png" alt="" />
                 )}
               </TableCell>
-            
             </TableRow>
           );
         })
       );
-    }else if(paper===false){
-      setScore("")
+    } else if (paper === false) {
+      setScore("");
     }
   }, [paper]);
 
-useEffect(()=>{
-  axios
-  .get("/answer", {
-    params: {
-      user_id: loginInfo.userId,
-      test_id: selectTestInfo.test_id,
-    },
-  })
-  .then((res) => {
-    console.log(res.data);
-    setPaper(res.data);
-  });
-},[])
-
-  
+  useEffect(() => {
+    axios
+      .get("/answer", {
+        params: {
+          user_id: loginInfo.userId,
+          test_id: selectTestInfo.test_id,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setPaper(res.data);
+      });
+  }, []);
 
   return (
-    <div>
-      <h1 className="T6title">結果確認</h1>
-
-       
-          <span>テスト名:{selectTestInfo.title}</span>
-          <span>問題数:{selectTestInfo.question_count}</span>
-          <span>実施日:{createDate(selectTestInfo.run_date)}</span>
+    <div className="S4-container">
+      <h1 className="S4-title">結果確認</h1>
+      <div className="S4-button-container">
+        <button onClick={s3TestListDisplay} className="S4-button">
+          戻る
+        </button>
+      </div>
+      <div className="S4-test-result-info">
+        <div className="S4-user-info">
           <span className="T6StudentsID" value="ID">
-            ID:{("0000" + loginInfo.userId).slice(-4)}
+            ID : {("0000" + loginInfo.userId).slice(-4)}
           </span>
-
-          <span className="StudentsName">名前:{loginInfo.name}</span>
-          <span className="score">{}</span>
-          <span className="scoreUnit">{score}点</span>
-          <button onClick={s3TestListDisplay}>戻る</button>
-          {paper !== false ? (
-            // <>
-            <Container maxWidth="95%">
-              <TableContainer component={Paper} sx={{ maxHeight: "95%" }}>
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell style={{ width: "50%" }}>問題</TableCell>
-                      <TableCell
-                        style={{ width: "50%" }}
-                        colSpan={2}
-                        align="center"
-                      >
-                        解答{" "}
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>{tablePaper}</TableBody>
-                </Table>
-              </TableContainer>
-            </Container>
-          // </>
-          ) : (
-            "未実施"
-          )}
+          <span className="S4-student-name">名前 : {loginInfo.name}</span>
+        </div>
+        <div className="S4-test-info">
+        <span>{selectTestInfo.title}</span>
+        <span>問題数:{selectTestInfo.question_count}</span>
+        <span>実施日:{createDate(selectTestInfo.run_date)}</span>
+        <span className="S4-test-score">{score}点</span>
+</div>
+      </div>
+      {paper !== false ? (
+        // <>
+        <Container maxWidth="95%">
+          <TableContainer component={Paper} sx={{ maxHeight: "95%" }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  <TableCell style={{ width: "50%" }}>問題</TableCell>
+                  <TableCell
+                    style={{ width: "50%" }}
+                    colSpan={2}
+                    align="center"
+                  >
+                    解答{" "}
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{tablePaper}</TableBody>
+            </Table>
+          </TableContainer>
+        </Container>
+      ) : (
+        // </>
+        "未実施"
+      )}
     </div>
   );
 }

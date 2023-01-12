@@ -1,68 +1,144 @@
-select.studentsSelect {
-  margin-left: 50px;
-  margin-top: 25px;
-  vertical-align: top;
-  text-align: center;
-  font-size: 16pt;
-  color: black;
-  padding-right: 5px;
-  border-style: none;
-  background-color: #8df78f;
-  -webkit-appearance: none;
-  appearance: none; /* デフォルトの矢印を非表示 */
-  /* background-image: url(./tri-down.png); */
-  background-position: right top;
-  background-repeat: no-repeat;
-  background-size: 21px 21px;
-  width: 130px;
+@import url("https://fonts.googleapis.com/css2?family=Potta+One&display=swap");
+
+.S4-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-select.studentsSelect::-ms-expand {
-  display: none; /* デフォルトの矢印を非表示(IE用) */
+.S4-title {
+  font-family: "Potta One", cursive;
+  font-weight: lighter;
+  font-size: 60px;
+  margin-bottom: 1%;
 }
 
-.studentName {
-  margin-left: 30px;
+.S4-answer{
+  width: 60%;
 }
 
-.studentName img {
-  margin-top: 20px;
-  height: 100px;
+.S4marubatsu {
+  width: 70px;
 }
 
-.score {
-  margin-left: 30px;
-  margin-right: 10px;
-  font-size: 32pt;
-}
 
-.scoreUnit {
-  margin-right: 30px;
+.S4-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 95%;
+  margin-bottom:2% ;
 }
-
-.questionTable {
-  text-align: center;
-  margin-left: 50px;
-  margin-top: 20px;
-  width: 80%;
-}
-
-.questionTable tr {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.answer {
+.S4-button {
+  width: 150px;
   position: relative;
-  height: 100px;
+  padding: 0.8em 1em;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+  background-color: rgb(216, 235, 246);
+  border-radius: 10px;
+  color: rgb(17, 16, 16);
+  font-weight: 300;
+  font-size: 20px;
+  /* font-family: inherit; */
+  font-family: "Potta One", cursive;
+  z-index: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
 }
 
-.marubatsu {
+.S4-button:hover {
+  animation: sh0 0.5s ease-in-out both;
+}
+@keyframes sh0 {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: rotate(7deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-7deg) translate3d(0, 0, 0);
+  }
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+.S4-button:hover span {
+  animation: storm 0.7s ease-in-out both;
+  animation-delay: 0.06s;
+}
+
+.S4-button::before,
+.S4-button::after {
+  content: "";
   position: absolute;
+  right: 0;
+  bottom: 0;
   width: 100px;
-  left: 55%;
+  height: 100px;
+  border-radius: 50%;
+  background: rgb(154, 114, 114);
+  opacity: 0;
+  transition: transform 0.15s cubic-bezier(0.02, 0.01, 0.47, 1),
+    opacity 0.15s cubic-bezier(0.02, 0.01, 0.47, 1);
+  z-index: -1;
+  transform: translate(100%, -25%) translate3d(0, 0, 0);
 }
 
-.title {
-  width: 100%;
+.S4-button:hover::before,
+.S4-button:hover::after {
+  opacity: 0.15;
+  transition: transform 0.2s cubic-bezier(0.02, 0.01, 0.47, 1),
+    opacity 0.2s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.S4-button:hover::before {
+  transform: translate3d(50%, 0, 0) scale(0.9);
+}
+
+.S4-button:hover::after {
+  transform: translate(50%, 0) scale(1.1);
+}
+
+.S4-test-result-info {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  font-size: 25px;
+}
+
+.S4-user-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  font-family: "Potta One", cursive;
+}
+
+.S4-test-info {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Potta One", cursive;
+  align-items: flex-end;
+}
+
+.S4-student-name {
+  margin-left: 3%;
+}
+
+.S4-test-score {
+  font-weight: bold;
+  font-size: 40px;
+  color: red;
 }
