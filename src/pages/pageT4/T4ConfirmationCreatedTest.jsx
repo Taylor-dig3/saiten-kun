@@ -167,13 +167,6 @@ export default function T4ConfirmationCreatedTest() {
       <button className={"T1-button"} onClick={t3TestCreateDisplay}>
         戻る
       </button>
-      <div className="T4-registering-hidden" id="T4-registering-container">
-        <div id="div-registering">
-          <div id="registering-background"></div>
-
-          <div id="registering-text">テスト登録中...</div>
-        </div>
-      </div>
       <T4Snackbar
         isSnackbar={isSnackbar}
         setIsSnackbar={setIsSnackbar}
