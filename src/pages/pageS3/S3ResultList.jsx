@@ -76,22 +76,79 @@ export default function CollapsibleTable() {
     })
   }, [])
 
+  let S3Title = "";
+  let S3Back = "";
+  let S3Result = "";
+  let S3Sub = "";
+  let S3Problem = "";
+  let S3Score = "";
+  switch (loginInfo.grade) {
+    case 1:
+      S3Title = "いままでやったテスト";
+      S3Back = "もどる";
+      S3Result = "テストけっかかくにん";
+      S3Sub = "きょうか";
+      S3Problem = "もんだいすう";
+      S3Score = "てんすう";
+      break;
+    case 2:
+      S3Title = "今までやったテスト";
+      S3Back = "もどる";
+      S3Result = "テストけっかかくにん";
+      S3Sub = "教科";
+      S3Problem = "もんだい数";
+      S3Score = "点数";
+      break;
+    case 3:
+      S3Title = "今までやったテスト";
+      S3Back = "もどる";
+      S3Result = "テストけっかかくにん";
+      S3Sub = "教科";
+      S3Problem = "問題数";
+      S3Score = "点数";
+      break;
+    case 4:
+      S3Title = "メニュー";
+      S3Back = "もどる";
+      S3Result = "テスト結果かくにん";
+      S3Sub = "教科";
+      S3Problem = "問題数";
+      S3Score = "点数";
+      break;
+    case 5:
+      S3Title = "過去のテスト";
+      S3Back = "もどる";
+      S3Result = "テスト結果確にん";
+      S3Sub = "教科";
+      S3Problem = "問題数";
+      S3Score = "点数";
+      break;
+    case 6:
+      S3Title = "過去テスト一覧";
+      S3Back = "もどる";
+      S3Result = "テスト結果確認";
+      S3Sub = "教科";
+      S3Problem = "問題数";
+      S3Score = "点数";
+      break;
+  }
+
   return (
     <>
       <div className="user-info">
         {loginInfo.name}
       </div>
       <div className="S3_container">
-        <h1 className="S3-title">テスト一覧</h1>
+        <h1 className="S3-title">{S3Title}</h1>
         <div className="S3_button_container">
           <button
             onClick={s1MenuDisplay}
             className="S3-button"
             id="S3-back-button"
           >
-            戻る
+            {S3Back}
           </button>
-          <button onClick={s4ResultCheckDisplay} className="S3-button" id="S3-result-check-button" >テスト結果確認</button>
+          <button onClick={s4ResultCheckDisplay} className="S3-button" id="S3-result-check-button" >{S3Result}</button>
         </div>
         {testList ?
           <TableContainer component={Paper}>
@@ -104,10 +161,10 @@ export default function CollapsibleTable() {
                       テスト名
                     </TableCell>
                     <TableCell align="center">学年</TableCell>
-                    <TableCell align="center">科目</TableCell>
-                    <TableCell align="center">問題数</TableCell>
-                    <TableCell align="center">実施日</TableCell>
-                    <TableCell align="center">点数</TableCell>
+                    <TableCell align="center">{S3Sub}</TableCell>
+                    <TableCell align="center">{S3Problem}</TableCell>
+                    <TableCell align="center">テストの日</TableCell>
+                    <TableCell align="center">{S3Score}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -131,7 +188,7 @@ export default function CollapsibleTable() {
             severity="error"
             sx={{ width: "100%" }}
           >
-            テストを選択してください！
+            テストをえらんでください！
           </Alert>
 
         </Snackbar>

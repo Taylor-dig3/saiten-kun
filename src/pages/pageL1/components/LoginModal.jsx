@@ -73,6 +73,7 @@ export default function LoginModal({setIsLoginModal}) {
               userId: res.data.user_id,
               name: res.data.name,
               loginState: res.data.login_state,
+              grade: res.data.grade
             });
           } else if (res.data.login_state === "teacherLogin") {
             setLoginInfo({
