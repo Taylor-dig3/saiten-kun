@@ -64,16 +64,50 @@ export default function S1Menu() {
       });
   };
 
-  console.log(loginInfo);
+  let S1Title = "";
+  let S1Start = "";
+  let S1Past = "";
+  switch (loginInfo.grade) {
+    case 1:
+      S1Title = "どれにする？";
+      S1Start = "テストをはじめる";
+      S1Past = "いままでのテスト";
+      break;
+    case 2:
+      S1Title = "どれにする？";
+      S1Start = "テストをはじめる";
+      S1Past = "今までのテスト";
+      break;
+    case 3:
+      S1Title = "どれにする？";
+      S1Start = "テスト開始";
+      S1Past = "今までのテスト";
+      break;
+    case 4:
+      S1Title = "メニュー";
+      S1Start = "テスト開始";
+      S1Past = "今までのテスト";
+      break;
+    case 5:
+      S1Title = "メニュー";
+      S1Start = "テスト開始";
+      S1Past = "過去のテスト";
+      break;
+    case 6:
+      S1Title = "メニュー";
+      S1Start = "テスト開始";
+      S1Past = "過去のテスト";
+      break;
+  }
+
+
   return (
     <>
-      <div className="user-info">
-        {loginInfo.name}
-      </div>
       <div className="S1-container">
-        <div className="S1-title">どれにする？</div>
-        <button onClick={s2Test} className={"S1-button"}>テストをはじめる</button>
-        <button onClick={s3ResultListDisplay} className={"S1-button"}>いままでのテスト</button>
+        <span className="user-info">{loginInfo.name}</span>
+        <span className="S1-title">{S1Title}</span>
+        <button onClick={s2Test} className={"S1-button"}>{S1Start}</button>
+        <button onClick={s3ResultListDisplay} className={"S1-button"}>{S1Past}</button>
         <LogoutButton />
       </div>
     </>

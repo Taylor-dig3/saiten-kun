@@ -1,5 +1,5 @@
 .S2-div {
-  min-width: 825px;
+  min-width: 768px;
 }
 
 .testTitle {
@@ -37,13 +37,24 @@
   padding-top: 20px;
 }
 
-/* .studentsID {
-  font-size: 20pt;
-  padding-left: 50px;
-  padding-top: 80px;
-  vertical-align: top;
-  z-index: 13;
-} */
+.questionsTable {
+  text-align: center;
+  margin-left: calc((100% - 768px) / 2);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 200px;
+  background-color: white;
+}
+
+.questionsTable td{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.S2-question {
+  text-align: left;
+  padding-left: 10px;
+}
 
 #canvasName {
   margin-top: 45px;
@@ -54,9 +65,13 @@
   outline-offset: -40px;
 }
 
+.canvasTd{
+  height: 160px;
+  padding: 0;
+}
+
 .canvasAns {
   position: relative;
-  padding: 0px;
   /* border: 1px solid black; */
   outline: 2px solid gray;
   outline-offset: -40px;
@@ -64,9 +79,8 @@
 }
 
 .canvasButtonDel {
-  padding: 0px;
   margin: 0px;
-  min-width: 70px;
+  min-width: 60px;
   padding-top: 60px;
   vertical-align: top;
 }
@@ -80,19 +94,10 @@
   height: auto;
 }
 
-.questionsTable {
-  text-align: center;
-  margin-left: calc((100% - 825px) / 2);
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 200px;
-  background-color: white;
-}
-
 .submitTest {
   position: fixed;
-  top: 35px;
-  right: 250px;
+  top: 70px;
+  right: 25px;
   z-index: 12;
   display: flex;
   justify-content: space-between;
@@ -100,7 +105,7 @@
 
 .submitButton {
   position: relative;
-  font-size: 24pt;
+  font-size: 20pt;
   font-family: 'Potta One', cursive;
   padding: 5px 40px 5px 40px;
   background-color: rgb(216, 235, 246);
@@ -149,7 +154,7 @@
 .submitButton::after {
   content: "";
   position: absolute;
-  top: -13px;
+  top: -15px;
   right: 0;
   bottom: 0;
   width: 80px;
@@ -199,18 +204,18 @@
   right: 10px;
   padding: 0px 15px 0px 15px;
   text-align: right;
-  font-size: 48px;
+  font-size: 36px;
   font-family: monospace;
   border-radius: 20px;
   background-color: rgb(255, 239, 208);
   z-index: 12;
 }
 
-.testTimer p {
+.testTimer-title {
   font-family: 'Potta One', cursive;
   text-align: left;
-  font-size: 20pt;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  vertical-align: text-top;
+  font-size: 16pt;
+  padding-right: 10px;
   z-index: 12;
 }

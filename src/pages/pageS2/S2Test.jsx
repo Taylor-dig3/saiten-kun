@@ -259,7 +259,7 @@ export default function S2Test() {
   questions = paper.data.map((elem, index) => (
     <tr key={index}>
       <td>{index + 1}</td>
-      <td>{elem["question"]}</td>
+      <td className="S2-question">{elem["question"]}</td>
       <td className="canvasTd">
         <canvas
           id={`canvasAns${index}`}
@@ -292,6 +292,42 @@ export default function S2Test() {
     question = "";
   }
 
+  let S2Submit = "";
+  let S2Problem = "";
+  let S2Answer = "";
+  switch (loginInfo.grade) {
+    case 1:
+      S2Submit = "てい出";
+      S2Problem = "もんだい";
+      S2Answer = "かいとうらん";
+      break;
+    case 2:
+      S2Submit = "てい出";
+      S2Problem = "もんだい";
+      S2Answer = "かい答らん";
+      break;
+    case 3:
+      S2Submit = "てい出";
+      S2Problem = "問題";
+      S2Answer = "かい答らん";
+      break;
+    case 4:
+      S2Submit = "てい出";
+      S2Problem = "問題";
+      S2Answer = "かい答らん";
+      break;
+    case 5:
+      S2Submit = "提 出";
+      S2Problem = "問題";
+      S2Answer = "解答らん";
+      break;
+    case 6:
+      S2Submit = "提 出";
+      S2Problem = "問題";
+      S2Answer = "解答らん";
+      break;
+  }
+
   return (
     <>
       <div className="S2-div">
@@ -299,15 +335,15 @@ export default function S2Test() {
           {loginInfo.name}
         </div>
         <h2 className="testTitle">{title}</h2>
+        <CountDownTimer timeLimit={testQuestionInfo.time_limit} setTimeUpFlag={setTimeUpFlag} submitTest={submitTest} />
         <span className="submitTest">
           <button
             className="submitButton"
             onClick={() => {
               submitTest(false);
-            }}>提 出
+            }}>{S2Submit}
           </button>
         </span>
-        <CountDownTimer timeLimit={testQuestionInfo.time_limit} setTimeUpFlag={setTimeUpFlag} submitTest={submitTest} />
         <table className="table1">
           <tbody>
             <tr>
@@ -321,8 +357,8 @@ export default function S2Test() {
           <thead>
             <tr>
               <th>No.</th>
-              <th>問題</th>
-              <th>回答欄</th>
+              <th>{S2Problem}</th>
+              <th>{S2Answer}</th>
             </tr>
           </thead>
           <tbody>{questions}</tbody>

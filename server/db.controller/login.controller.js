@@ -8,7 +8,8 @@ module.exports = {
       .select({
         user_id:"students.id",
         name:"students.name",
-        password:"students.password"
+        password:"students.password",
+        grade:"students.grade_id"
       })
       .where({
         "students.id" : user_id
@@ -21,9 +22,10 @@ module.exports = {
         if (bool){
           response.user_id = res.user_id;
           response.name = res.name;
-          response.login_state = "studentLogin"
+          response.login_state = "studentLogin";
+          response.grade = res.grade;
        } else {
-        response.login_state = "notYetLoggedIn"
+        response.login_state = "notYetLoggedIn";
        }
        return response;
       })

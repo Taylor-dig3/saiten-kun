@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { questionAndAnswer, login } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
+import T4Snackbar from "./components/T4Snackbar";
 
 import "./T4ConfirmationCreatedTest.css";
 
@@ -12,7 +13,8 @@ export default function T4ConfirmationCreatedTest() {
   const [title, setTitle] = useState("");
   const qAndA = useRecoilValue(questionAndAnswer);
   const navigate = useNavigate();
-
+  const [isSnackbar, setIsSnackbar] = useState(false);
+  const [errorWord, setErrorWord] = useState("");
   const t3TestCreateDisplay = () => {
     navigate("../T3TestCreate");
   };
@@ -28,55 +30,74 @@ export default function T4ConfirmationCreatedTest() {
     // registeringContainer.className = "T4-registering-visible";
     const editQuestions = document.querySelectorAll("#question-input");
     const editAnswers = document.querySelectorAll("#answer-input");
+    const testTitle = document.querySelector("#testTitle");
+    const testDescription = document.querySelector("#testDescription");
     const qAndAArr = [];
 
+    let count = 0;
+
     for (let i = 0; i < editQuestions.length; i++) {
-      qAndAArr.push({
-        question: editQuestions[i].value,
-        answer: editAnswers[i].value,
-      });
-    }
-    console.log(qAndAArr);
+      if (
+        //空欄がある場合アラート
+        editQuestions[i].value === "" ||
+        editAnswers[i].value === "" ||
+        testTitle.value === "" ||
+        testDescription === ""
+      ) {
+        setErrorWord("空欄を全て入力してください！");
+        setIsSnackbar(true);
+      } else {
+        //空欄なければqAndAArrにデータ格納
+        qAndAArr.push({
+          question: editQuestions[i].value,
+          answer: editAnswers[i].value,
+        });
+        count++;
 
-    const registerQandAObj = {
-      ...qAndA,
-      teacher_id: loginInfo.userId,
-      test_name: title,
-      question_title: description,
-      data: qAndAArr,
-    };
-    console.log(registerQandAObj);
+        if (count === editQuestions.length) {
+          //全てのデータをqAndAArrに格納した段階でAPI投げる
+          const registerQandAObj = {
+            ...qAndA,
+            teacher_id: loginInfo.userId,
+            test_name: title,
+            question_title: description,
+            data: qAndAArr,
+          };
+          console.log(registerQandAObj);
 
-    const subjects = ["国語", "算数", "理科", "社会", "英語"];
-    const subjectId = () => {
-      //教科名からsubject_idに変換
-      for (const elem of subjects) {
-        console.log(elem);
-        if (elem === registerQandAObj.subject) {
-          console.log(subjects.indexOf(elem) + 1);
-          return subjects.indexOf(elem) + 1;
+          const subjects = ["国語", "算数", "理科", "社会", "英語"];
+          const subjectId = () => {
+            //教科名からsubject_idに変換
+            for (const elem of subjects) {
+              console.log(elem);
+              if (elem === registerQandAObj.subject) {
+                console.log(subjects.indexOf(elem) + 1);
+                return subjects.indexOf(elem) + 1;
+              }
+            }
+          };
+          //アンサーデータをDBに送信
+          await axios
+            .post("/question", {
+              test_name: registerQandAObj.test_name,
+              question_title: registerQandAObj.question_title,
+              grade_id: registerQandAObj.grade,
+              data: registerQandAObj.data,
+              teacher_id: registerQandAObj.teacher_id,
+              subject_id: subjectId(),
+            })
+            .then((res) => {
+              // console.log("then");
+              console.log(res);
+              // loadingContainer.className = "T4-registering-hidden";
+              navigate("../T1Menu");
+              return res.data.text;
+            });
+
+          console.log(registerQandAObj);
         }
       }
-    };
-    //アンサーデータをDBに送信
-    await axios
-      .post("/question", {
-        test_name: registerQandAObj.test_name,
-        question_title: registerQandAObj.question_title,
-        grade_id: registerQandAObj.grade,
-        data: registerQandAObj.data,
-        teacher_id: registerQandAObj.teacher_id,
-        subject_id: subjectId(),
-      })
-      .then((res) => {
-        // console.log("then");
-        console.log(res);
-        // loadingContainer.className = "T4-registering-hidden";
-        navigate("../T1Menu");
-        return res.data.text;
-      });
-
-    console.log(registerQandAObj);
+    }
   };
 
   const descriptionChange = (e) => {
@@ -97,6 +118,7 @@ export default function T4ConfirmationCreatedTest() {
       <div className="T4-title">作成テスト確認</div>
       <div className="T4-subtitle">テストタイトル</div>
       <input
+        id="testTitle"
         className="T4-text"
         type="text"
         placeholder="テストタイトルを入力"
@@ -104,6 +126,7 @@ export default function T4ConfirmationCreatedTest() {
       />
       <div className="T4-subtitle">説明</div>
       <input
+        id="testDescription"
         className="T4-text"
         type="text"
         placeholder="問題の説明を入力"
@@ -144,13 +167,11 @@ export default function T4ConfirmationCreatedTest() {
       <button className={"T1-button"} onClick={t3TestCreateDisplay}>
         戻る
       </button>
-      <div className="T4-registering-hidden" id="T4-registering-container">
-        <div id="div-registering">
-          <div id="registering-background"></div>
-
-          <div id="registering-text">テスト登録中...</div>
-        </div>
-      </div>
+      <T4Snackbar
+        isSnackbar={isSnackbar}
+        setIsSnackbar={setIsSnackbar}
+        errorWord={errorWord}
+      />
     </div>
   );
 }

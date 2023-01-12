@@ -21,8 +21,8 @@ export default function CountDownTimer({ timeLimit, setTimeUpFlag, submitTest })
   };
   return (
     <span className='testTimer'>
-      <p>あと</p>
       <div>
+        <span className='testTimer-title'>あと</span>
         <span>{formatTime(minutes)}</span>:<span>{formatTime(seconds)}</span>
       </div>
     </span>

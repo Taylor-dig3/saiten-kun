@@ -5,12 +5,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 630px;
+  min-width: 768px;
 }
 
 .S1-title {
   font-family: 'Potta One', cursive;
   font-size: 60px;
+  margin-top: 20px;
   margin-bottom: 3%;
 }
 
@@ -102,15 +103,17 @@
 
 .user-info {
   position: fixed;
+  left: 0;
+  top: 0;
   text-align: center;
   font-family: 'Potta One', cursive;
-  font-size: 16pt;
-  color:rgb(177, 80, 32);
+  font-size: 14pt;
+  color: rgb(177, 80, 32);
   margin: 10px 10px 10px 10px;
   padding: 5px 10px 5px 10px;
   border: 5px rgb(219, 198, 159) solid;
   border-radius: 50%;
   background-color: wheat;
-  width: 120px;
+  width: 100px;
   z-index: 20;
 }

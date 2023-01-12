@@ -121,7 +121,9 @@ export default function T6ResultCheck() {
                   <img className="T6marubatsu" src="./img/maru.png" alt="" />
                 ) : elem["result"] === false ? (
                   <img className="T6marubatsu" src="./img/batsu.png" alt="" />
-                ):""}
+                ) : (
+                  ""
+                )}
               </TableCell>
               <TableCell>
                 <button
@@ -157,7 +159,7 @@ export default function T6ResultCheck() {
     }
   }, [paper]);
 
-  const  automaticGrading = async () => {
+  const automaticGrading = async () => {
     const loadingContainer = document.querySelector("#T6-loading-container");
     loadingContainer.className = "T6-loading-visible";
 
@@ -170,74 +172,90 @@ export default function T6ResultCheck() {
       .then((res) => {
         console.log(res.data);
         console.log("採点が完了しました。");
-        setResultStatus(true); 
+        setResultStatus(true);
       });
-        loadingContainer.className = "T6-loading-hidden";
-      };
-      
-      return (
-        <div className="T6-container">
+    loadingContainer.className = "T6-loading-hidden";
+  };
+
+  return (
+    <div className="T6-container">
       <h1 className="T6-title">テスト結果確認</h1>
-      <span>
-        {resultStatus ? "採点済みです" : "採点未実施です"}
-      </span>
       <div className="T6-button-container">
-      <button onClick={t5TestListDisplay}>戻る</button>
-      <button onClick={automaticGrading}>自動採点</button>
-      <div className="studentsSelect">
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          value={selectGrade}
-          label="Age"
-          onChange={gradeChange}
+        <button
+          onClick={t5TestListDisplay}
+          className="T6-button"
+          id="T6-back-button"
         >
-          <MenuItem value={"全学年"}>全学年</MenuItem>
-          <MenuItem value={1}>1年生</MenuItem>
-          <MenuItem value={2}>2年生</MenuItem>
-          <MenuItem value={3}>3年生</MenuItem>
-          <MenuItem value={4}>4年生</MenuItem>
-          <MenuItem value={5}>5年生</MenuItem>
-          <MenuItem value={6}>6年生</MenuItem>
-        </Select>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          defaultValue={0}
-          label="Age"
-          onChange={selectStudentChange}
-          >
-          <MenuItem value={0}>生徒を選択してください</MenuItem>
-          {filterStudentIdList
-            ? filterStudentIdList.map((elem, index) => {
-              return (
-                <MenuItem
-                key={elem.id}
-                value={`${elem.id}&%${elem.name}`}
-                >{`ID:${("0000" + elem.id).slice(-4)}　 ${
-                  elem.name
-                }`}</MenuItem>
-                );
-              })
-              : 1}
-        </Select>
+          戻る
+        </button>
+      <div className="T6-automatic-grading-container">
+      <div className="T6-grading-text">
+        {resultStatus ? "採点済みです" : "※採点未実施です"}
       </div>
+        <button
+          onClick={automaticGrading}
+          className="T6-button"
+          id="T6-button-grading"
+          >
+          自動採点
+        </button>
+          </div>
+        <div className="T6-student-select-container">
+          <Select
+            labelId="demo-controlled-open-select-label"
+            className="T6-grade-select"
+            value={selectGrade}
+            onChange={gradeChange}
+          >
+            <MenuItem value={"全学年"}>全学年</MenuItem>
+            <MenuItem value={1}>1年生</MenuItem>
+            <MenuItem value={2}>2年生</MenuItem>
+            <MenuItem value={3}>3年生</MenuItem>
+            <MenuItem value={4}>4年生</MenuItem>
+            <MenuItem value={5}>5年生</MenuItem>
+            <MenuItem value={6}>6年生</MenuItem>
+          </Select>
+          <Select
+            labelId="demo-controlled-open-select-label"
+            className="T6-student-select"
+            defaultValue={0}
+            onChange={selectStudentChange}
+          >
+            <MenuItem value={0}>生徒を選択してください</MenuItem>
+            {filterStudentIdList
+              ? filterStudentIdList.map((elem, index) => {
+                  return (
+                    <MenuItem
+                      key={elem.id}
+                      value={`${elem.id}&%${elem.name}`}
+                    >{`ID:${("0000" + elem.id).slice(-4)}　 ${
+                      elem.name
+                    }`}</MenuItem>
+                  );
+                })
+              : 1}
+          </Select>
+        </div>
       </div>
       {selectStudent ? (
         <>
-        <div className="T6-test-result-info">
-
-          <span>{selectTestInfo.title}</span>
-          <span>問題数:{selectTestInfo.question_count}</span>
-          <span>実施日:{createDate(selectTestInfo.run_date)}</span>
-        <span className="T6-user-info">
-          <span className="T6StudentsID" value="ID">
-            ID:{("0000" + selectStudent.id).slice(-4)}
-          </span>
-          <span className="StudentsName">  名前:{selectStudent.name}</span>
-        </span>
-          <span className="scoreUnit">{score}点</span>
-        </div>
+          <div className="T6-test-result-info">
+            <div className="T6-user-info">
+              <span className="T6StudentsID" value="ID">
+                ID : {("0000" + selectStudent.id).slice(-4)}
+              </span>
+              <span className="T6-student-name">
+                {" "}
+                名前 : {selectStudent.name}
+              </span>
+            </div>
+            <div className="T6-test-info">
+              <span>{selectTestInfo.title}</span>
+              <span>問題数 : {selectTestInfo.question_count}</span>
+              <span>実施日 : {createDate(selectTestInfo.run_date)}</span>
+              <span className="T6-test-score">{score}点</span>
+            </div>
+          </div>
           {paper !== false ? (
             <Container maxWidth="95%">
               <TableContainer component={Paper} sx={{ maxHeight: "95%" }}>
@@ -265,7 +283,7 @@ export default function T6ResultCheck() {
           )}
         </>
       ) : (
-        <h1>生徒が選択されていません</h1>
+        <h1 className="T6-not-student">生徒が選択されていません!</h1>
       )}
 
       <div className="T6-loading-hidden" id="T6-loading-container">

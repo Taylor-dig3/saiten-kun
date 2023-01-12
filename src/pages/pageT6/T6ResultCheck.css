@@ -10,24 +10,31 @@
   font-family: 'Potta One', cursive;
   font-weight: lighter;
   font-size: 60px;
-  margin-bottom: 1%;
+  margin-bottom: 3%;
 }
 
 .T6-button-container{
   display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 95%;
 }
 
 .T6-test-result-info{
   width: 95%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   font-size: 25px;
 }
 
 .T6-user-info{
   /* width: 15%; */
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  font-family: 'Potta One', cursive;
+
 }
 
 .T6marubatsu {
@@ -46,18 +53,18 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(240, 230, 230, 0.5);
+  z-index: 3;
+
 }
 
 #T6-div-loading,
 #T6-loading-text,
 #T6-loading-background {
   overflow: hidden;
-
   position: absolute;
-
   border-radius: 50%;
-
   margin: 0 auto;
+  /* z-index: 100; */
 }
 
 #T6-div-loading {
@@ -93,7 +100,7 @@
 }
 
 #T6-loading-background {
-  z-index: 0;
+  
 
   width: 250px;
   height: 250px;
@@ -126,4 +133,147 @@
   to {
     transform: rotate(630deg);
   }
+}
+
+.T6-button{
+  /* margin-left: 3%; */
+
+  position: relative;
+  /* margin: 20px; */
+  padding: 0.8em 1em;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+  background-color: rgb(216, 235, 246);
+  border-radius: 10px;
+  color: rgb(17, 16, 16);
+  font-weight: 300;
+  font-size: 20px;
+  /* font-family: inherit; */
+  font-family: "Potta One", cursive;
+  z-index: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+
+.T6-button:hover {
+  animation: sh0 0.5s ease-in-out both;
+}
+@keyframes sh0 {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: rotate(7deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-7deg) translate3d(0, 0, 0);
+  }
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+.T6-button:hover span {
+  animation: storm 0.7s ease-in-out both;
+  animation-delay: 0.06s;
+}
+
+.T6-button::before,
+.T6-button::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgb(154, 114, 114);
+  opacity: 0;
+  transition: transform 0.15s cubic-bezier(0.02, 0.01, 0.47, 1),
+    opacity 0.15s cubic-bezier(0.02, 0.01, 0.47, 1);
+  z-index: -1;
+  transform: translate(100%, -25%) translate3d(0, 0, 0);
+}
+
+.T6-button:hover::before,
+.T6-button:hover::after {
+  opacity: 0.15;
+  transition: transform 0.2s cubic-bezier(0.02, 0.01, 0.47, 1),
+    opacity 0.2s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.T6-button:hover::before {
+  transform: translate3d(50%, 0, 0) scale(0.9);
+}
+
+.T6-button:hover::after {
+  transform: translate(50%, 0) scale(1.1);
+}
+
+.T6-student-select-container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+}
+
+.T6-grade-select{
+  margin-right: 10%;
+  font-family: 'Potta One', cursive !important;
+}
+
+.T6-student-select{
+  font-family: 'Potta One', cursive !important;
+}
+
+#T6-back-button {
+  width: 150px;
+}
+.T6-automatic-grading-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+#T6-button-grading{
+  width: 200px;
+}
+
+.T6-grading-text{
+  font-family: 'Potta One', cursive;
+  color: red;
+}
+
+.T6-student-name{
+margin-left: 3%;
+}
+
+.T6-test-info{
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Potta One', cursive;
+  align-items: flex-end;
+
+}
+
+.T6-test-score{
+  font-weight: bold;
+  font-size: 40px;
+  color: red;
+}
+
+.T6-not-student{
+  margin-top: 15%;
+  font-family: 'Potta One', cursive;
+  font-size: 45px;
 }
