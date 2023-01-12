@@ -13,6 +13,12 @@
   margin-bottom: 1%;
 }
 
+.S4-mizissi{
+  font-family: "Potta One", cursive;
+  font-weight: lighter;
+  font-size: 40px;
+  margin-bottom: 1%;
+}
 .S4-answer{
   width: 60%;
 }
@@ -131,6 +137,7 @@
   justify-content: space-between;
   font-family: "Potta One", cursive;
   align-items: flex-end;
+  margin-bottom: 5%;
 }
 
 .S4-student-name {
@@ -141,4 +148,41 @@
   font-weight: bold;
   font-size: 40px;
   color: red;
+  font-family: "Potta One", cursive;
 }
+
+.S4-baraemon-hidden {
+  visibility: hidden;
+}
+.S4-baraemon-visible {
+  position: fixed;
+  visibility: visible;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(240, 230, 230, 0.5);
+  z-index: 3;
+  display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.S4-baraemon-img {
+  animation-name:fadeDownAnime;
+  animation-duration:1s;
+  animation-fill-mode:forwards;
+  opacity:0;
+}
+  
+@keyframes fadeDownAnime{
+  from {
+    opacity: 0;
+  transform: translateY(-100px);
+  }
+
+  to {
+    opacity: 1;
+  transform: translateY(0);
+  }
+}
+

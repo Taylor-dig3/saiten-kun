@@ -24,9 +24,10 @@ export default function CreateTableRow({ row, score }) {
   const [selectTestInfo, setSelectTestInfo] = useRecoilState(studentSelectedTestInfo);
   const [open, setOpen] = useState(false);
   const [testDetail, setTestDetails] = useState([{ question: "", answer: "" }]);
-  const radioChange = (id, title, grade, subject, count, makeDate, runDate) => {
+  const radioChange = (id, title, grade, subject, count, run_date) => {
     console.log(id)
     setSelectTestInfo((prev) => {
+      console.log(prev)
       return {
         ...prev,
         test_id: id,
@@ -34,8 +35,7 @@ export default function CreateTableRow({ row, score }) {
         grade: grade,
         subject: subject,
         question_count: count,
-        make_date: makeDate,
-        run_date: runDate
+        run_date: run_date
       };
     });
   };

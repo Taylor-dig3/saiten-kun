@@ -6,6 +6,7 @@ import axios from "axios";
 import { Buffer } from "buffer";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { useReward } from "react-rewards";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -19,37 +20,52 @@ import { createDate } from "../../helperFunctions/createDate";
 
 import "./S4TestCheck.css";
 
+const rewardObj = {
+  lifetime: 300,
+  angle: 110,
+  decay: 0.98,
+  spread: 200,
+  startVelocity: 15,
+  elementCount: 500,
+  elementSize: 15,
+  zIndex: 4,
+  onAnimationComplete:()=>{
+    console.log("終わりです");
+    const elem = document.querySelector(".S4-baraemon-visible")
+    elem.className = "S4-baraemon-hidden"
+  }
+};
+
 export default function T6ResultCheck() {
   const loginInfo = useRecoilValue(login);
   const selectTestInfo = useRecoilValue(studentSelectedTestInfo);
   const [paper, setPaper] = useState();
   const [tablePaper, setTablePaper] = useState();
   const [score, setScore] = useState();
-
+  const { reward, isAnimating } = useReward("rewardId", "confetti", rewardObj);
+  console.log(selectTestInfo);
   const navigate = useNavigate();
   const s3TestListDisplay = () => {
     navigate("../S3ResultList");
   };
-
   useEffect(() => {
     if (paper !== false && paper !== undefined) {
       console.log("object");
       console.log(paper);
 
       const questionCount = paper.data.length;
-      let resultNullFlag = false 
-      const correctCount = paper.data.filter((elem) =>{
-      if(elem.result === null){
-        resultNullFlag = true
-      }  
-         return elem.result
-      }
-      ).length;
+      let resultNullFlag = false;
+      const correctCount = paper.data.filter((elem) => {
+        if (elem.result === null) {
+          resultNullFlag = true;
+        }
+        return elem.result;
+      }).length;
       // console.log((correctCount / questionCount) * 100);
-      if(!resultNullFlag){
+      if (!resultNullFlag) {
         setScore(Math.round((correctCount / questionCount) * 100));
-      }else{
-        setScore("未採")
+      } else {
+        setScore("未採");
       }
       setTablePaper(
         paper.data.map((elem, index) => {
@@ -92,8 +108,21 @@ export default function T6ResultCheck() {
         console.log(res.data);
         setPaper(res.data);
       });
-  }, []);
-
+    }, []);
+    
+  useEffect(() => {
+    if (score === 100) {
+      console.log("score入ったよ");
+      
+      const elem = document.querySelector(".S4-baraemon-hidden")
+      elem.className = "S4-baraemon-visible"
+      setTimeout(()=>{
+        reward();
+      },500)
+      
+    }
+  }, [score]);
+  
   return (
     <div className="S4-container">
       <h1 className="S4-title">結果確認</h1>
@@ -110,11 +139,11 @@ export default function T6ResultCheck() {
           <span className="S4-student-name">名前 : {loginInfo.name}</span>
         </div>
         <div className="S4-test-info">
-        <span>{selectTestInfo.title}</span>
-        <span>問題数:{selectTestInfo.question_count}</span>
-        <span>実施日:{createDate(selectTestInfo.run_date)}</span>
-        <span className="S4-test-score">{score}点</span>
-</div>
+          <span>{selectTestInfo.title}</span>
+          <span>問題数:{selectTestInfo.question_count}</span>
+          <span>テストの日:{createDate(selectTestInfo.run_date)}</span>
+          <span className="S4-test-score">{score}点</span>
+        </div>
       </div>
       {paper !== false ? (
         // <>
@@ -139,8 +168,14 @@ export default function T6ResultCheck() {
         </Container>
       ) : (
         // </>
-        "未実施"
+        <h1 className="S4-mizissi">未実施</h1>
       )}
+      <div className="S4-baraemon-hidden" >
+      <div id="rewardId">
+      <img src="./Bara-emon.PNG"  className="S4-baraemon-img"/>
+      </div>
+        </div>
+      
     </div>
   );
 }
