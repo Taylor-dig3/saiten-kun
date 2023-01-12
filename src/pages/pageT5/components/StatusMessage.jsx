@@ -21,9 +21,8 @@ export default function StatusMessage({testStatus}) {
         }else if(testStatus.statusWord === "テスト開始"){
             setMessage("※現在テストは実施されていません")
         }
-      
     },[testStatus])
   return (
-    <div>{message}</div>
+    <div className='T5-status-message'>{message}</div>
   )
 }
