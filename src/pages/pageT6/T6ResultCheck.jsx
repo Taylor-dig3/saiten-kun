@@ -271,7 +271,7 @@ export default function T6ResultCheck() {
                       >
                         解答{" "}
                       </TableCell>
-                      <TableCell style={{ width: "10%" }}>正誤修正</TableCell>
+                      <TableCell style={{ width: "15%" }}>正誤修正</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>{tablePaper}</TableBody>
