@@ -67,11 +67,9 @@ export default function S1Menu() {
   console.log(loginInfo);
   return (
     <>
-      <div className="user-info">
-        {loginInfo.name}
-      </div>
       <div className="S1-container">
-        <div className="S1-title">どれにする？</div>
+        <span className="user-info">{loginInfo.name}</span>
+        <span className="S1-title">どれにする？</span>
         <button onClick={s2Test} className={"S1-button"}>テストをはじめる</button>
         <button onClick={s3ResultListDisplay} className={"S1-button"}>いままでのテスト</button>
         <LogoutButton />
