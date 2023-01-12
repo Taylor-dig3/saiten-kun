@@ -65,6 +65,11 @@
   outline-offset: -40px;
 }
 
+.canvasTd{
+  height: 160px;
+  padding: 0;
+}
+
 .canvasAns {
   position: relative;
   /* border: 1px solid black; */
