@@ -17,7 +17,7 @@ module.exports = {
       `${process.env.HASHKEY}${reqPassword}`,
       salt
     );
-
+console.log("ハッシュ",hashed_password)
     const newAccount = {
       name: reqName,
       grade_id: reqGrade,

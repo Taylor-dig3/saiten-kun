@@ -6,7 +6,11 @@ exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('teachers').del()
   await knex('teachers').insert([
-    { name: "大谷　翔平",password:"$2b$10$WRXvqusQZd.40YOnwSMPReEwIV/3IJa0IV8IneG7C283jqGnhYUn2"},
-    { name: "小谷　走平",password:"$2b$10$XSS3eVRNuWhLzo4X7sFj3ei81LdIb3LSElCcGaJtQytnZY9sY6lTi"},
+    { name: "茶茶　国男",password:"$2b$10$abfzIqACFGs9NpC45KZyGuUaypkYwBv.d1T3JYI3nYC2tY8pyF4aO"},
+    { name: "薔薇　右衛門",password:"$2b$10$abfzIqACFGs9NpC45KZyGuUaypkYwBv.d1T3JYI3nYC2tY8pyF4aO"},
+    { name: "襟　えり子",password:"$2b$10$abfzIqACFGs9NpC45KZyGuUaypkYwBv.d1T3JYI3nYC2tY8pyF4aO"},
+    { name: "小池　よしき",password:"$2b$10$abfzIqACFGs9NpC45KZyGuUaypkYwBv.d1T3JYI3nYC2tY8pyF4aO"},
+    { name: "樋口　和宏",password:"$2b$10$abfzIqACFGs9NpC45KZyGuUaypkYwBv.d1T3JYI3nYC2tY8pyF4aO"},
+    { name: "間　悠介",password:"$2b$10$abfzIqACFGs9NpC45KZyGuUaypkYwBv.d1T3JYI3nYC2tY8pyF4aO"},
   ]);
 };
