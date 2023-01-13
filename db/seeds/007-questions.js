@@ -6,19 +6,26 @@ exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("questions").del();
   await knex("questions").insert([
-    { question: "５０音の最初の文字を答えよ", answer: "あ", subject_id: 1 }, //1
-    { question: "しんごうが青にかわった", answer: "あお", subject_id: 1 }, //2
-    { question: "プールで耳にみずがはいる", answer: "みみ", subject_id: 1 }, //3
-    { question: "かけっこで一ばんになった", answer: "いち", subject_id: 1 }, //4
-    { question: "おとうさんの手はおおきい", answer: "て", subject_id: 1 }, //5
-    { question: "愛知県", answer: "中部地方", subject_id: 1 }, //6
-    { question: "東京都", answer: "関東地方", subject_id: 1 }, //7
-    { question: "げきで王さまのやくになる", answer: "おう", subject_id: 1 }, //8
-    { question: "森でかぶとむしをさがす", answer: "もり", subject_id: 1 }, //9
-    { question: "あたらしい字をならう", answer: "じ", subject_id: 1 }, //10
-    { question: "熊本県", answer: "九州地方", subject_id: 1 }, //11
-    { question: "鳥取県", answer: "中国地方", subject_id: 1 }, //12
-    { question: "北海道", answer: "北海道地方", subject_id: 1 }, //13
-    { question: "福島県", answer: "東北地方", subject_id: 1 }, //14
+    { question: "愛知県", answer: "中部地方", subject_id: 4 }, //1
+    { question: "東京都", answer: "関東地方", subject_id: 4 }, //2
+    { question: "熊本県", answer: "九州地方", subject_id: 4 }, //3
+    { question: "鳥取県", answer: "中国地方", subject_id: 4 }, //4
+    { question: "北海道", answer: "北海道地方", subject_id: 4 }, //5
+    { question: "暑中みまい", answer: "しょちゅう", subject_id: 1 }, //
+    { question: "身長をくらべる", answer: "しんちょう", subject_id: 1 }, //
+    { question: "ぼくが打者だ", answer: "だしゃ", subject_id: 1 }, //
+    { question: "きょうは調子がいい", answer: "ちょうし", subject_id: 1 }, //
+    { question: "あすは祭日だ", answer: "さいじつ", subject_id: 2 }, //10
+    { question: "1250  ÷ 50 =", answer: "25", subject_id: 1 }, //
+    { question: "3 + 5 + 6 ÷ 2 =", answer: "11", subject_id: 2 }, //
+    { question: "22 × 22 =", answer: "484", subject_id: 2 }, //
+    { question: "55 × 4  =", answer: "220", subject_id: 2 }, //
+    { question: "6 ÷ 2 + 3 × 2 =", answer: "9", subject_id: 2 }, //15
+    { question: "animal  white  long ears", answer: "rabbit", subject_id: 5 }, //
+    { question: "fruits  yellow  monkey", answer: "banana", subject_id: 5 }, //
+    { question: "drink  white  cow", answer: "milk", subject_id: 5 }, //
+    { question: "animal  big  long nose", answer: "elephant", subject_id: 5 }, //
+    { question: "dig3  frightening  instructor", answer: "Eriko", subject_id: 5 }, //20
+
   ]);
 };
