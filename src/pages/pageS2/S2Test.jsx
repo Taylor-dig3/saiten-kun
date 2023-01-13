@@ -25,6 +25,12 @@ export default function S2Test() {
   let canvas = [];
   let ctx = [];
 
+  useEffect(() => {
+    if(loginInfo.loginState === "notYetLoggedIn"){
+     navigate("../")
+    }
+     }, []);
+
   //S1のテスト開始ボタンでtestQuestionInfoが変わった時にtestQuestionを持ってくる
   useEffect(() => {
     setPaper(testQuestionInfo);

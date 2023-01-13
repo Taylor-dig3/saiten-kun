@@ -41,27 +41,29 @@ export default function CreateTableRow({ row }) {
   };
 
   useEffect(() => {
-    axios
-      .get("testDetail", {
-        params: {
-          test_id: row.test_id,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setTestDetails(res.data);
-      });
-      axios
-        .get("/teacher/checkResultStatus", {
+    (async() => {
+     await axios
+        .get("testDetail", {
           params: {
             test_id: row.test_id,
           },
         })
-        .then((res) => {
-          console.log("ここですよ",res.data);
-          setResultStatus(res.data);
+        .then(async (res) => {
+          console.log(res.data);
+          setTestDetails(res.data);
+          await axios
+             .get("/teacher/checkResultStatus", {
+               params: {
+                 test_id: row.test_id,
+               },
+             })
+             .then((res) => {
+               console.log("ここですよ",res.data);
+              //  setResultStatus(res.data);
+             });
         });
-
+      
+    })()
   }, []);
 
   // useEffect(() => {

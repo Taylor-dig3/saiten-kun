@@ -75,10 +75,11 @@ const setupServer = () => {
   });
 
   app.get("/testDetail",async (req,res)=>{
-    console.log("選択した問題と解答を取得するAPI")
+    console.log("選択した問題と解答を取得するAPI",req.query.test_id)
     let result;
     try {
       result = await getSelectTests(Number(req.query.test_id));
+      console.log("選択した問題と解答を取得するAPI",result)
       res.json(result).status(200).end();
     } catch (err) {
       console.log(err);
@@ -313,40 +314,18 @@ const setupServer = () => {
       });
   });
 
-  app.get("/answerMock", async(req, res) => {
-    console.log("answerMock");
-    const resultTable = {
-      question_title: "漢字をひらがなに直しなさい",
-      data: [
-        {
-          question: "草がはえる",
-          answer_img: "logo192.png",
-          result: true,
-        },
-        {
-          question: "歯がぬけた",
-          answer_img: "logo192.png",
-          result: false,
-        },
-        {
-          question: "親しらず",
-          answer_img: "logo192.png",
-          result: false,
-        },
-      ],
-    };
-    res.send(resultTable).status(200).end();
-  });
+ 
 
   app.get("/teacher/checkResultStatus", async(req, res) => {
     console.log("checkResultStatus");
-    const result = await checkResultStatus(req.query.test_id)
+    const result = await checkResultStatus(Number(req.query.test_id))
+    console.log("check終わり",result);
     res.send(result).status(200).end();
   });
 
+
+
   app.get("/teacher/automaticGrading", async(req, res) => {
-    console.log("checkResultStatus");
-    
     const result = await automaticGrading(req.query.test_id)
     res.send(result).status(200).end();
   });

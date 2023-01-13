@@ -99,6 +99,12 @@ export default function T2StudentRegistration() {
     }
   }, [formErrors]);
 
+  useEffect(() => {
+    if(loginInfo.loginState === "notYetLoggedIn"){
+     navigate("../")
+    }
+     }, []);
+
   const formSubmit = (e) => {
     e.preventDefault();
     console.log(formValues);

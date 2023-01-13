@@ -133,6 +133,12 @@ export default function CollapsibleTable() {
       break;
   }
 
+  useEffect(() => {
+    if(loginInfo.loginState === "notYetLoggedIn"){
+     navigate("../")
+    }
+     }, []);
+
   return (
     <>
       <div className="user-info">

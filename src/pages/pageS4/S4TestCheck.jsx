@@ -48,6 +48,13 @@ export default function T6ResultCheck() {
   const s3TestListDisplay = () => {
     navigate("../S3ResultList");
   };
+
+  useEffect(() => {
+   if(loginInfo.loginState === "notYetLoggedIn"){
+    navigate("../")
+   }
+    }, []);
+
   useEffect(() => {
     if (paper !== false && paper !== undefined) {
       console.log("object");

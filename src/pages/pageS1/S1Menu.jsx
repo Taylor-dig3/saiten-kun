@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import {
   login,
@@ -100,6 +100,12 @@ export default function S1Menu() {
       break;
   }
 
+
+  useEffect(() => {
+    if(loginInfo.loginState === "notYetLoggedIn"){
+     navigate("../")
+    }
+     }, []);
 
   return (
     <>
