@@ -247,6 +247,28 @@
 .ending-comment {
   font-family: 'Potta One', cursive;
   font-size: 26px;
-  margin-top: 300px;
+  margin-top: 200px;
   margin-left: 25px;
+  position: relative;
+  /* display: inline-block; */
+  max-width: 600px;
+  padding: 9px 14px;
+  border-radius: 19px;
+  float: left;
+  background: #ffffff;
+  overflow-wrap: break-word;
+  clear: both;
+  box-sizing: content-box;/*はてな用*/
+  height: 115px;
+}
+
+.ending-comment::after {
+  position: absolute;
+  content: "";
+  width: 30px;
+  height: 20px;
+  bottom: 0;
+  left: -11px;
+  border-radius: 0px 0  50px 0px/ 0px 0 30px 0; 
+  box-shadow: -22px 2px 0 -3px #ffffff inset; 
 }
