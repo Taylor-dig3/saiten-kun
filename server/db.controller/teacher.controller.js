@@ -270,7 +270,7 @@ module.exports = {
       });
   },
 
-  async getSelectTests(test_id) {
+   getSelectTests(test_id) {
     return knex("papers")
       .select("question", "answer")
       .join("questions", "papers.question_id", "questions.id")
@@ -283,12 +283,15 @@ module.exports = {
       .where("teacher_id", teacher_id);
   },
 
-  checkResultStatus(test_id) {
+ checkResultStatus(test_id) {
+    console.log("rionrionrion");
     return knex("results")
-      .select("test_id", "result")
-      .where("test_id", test_id)
+    .select("test_id", "result")
+    .where("test_id", test_id)
       .first()
       .then((res) => {
+        console.log("rionrionrion222222");
+        console.log("test_id",test_id)
         console.log(res);
         if (res.result === null) {
           return false;
@@ -296,10 +299,10 @@ module.exports = {
           return true;
         }
       });
-  },
-
-  async automaticGrading(test_id) {
-    console.log("riiiion");
+    },
+    
+    async automaticGrading(test_id) {
+      console.log("riiiion");
     const resultList = await knex("results")
       .join("questions", "results.question_id", "questions.id")
       .select(

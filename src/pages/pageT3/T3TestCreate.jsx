@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { questionAndAnswer } from "../../shareComponents/atom";
-import { useRecoilState } from "recoil";
+import {login, questionAndAnswer } from "../../shareComponents/atom";
+import { useRecoilState,useRecoilValue } from "recoil";
 import axios from "axios";
 
 import "./T3TestCreate.css";
@@ -16,6 +16,7 @@ export default function T3TestCreate() {
   const [selectSubject, setSelectSubject] = useState("算数");
   const [selectQuestionAmount, setSelectQuestionAmount] = useState(10);
   const [chatGptQAndA, setChatGptQAndA] = useRecoilState(questionAndAnswer);
+  const loginInfo = useRecoilValue(login);
 
   const navigate = useNavigate();
   const t4ConfirmationCreatedTestDisplay = () => {
@@ -120,6 +121,13 @@ export default function T3TestCreate() {
   const t1MenuDisplay = () => {
     navigate("../T1Menu");
   };
+
+  useEffect(() => {
+    if(loginInfo.loginState === "notYetLoggedIn"){
+     navigate("../")
+    }
+     }, []);
+ 
 
   return (
     <div className="T1-container">

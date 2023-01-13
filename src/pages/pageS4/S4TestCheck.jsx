@@ -30,7 +30,6 @@ const rewardObj = {
   elementSize: 15,
   zIndex: 4,
   onAnimationComplete:()=>{
-    console.log("終わりです");
     const elem = document.querySelector(".S4-baraemon-visible")
     elem.className = "S4-baraemon-hidden"
   }
@@ -48,6 +47,71 @@ export default function T6ResultCheck() {
   const s3TestListDisplay = () => {
     navigate("../S3ResultList");
   };
+
+    let  S3Title = "いままでやったテスト";
+    let  S3Back = "もどる";
+    let  S3Result = "テストけっかかくにん";
+    let  S3Sub = "きょうか";
+    let  S3Problem = "もんだいすう";
+    let  S3Score = "てんすう";
+
+  switch (loginInfo.grade) {
+    case 1:
+      S3Title = "いままでやったテスト";
+      S3Back = "もどる";
+      S3Result = "テストけっかかくにん";
+      S3Sub = "きょうか";
+      S3Problem = "もんだいすう";
+      S3Score = "てんすう";
+      break;
+    case 2:
+      S3Title = "今までやったテスト";
+      S3Back = "もどる";
+      S3Result = "テストけっかかくにん";
+      S3Sub = "教科";
+      S3Problem = "もんだい数";
+      S3Score = "点数";
+      break;
+    case 3:
+      S3Title = "今までやったテスト";
+      S3Back = "もどる";
+      S3Result = "テストけっかかくにん";
+      S3Sub = "教科";
+      S3Problem = "問題数";
+      S3Score = "点数";
+      break;
+    case 4:
+      S3Title = "メニュー";
+      S3Back = "もどる";
+      S3Result = "テスト結果かくにん";
+      S3Sub = "教科";
+      S3Problem = "問題数";
+      S3Score = "点数";
+      break;
+    case 5:
+      S3Title = "過去のテスト";
+      S3Back = "もどる";
+      S3Result = "テスト結果確にん";
+      S3Sub = "教科";
+      S3Problem = "問題数";
+      S3Score = "点数";
+      break;
+    case 6:
+      S3Title = "過去テスト一覧";
+      S3Back = "もどる";
+      S3Result = "テスト結果確認";
+      S3Sub = "教科";
+      S3Problem = "問題数";
+      S3Score = "点数";
+      break;
+  }
+
+  useEffect(() => {
+   if(loginInfo.loginState === "notYetLoggedIn"){
+    navigate("../")
+   }
+    }, []);
+
   useEffect(() => {
     if (paper !== false && paper !== undefined) {
       console.log("object");

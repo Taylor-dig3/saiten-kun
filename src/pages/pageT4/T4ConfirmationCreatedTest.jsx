@@ -19,15 +19,8 @@ export default function T4ConfirmationCreatedTest() {
     navigate("../T3TestCreate");
   };
 
-  // const T1MenuDisplay = () => {
-  //   // navigate("../T1Menu");
-  // };
-
   const register = async () => {
-    // const registeringContainer = document.querySelector(
-    //   "#T4-registering-container"
-    // );
-    // registeringContainer.className = "T4-registering-visible";
+
     const editQuestions = document.querySelectorAll("#question-input");
     const editAnswers = document.querySelectorAll("#answer-input");
     const testTitle = document.querySelector("#testTitle");
@@ -113,6 +106,13 @@ export default function T4ConfirmationCreatedTest() {
     // console.log("rion");
     console.log(qAndA);
   }, [qAndA]);
+
+  useEffect(() => {
+    if(loginInfo.loginState === "notYetLoggedIn"){
+     navigate("../")
+    }
+     }, []);
+
   return (
     <div className="T4-container">
       <div className="T4-title">作成テスト確認</div>

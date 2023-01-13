@@ -177,6 +177,12 @@ export default function T6ResultCheck() {
     loadingContainer.className = "T6-loading-hidden";
   };
 
+  useEffect(() => {
+    if(loginInfo.loginState === "notYetLoggedIn"){
+     navigate("../")
+    }
+     }, []);
+
   return (
     <div className="T6-container">
       <h1 className="T6-title">テスト結果確認</h1>

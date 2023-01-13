@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React,{useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { login, testList } from "../../shareComponents/atom";
@@ -30,6 +30,12 @@ export default function T1Menu() {
         navigate("../T5TestList");
       });
   };
+
+  useEffect(() => {
+    if(loginInfo.loginState === "notYetLoggedIn"){
+     navigate("../")
+    }
+     }, []);
 
   return (
     <div className="T1-container">
