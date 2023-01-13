@@ -64,9 +64,13 @@ export default function CollapsibleTable() {
           },
         })
         .then((res) => {
-          const questionCount = res.data.data.length;
-          const correctCount = res.data.data.filter((elem) => elem.result).length;
-          return Math.round((correctCount / questionCount) * 100);
+          if (res.data.data[0].result === null) {
+            return "まるつけ中";
+          } else {
+            const questionCount = res.data.data.length;
+            const correctCount = res.data.data.filter((elem) => elem.result).length;
+            return Math.round((correctCount / questionCount) * 100);
+          }
         });
     })
     Promise.all(getScore).then(values => {
