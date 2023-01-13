@@ -21,7 +21,15 @@ export default function LoginModal({setIsLoginModal}) {
 
   const [studentFlag, setStudentFlag] = useState(true);
   const navigate = useNavigate();
-  const changeValue = () => setStudentFlag((prev) => !prev);
+  const changeValue = () =>{
+    const selectedElem = document.querySelector("#L1-selected-button")
+    selectedElem.id = ""
+    const notSelectedElem =document.querySelector("#L1-not-selected-button")
+    notSelectedElem.id ="L1-selected-button"
+    selectedElem.id = "L1-not-selected-button"
+
+    setStudentFlag((prev) => !prev);
+  } 
 
   const isFirstRender = useRef(false);
   const togglePassword = () => {
@@ -113,22 +121,14 @@ export default function LoginModal({setIsLoginModal}) {
           <IconButton className="L1-form-close-button" onClick={()=>setIsLoginModal(false)}>
     <HighlightOffIcon  sx={{ fontSize: 35 }}/>
           </IconButton>
-          <h1 className="login-form-name">ログインしてね</h1>
+          <h1 className="login-form-name">ログインしてください</h1>
           <hr />
-          <RadioGroup defaultValue="生徒" row>
-            <FormControlLabel
-              value="先生"
-              control={<Radio />}
-              label="先生"
-              onChange={changeValue}
-            />
-            <FormControlLabel
-              value="生徒"
-              control={<Radio />}
-              label="生徒"
-              onChange={changeValue}
-            />
-          </RadioGroup>
+            <div className="L1-select-button-container">
+
+            <button type="button" onClick={changeValue} className={"L1-select-button"} id="L1-not-selected-button">先生</button>
+            <button type="button" onClick={changeValue} className={"L1-select-button"} id="L1-selected-button">生徒</button>
+            </div>
+            
           <div className="ui-form">
             <div className="form-field">
               <label> ユーザーID</label>

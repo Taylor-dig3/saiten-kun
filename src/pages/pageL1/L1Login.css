@@ -164,3 +164,100 @@ margin-bottom: 3px;
     margin-top: 15px;
     font-family: 'Potta One', cursive;
 }
+
+
+.L1-select-button {
+  width: 130px;
+  position: relative;
+  margin: 20px;
+  padding: 0.8em 1em;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+  background-color: rgb(216, 235, 246);
+  border-radius: 10px;
+  color: rgb(17, 16, 16);
+  font-weight: 300;
+  font-size: 20px;
+  /* font-family: inherit; */
+  font-family: 'Potta One', cursive;
+  z-index: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.L1-select-button:hover {
+  animation: sh0 0.5s ease-in-out both;
+}
+
+#L1-selected-button{
+  animation: sh0 0.5s ease-in-out both;
+  animation-iteration-count:infinite;
+  background-color: rgb(238, 170, 208);
+}
+@keyframes sh0 {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: rotate(7deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(-7deg) translate3d(0, 0, 0);
+  }
+
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+.L1-select-button:hover span {
+  animation: storm 0.7s ease-in-out both;
+  animation-delay: 0.06s;
+}
+
+.L1-select-button::before,
+.L1-select-button::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgb(154, 114, 114);
+  opacity: 0;
+  transition: transform 0.15s cubic-bezier(0.02, 0.01, 0.47, 1), opacity 0.15s cubic-bezier(0.02, 0.01, 0.47, 1);
+  z-index: -1;
+  transform: translate(100%, -25%) translate3d(0, 0, 0);
+}
+
+.L1-select-button:hover::before,
+.L1-select-button:hover::after {
+  opacity: 0.15;
+  transition: transform 0.2s cubic-bezier(0.02, 0.01, 0.47, 1), opacity 0.2s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.L1-select-button:hover::before {
+  transform: translate3d(50%, 0, 0) scale(0.9);
+}
+
+.L1-select-button:hover::after {
+  transform: translate(50%, 0) scale(1.1);
+}
+
+.L1-select-button-container{
+  display: flex;
+  justify-content:space-around
+}
