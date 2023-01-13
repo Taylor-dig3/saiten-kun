@@ -46,7 +46,7 @@
   background-color: white;
 }
 
-.questionsTable td{
+.questionsTable td {
   padding-left: 0;
   padding-right: 0;
 }
@@ -65,7 +65,7 @@
   outline-offset: -40px;
 }
 
-.canvasTd{
+.canvasTd {
   height: 160px;
   padding: 0;
 }
@@ -218,4 +218,35 @@
   font-size: 16pt;
   padding-right: 10px;
   z-index: 12;
+}
+
+#S2-ending {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 768px;
+  height: 100%;
+  visibility: hidden;
+  background-color: papayawhip;
+  z-index: 25;
+}
+
+.S2-saitenkun-risu {
+  width: 100px;
+  height: 100px;
+  margin-top: 300px;
+  margin-left: 10%;
+  animation: korokoro 2.5s linear 0s 1;
+  animation-iteration-count: infinite
+}
+
+.ending-comment {
+  font-family: 'Potta One', cursive;
+  font-size: 26px;
+  margin-top: 300px;
+  margin-left: 25px;
 }
