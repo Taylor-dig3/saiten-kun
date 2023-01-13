@@ -314,7 +314,7 @@ const setupServer = () => {
       });
   });
 
- 
+
 
   app.get("/teacher/checkResultStatus", async(req, res) => {
     console.log("checkResultStatus");
