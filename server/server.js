@@ -318,9 +318,12 @@ const setupServer = () => {
 
   app.get("/teacher/checkResultStatus", async(req, res) => {
     console.log("checkResultStatus");
-    const result = await checkResultStatus(Number(req.query.test_id))
-    console.log("check終わり",result);
-    res.send(result).status(200).end();
+    try {
+      const result = await checkResultStatus(req.query.test_id)
+      res.send(result).status(200).end();
+    } catch(err){
+      res.status(404).end();
+    }
   });
 
 
