@@ -46,7 +46,7 @@
   background-color: white;
 }
 
-.questionsTable td{
+.questionsTable td {
   padding-left: 0;
   padding-right: 0;
 }
@@ -65,7 +65,7 @@
   outline-offset: -40px;
 }
 
-.canvasTd{
+.canvasTd {
   height: 160px;
   padding: 0;
 }
@@ -218,4 +218,57 @@
   font-size: 16pt;
   padding-right: 10px;
   z-index: 12;
+}
+
+#S2-ending {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 768px;
+  height: 100%;
+  visibility: hidden;
+  background-color: papayawhip;
+  z-index: 25;
+}
+
+.S2-saitenkun-risu {
+  width: 100px;
+  height: 100px;
+  margin-top: 300px;
+  margin-left: 10%;
+  animation: korokoro 2.5s linear 0s 1;
+  animation-iteration-count: infinite
+}
+
+.ending-comment {
+  font-family: 'Potta One', cursive;
+  font-size: 26px;
+  margin-top: 200px;
+  margin-left: 25px;
+  position: relative;
+  /* display: inline-block; */
+  max-width: 600px;
+  padding: 9px 14px;
+  border-radius: 19px;
+  float: left;
+  background: #ffffff;
+  overflow-wrap: break-word;
+  clear: both;
+  box-sizing: content-box;/*はてな用*/
+  height: 115px;
+}
+
+.ending-comment::after {
+  position: absolute;
+  content: "";
+  width: 30px;
+  height: 20px;
+  bottom: 0;
+  left: -11px;
+  border-radius: 0px 0  50px 0px/ 0px 0 30px 0; 
+  box-shadow: -22px 2px 0 -3px #ffffff inset; 
 }

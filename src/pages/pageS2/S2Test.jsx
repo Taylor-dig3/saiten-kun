@@ -192,6 +192,7 @@ export default function S2Test() {
       }
     }
     if (flag) {
+      document.getElementById("S2-ending").style.visibility = "visible";
       console.log("submit start");
       // answerImg["student_id"] = student_ID;
       // answerImg["student_name"] = chgImg(0);
@@ -255,7 +256,11 @@ export default function S2Test() {
         })
         .then((res) => {
           console.log("then");
-          s1MenuDisplay();
+          setTimeout(() => {
+            console.log(`wait ${waitTime/1000} sec`);
+            document.getElementById("S2-ending").style.visibility = "hidden";
+            s1MenuDisplay();
+          }, waitTime);
           return res.data.text;
         });
     }
@@ -301,36 +306,60 @@ export default function S2Test() {
   let S2Submit = "";
   let S2Problem = "";
   let S2Answer = "";
+  let S2EndingComment1 = "";
+  let S2EndingComment2 = "";
+  let S2EndingComment3 = "";
+  let waitTime = 3000;
   switch (loginInfo.grade) {
     case 1:
       S2Submit = "てい出";
       S2Problem = "もんだい";
       S2Answer = "かいとうらん";
+      S2EndingComment1 = "テストおつかれさま〜";
+      S2EndingComment2 = "むずかしかった？　ぜんぶできたかな？";
+      S2EndingComment3 = "先生がまるつけおわるまでまっててね";
+      waitTime = 5000;
       break;
     case 2:
       S2Submit = "てい出";
       S2Problem = "もんだい";
       S2Answer = "かい答らん";
+      S2EndingComment1 = "テストおつかれさま〜";
+      S2EndingComment2 = "むずかしかった？　ぜんぶできたかな？";
+      S2EndingComment3 = "先生がまるつけおわるまでまっててね";
+      waitTime = 5000;
       break;
     case 3:
       S2Submit = "てい出";
       S2Problem = "問題";
       S2Answer = "かい答らん";
+      S2EndingComment1 = "テストおつかれ様〜";
+      S2EndingComment2 = "むずかしかった？　全部できたかな？";
+      S2EndingComment3 = "先生がまるつけ終わるまで待っててね";
       break;
     case 4:
       S2Submit = "てい出";
       S2Problem = "問題";
       S2Answer = "かい答らん";
+      S2EndingComment1 = "テストおつかれ様〜";
+      S2EndingComment2 = "むずかしかった？　全部できたかな？";
+      S2EndingComment3 = "先生がまる付け終わるまで待っててね";
       break;
     case 5:
       S2Submit = "提 出";
       S2Problem = "問題";
       S2Answer = "解答らん";
+      S2EndingComment1 = "テストおつかれ様〜";
+      S2EndingComment2 = "むずかしかった？　全部解けたかな？";
+      S2EndingComment3 = "先生がまる付け終わるまで待っててね";
       break;
     case 6:
       S2Submit = "提 出";
       S2Problem = "問題";
       S2Answer = "解答らん";
+      S2EndingComment1 = "テストおつかれ様〜";
+      S2EndingComment2 = "難しかった？　全部解けたかな？";
+      S2EndingComment3 = "先生がまる付け終わるまで待っててね";
       break;
   }
 
@@ -369,6 +398,10 @@ export default function S2Test() {
           </thead>
           <tbody>{questions}</tbody>
         </table>
+      </div>
+      <div id="S2-ending">
+        <img src="./img/risu.png" className="S2-saitenkun-risu" />
+        <span className="ending-comment">{S2EndingComment1}<br />{S2EndingComment2}<br />{S2EndingComment3}</span>
       </div>
     </>
   );
