@@ -169,7 +169,7 @@ export default function CollapsibleTable() {
                   テスト名
                 </TableCell>
                 <TableCell align="center">学年</TableCell>
-                <TableCell align="center">科目</TableCell>
+                <TableCell align="center">教科</TableCell>
                 <TableCell align="center">問題数</TableCell>
                 <TableCell align="center">作成日</TableCell>
                 <TableCell align="center">実施日</TableCell>
