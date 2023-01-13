@@ -22,9 +22,12 @@ export default function S1Menu() {
       })
       .then((res) => {
         if (res.data.length) {
+          console.log(res.data)
           const filterTest = res.data.filter((elem) => {
+            
             return elem.run_date
           })
+          console.log(filterTest)
           setTestList(filterTest);
         } else {
           setTestList(false)

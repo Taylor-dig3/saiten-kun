@@ -296,7 +296,7 @@ export default function S2Test() {
   let title;
   let question;
   try {
-    title = testList[0].title;
+    title = testList.filter((elem)=>elem.test_id === testQuestionInfo.test_id )[0].title;
     question = testQuestionInfo.question_title;
   } catch (err) {
     title = "";

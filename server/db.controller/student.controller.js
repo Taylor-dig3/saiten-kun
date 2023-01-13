@@ -53,30 +53,26 @@ module.exports = {
   async getTest(user_id) {
     console.log("bbbbbb");
     const testResultList = await knex("tests")
-      .join("results", "tests.id", "results.test_id")
-      .join("subjects", "subjects.id", "tests.subject_id")
-      .join("students", "students.id", "results.student_id")
-      .join("grades", "grades.id", "students.grade_id")
-      // .join("papers", "papers.test_id", "tests.id")
-      .select({
+    .join("papers", "tests.id", "papers.test_id")
+    .join("teachers","teachers.id","tests.teacher_id")
+    .join("subjects", "subjects.id", "tests.subject_id")
+    .join("students", "students.teacher_id", "teachers.id")
+    .join("grades", "grades.id", "students.grade_id")
+    .select({
         test_id: "tests.id",
         title: "tests.name",
         run_date: "tests.run_date",
         subject: "subjects.name",
         grade: "grades.grades_number",
       })
-      .groupBy("tests.id", "subjects.id", "grades.grades_number")
-      .count("results.question_id", { as: "question_number" })
+      .groupBy("tests.id", "subjects.id", "grades.grades_number","papers.test_id")
+      .count("papers.question_id", { as: "question_number" })
       .where({
-        "results.student_id": user_id,
-      });
-    // .distinct()
-    // .first();
-    console.log(testResultList);
+        "students.id": user_id,
+      })
+    console.log("rrrrrrrrrrr",testResultList);
+    console.log("rion");
     return testResultList;
-    // .then(res => {
-    //   console.log(res);
-    // })
   },
 
   postAnswer(resultObj) {
