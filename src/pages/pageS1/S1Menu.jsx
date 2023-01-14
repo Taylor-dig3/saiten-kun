@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useState} from "react";
 import { useNavigate } from "react-router-dom";
 import {
   login,
@@ -9,11 +9,15 @@ import {
 import { useRecoilValue, useRecoilState } from "recoil";
 import axios from "axios";
 import LogoutButton from "../../shareComponents/LogoutButton";
+import S1Snackbar from "./components/S1Snackbar";
+
 import "./S1Menu.css"
 export default function S1Menu() {
   const loginInfo = useRecoilValue(login);
   const [testQuestionInfo, setTestQuestionInfo] = useRecoilState(testQuestion);
   const [tesList, setTestList] = useRecoilState(studentTestList);
+  const [isSnackbar, setIsSnackbar] = useState(false);
+  const [errorWord, setErrorWord] = useState("");
   const navigate = useNavigate();
   const s2Test = () => {
         axios
@@ -26,6 +30,8 @@ export default function S1Menu() {
             setTestQuestionInfo(res.data);
             if (res.data.test_id) {
               navigate("../S2Test");
+            }else{
+              setIsSnackbar(true);
             }
           });
   };
@@ -102,6 +108,11 @@ export default function S1Menu() {
         <button onClick={s3ResultListDisplay} className={"S1-button"}>{S1Past}</button>
         <LogoutButton />
       </div>
+      <S1Snackbar
+        isSnackbar={isSnackbar}
+        setIsSnackbar={setIsSnackbar}
+        errorWord={"現在テストは開始されていません！"}
+      />
     </>
   );
 }
