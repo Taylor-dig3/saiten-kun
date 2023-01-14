@@ -17,7 +17,7 @@ export default function S1Menu() {
   const navigate = useNavigate();
   const s2Test = () => {
     axios
-      .get("/tests", {
+      .get("/testsStudent", {
         params: { user_id: loginInfo.userId },
       })
       .then((res) => {
