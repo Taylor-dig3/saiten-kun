@@ -26,6 +26,7 @@ export default function L1Login() {
     <div className="logo-container">
         <img src="./img/risu.png" className="saitenkun-risu" />
         <img src="./img/saitenkunzidake.png" className="saitenkun-logo" />
+        {/* <span className="saitenkun-logo">さ い て ん ク ン</span> */}
         <img src="./img/risu2.png" className="saitenkun-risu" />
 
       </div>

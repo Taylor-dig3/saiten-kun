@@ -26,6 +26,7 @@ export default function T6ResultCheck() {
   const [filterStudentIdList, setFilterStudentIdList] = useState();
   const [selectGrade, setSelectGrade] = useState("全学年");
   const [selectStudent, setSelectStudent] = useState();
+  const [selectStudentNameAndId,setSelectStudentNameAndId] = useState(0)
   const [paper, setPaper] = useState();
   const [tablePaper, setTablePaper] = useState();
   const [score, setScore] = useState();
@@ -55,6 +56,7 @@ export default function T6ResultCheck() {
     const valueArr = e.target.value.split("&%", 2);
     const studentInfo = { id: Number(valueArr[0]), name: valueArr[1] };
     setSelectStudent(studentInfo);
+    setSelectStudentNameAndId(e.target.value)
     axios
       .get("/answer", {
         params: {
@@ -174,7 +176,10 @@ export default function T6ResultCheck() {
         console.log("採点が完了しました。");
         setResultStatus(true);
       });
+      
     loadingContainer.className = "T6-loading-hidden";
+    setSelectStudent();
+    setSelectStudentNameAndId(0);
   };
 
   useEffect(() => {
@@ -185,6 +190,7 @@ export default function T6ResultCheck() {
 
   return (
     <div className="T6-container">
+      <span className="user-info">{loginInfo.name}</span>
       <h1 className="T6-title">テスト結果確認</h1>
       <div className="T6-button-container">
         <button
@@ -208,7 +214,6 @@ export default function T6ResultCheck() {
           </div>
         <div className="T6-student-select-container">
           <Select
-            labelId="demo-controlled-open-select-label"
             className="T6-grade-select"
             value={selectGrade}
             onChange={gradeChange}
@@ -222,9 +227,8 @@ export default function T6ResultCheck() {
             <MenuItem value={6}>6年生</MenuItem>
           </Select>
           <Select
-            labelId="demo-controlled-open-select-label"
             className="T6-student-select"
-            defaultValue={0}
+            value={selectStudentNameAndId}
             onChange={selectStudentChange}
           >
             <MenuItem value={0}>生徒を選択してください</MenuItem>

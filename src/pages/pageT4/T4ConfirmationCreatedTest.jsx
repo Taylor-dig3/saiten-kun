@@ -115,6 +115,7 @@ export default function T4ConfirmationCreatedTest() {
 
   return (
     <div className="T4-container">
+      <span className="user-info">{loginInfo.name}</span>
       <div className="T4-title">作成テスト確認</div>
       <div className="T4-subtitle">テストタイトル</div>
       <input
@@ -140,7 +141,7 @@ export default function T4ConfirmationCreatedTest() {
 
       {qAndA.data.map((elem, index) => {
         return (
-          <>
+         
             <div className="T4-text-container" key={index}>
               <div className="T4-question-no" key={index}>
                 No.{index + 1}
@@ -158,7 +159,7 @@ export default function T4ConfirmationCreatedTest() {
                 defaultValue={elem.answer}
               />
             </div>
-          </>
+         
         );
       })}
       <button className={"T1-button"} onClick={register}>

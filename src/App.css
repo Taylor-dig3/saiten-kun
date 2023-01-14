@@ -7,3 +7,21 @@ body {
   );
   /* overflow-y: hidden; */
 }
+
+
+.user-info {
+  position: fixed;
+  left: 0;
+  top: 0;
+  text-align: center;
+  font-family: 'Potta One', cursive;
+  font-size: 14pt;
+  color: rgb(177, 80, 32);
+  margin: 10px 10px 10px 10px;
+  padding: 5px 10px 5px 10px;
+  border: 5px rgb(219, 198, 159) solid;
+  border-radius: 50%;
+  background-color: wheat;
+  width: 100px;
+  z-index: 20;
+}

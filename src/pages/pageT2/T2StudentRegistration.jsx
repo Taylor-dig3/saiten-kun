@@ -113,6 +113,7 @@ export default function T2StudentRegistration() {
   };
   return (
     <>
+      <span className="user-info">{loginInfo.name}</span>
       <div className="T2-form-container">
         <form id="register-form" onSubmit={(e) => formSubmit(e)}>
           <h1 className="register-form-name">生徒新規登録</h1>

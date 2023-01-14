@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, InputLabel, NativeSelect, MenuItem } from "@mui/material";
+import { FormControl, NativeSelect,  } from "@mui/material";
 
 export default function GradeSelection({
   selectQuestionAmount,
@@ -14,7 +14,6 @@ export default function GradeSelection({
     <FormControl className={"T3-pulldown"} sx={{ minWidth: "200px" }}>
       <NativeSelect
         className={"T3-pulldown-select"}
-        labelId="question-amount-selection-label"
         id="question-amount-selection"
         value={selectQuestionAmount}
         label="question-amount"
@@ -22,7 +21,7 @@ export default function GradeSelection({
       >
         {questionAmount.map((elem, index) => {
           return (
-            <option value={elem} MenuItem key={index}>
+            <option value={elem} key={index}>
               {elem}
             </option>
           );

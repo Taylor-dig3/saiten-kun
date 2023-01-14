@@ -4,8 +4,6 @@ import { login, studentSelectedTestInfo } from "../../shareComponents/atom";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
 import { Buffer } from "buffer";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import { useReward } from "react-rewards";
 
 import Table from "@mui/material/Table";

@@ -82,7 +82,7 @@
   align-items: center;
   cursor: pointer;
   border: none;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   background-color: rgb(216, 235, 246);
   border-radius: 10px;
   color: rgb(17, 16, 16);
@@ -109,7 +109,7 @@
   align-items: center;
   cursor: pointer;
   border: none;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   background-color: rgb(216, 235, 246);
   border-radius: 10px;
   color: rgb(17, 16, 16);
@@ -135,7 +135,7 @@
   align-items: center;
   cursor: pointer;
   border: none;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   background-color: rgb(216, 235, 246);
   border-radius: 10px;
   color: rgb(17, 16, 16);

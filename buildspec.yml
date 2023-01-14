@@ -1,9 +1,5 @@
 version: 0.2
 
-# env:
-#   variables:
-#     REACT_APP_OPENAI_API_KEY: "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"
-
 phases:
   install:
   # run-as: root

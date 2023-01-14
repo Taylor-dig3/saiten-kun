@@ -122,6 +122,7 @@ export default function CollapsibleTable() {
 
   return (
     <div className="T5_container">
+      <span className="user-info">{loginInfo.name}</span>
       <h1 className="T5-title">テスト一覧</h1>
         <StatusMessage testStatus={testStatus} />
           <div className="T5_button_container">

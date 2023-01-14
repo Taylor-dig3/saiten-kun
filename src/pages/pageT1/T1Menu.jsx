@@ -39,7 +39,8 @@ export default function T1Menu() {
 
   return (
     <div className="T1-container">
-      <div className="T1-title">先生メニュー画面</div>
+      <span className="user-info">{loginInfo.name}</span>
+      <div className="T1-title">先生メニュー</div>
       <button onClick={t2StudentRegistrationDisplay} className={"T1-button"}>新規生徒登録</button>
       <button className={"T1-button"}>新規先生登録</button>
       <button onClick={t3TestCreate} className={"T1-button"}>テスト作成</button>
