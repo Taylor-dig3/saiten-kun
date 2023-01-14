@@ -9,6 +9,7 @@ const {
 const {
   startTest,
   getTest,
+  getStudentTest,
   postAnswer,
   getAnswer,
 } = require("./db.controller/student.controller");
@@ -101,8 +102,18 @@ const setupServer = () => {
     }
   });
 
+  app.get("/testsStudent",async(req,res) => {
+    let result;
+    try{
+      result = await ggetStudentTest(req.query.user_id);
+      res.json(result).status(200).end();
+    } catch(err){
+      res.send(err).status(404).end();
+    }
+  });
+
   app.get("/answer", async (req, res) => {
-    console.log("cccccccccccc");
+    // console.log("cccccccccccc");
     let result1;
     try {
       result1 = await getAnswer(req.query.user_id, req.query.test_id);
@@ -116,7 +127,7 @@ const setupServer = () => {
     const form = new FormData();
 
     const decodedFile = Buffer.from(req.body.data, "base64");
-    console.log(decodedFile);
+    // console.log(decodedFile);
     form.append("imgData", decodedFile, "test.jpg");
     axios({
       method: "post",
@@ -133,7 +144,7 @@ const setupServer = () => {
         // return res.data;
       })
       .catch((err) => {
-        console.log("err", err);
+        // console.log("err", err);
         res.send(err).status(400).end();
       });
 
@@ -163,7 +174,7 @@ const setupServer = () => {
 
   app.post("/student", (req, res) => {
     let result = {};
-    console.log(req.body);
+    // console.log(req.body);
 
     try {
       result = registerId(
@@ -174,7 +185,7 @@ const setupServer = () => {
       );
       res.json(result).status(200).end();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       res.send(err).status(404).end();
     }
   });
@@ -185,46 +196,46 @@ const setupServer = () => {
 
     try {
       result = await pickupStudents(req.query.teacher_id);
-      console.log(result);
+      // console.log(result);
       res.json(result).status(200).end();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       res.send(err).status(404).end();
     }
   });
 
   app.get("/teacherTests", async (req, res) => {
     let result = {};
-    console.log(req);
-    console.log("dddddddddd1");
+    // console.log(req);
+    // console.log("dddddddddd1");
 
     try {
       result = await pickupTests(req.query.teacher_id);
-      console.log(result);
+      // console.log(result);
       res.json(result).status(200).end();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       res.send(err).status(404).end();
     }
   });
 
   app.put("/password", (req, res) => {
     let result = {};
-    console.log(req);
+    // console.log(req);
 
     try {
       result = updatePassword(req.body.user_id, req.body.password);
       res.json(result).status(200).end();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       res.send(err).status(404).end();
     }
   });
 
   app.post("/question", (req, res) => {
     let result = {};
-    console.log("rrrrrrrrrrrrrr")
-    console.log(req.body);
+    // console.log("rrrrrrrrrrrrrr")
+    // console.log(req.body);
 
     try {
       result = registerQuestion(
@@ -237,7 +248,7 @@ const setupServer = () => {
       );
       res.json(result).status(200).end();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       res.send(err).status(404).end();
     }
   });
@@ -245,10 +256,10 @@ const setupServer = () => {
     let result;
     try {
       result = await putTestStart(req.body.teacher_id, req.body.test_id,req.body.time_limit);
-      console.log(result)
+      // console.log(result)
       res.json(result).status(200).end();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       res.send(err).status(404).end();
     }
   });
@@ -259,7 +270,7 @@ const setupServer = () => {
       result = await putTestEnd(req.body.teacher_id);
       res.json(result).status(200).end();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       res.send(err).status(404).end();
     }
   });
@@ -269,7 +280,7 @@ const setupServer = () => {
       result = await checkTestStatus(req.query.teacher_id);
       res.json(result).status(200).end();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       res.send(err).status(404).end();
     }
   });
@@ -279,7 +290,7 @@ const setupServer = () => {
       result = await getStudentIdList(req.query.teacher_id);
       res.json(result).status(200).end();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       res.send(err).status(404).end();
     }
   })
@@ -291,7 +302,7 @@ const setupServer = () => {
   });
 
   app.get("/test/rion", async (req, res) => {
-    console.log("first");
+    // console.log("first");
     await axios
       .post(
         "https://ocr-api.userlocal.jp/recognition/cropped",
@@ -305,7 +316,7 @@ const setupServer = () => {
         }
       )
       .then((res) => {
-        console.log("res.data", res.data);
+        // console.log("res.data", res.data);
         return res.data.text;
       })
       .catch((err) => {
@@ -317,7 +328,7 @@ const setupServer = () => {
 
 
   app.get("/teacher/checkResultStatus", async(req, res) => {
-    console.log("checkResultStatus");
+    // console.log("checkResultStatus");
     try {
       const result = await checkResultStatus(req.query.test_id)
       res.send(result).status(200).end();

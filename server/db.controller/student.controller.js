@@ -49,6 +49,34 @@ module.exports = {
           });
       });
   },
+  getStudentTest(user_id) {
+    // console.log("bbbbbb");
+    const testResultList =  knex("tests")
+      .join("results", "tests.id", "results.test_id")
+      .join("subjects", "subjects.id", "tests.subject_id")
+      .join("students", "students.id", "results.student_id")
+      .join("grades", "grades.id", "students.grade_id")
+      // .join("papers", "papers.test_id", "tests.id")
+      .select({
+        test_id: "tests.id",
+        title: "tests.name",
+        run_date: "tests.run_date",
+        subject: "subjects.name",
+        grade: "grades.grades_number",
+      })
+      .groupBy("tests.id", "subjects.id", "grades.grades_number")
+      .count("results.question_id", { as: "question_number" })
+      .where({
+        "results.student_id": user_id,
+      });
+    // .distinct()
+    // .first();
+    console.log(testResultList);
+    return testResultList;
+    // .then(res => {
+    //   console.log(res);
+    // })
+  },
 
   async getTest(user_id) {
     console.log("bbbbbb");
@@ -70,8 +98,8 @@ module.exports = {
       .where({
         "students.id": user_id,
       })
-    console.log("rrrrrrrrrrr",testResultList);
-    console.log("rion");
+    // console.log("rrrrrrrrrrr",testResultList);
+    // console.log("rion");
     return testResultList;
   },
 
