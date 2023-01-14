@@ -318,10 +318,12 @@ console.log(resultList)
       // console.log(Buffer.from( elem.answer_img, 'base64').toString());
       const replaceImg = Buffer.from( elem.answer_img, 'base64').toString().replace(/^data:\w+\/\w+;base64,/, "");
       const form = new FormData();
-
+      const apiKey = process.env.USERLOCAL_API_KEY
+      // console.log(apiKey)
       const decodedFile = Buffer.from(replaceImg, "base64");
       console.log(decodedFile);
       form.append("imgData", decodedFile, "test.jpg");
+      form.append("apiKey",apiKey)
       await axios({
         method: "post",
         url: "https://ocr-api.userlocal.jp/recognition/cropped",
