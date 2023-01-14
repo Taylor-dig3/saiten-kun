@@ -23,10 +23,7 @@ export default function T3TestCreate() {
     const loadingContainer = document.querySelector("#T3-loading-container");
     loadingContainer.className = "T3-loading-visible";
     console.log(loadingContainer);
-    const API_KEY2 = process.env.REACT_APP_OPENAI_API_KEY;
-    console.log(process.env.PORT)
-    console.log(API_KEY2)
-    const API_KEY = "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";
+    const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
     axios
       .post(
         "https://api.openai.com/v1/completions",
