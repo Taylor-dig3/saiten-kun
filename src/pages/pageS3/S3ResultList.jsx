@@ -55,8 +55,10 @@ export default function CollapsibleTable() {
   // let score = [];
   const [score, setScore] = useState([])
   useEffect(() => {
-    const getScore = testList.map(row => {
-      return axios
+    if(testList!==false){
+
+      const getScore = testList.map(row => {
+        return axios
         .get("/answer", {
           params: {
             user_id: loginInfo.userId,
@@ -72,12 +74,13 @@ export default function CollapsibleTable() {
             return Math.round((correctCount / questionCount) * 100);
           }
         });
-    })
-    Promise.all(getScore).then(values => {
-      console.log(values);
-      // score = values;
-      setScore(values);
-    })
+      })
+      Promise.all(getScore).then(values => {
+        console.log(values);
+        // score = values;
+        setScore(values);
+      })
+    }
   }, [])
 
   let S3Title = "";
