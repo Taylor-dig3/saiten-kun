@@ -23,7 +23,7 @@ export default function T3TestCreate() {
     const loadingContainer = document.querySelector("#T3-loading-container");
     loadingContainer.className = "T3-loading-visible";
     console.log(loadingContainer);
-    const API_KEY2 = process.env.REACT_APP_API_KEY;
+    const API_KEY2 = process.env.API_KEY;
     console.log(API_KEY2)
     const API_KEY = "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";
     axios
