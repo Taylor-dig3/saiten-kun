@@ -88,24 +88,24 @@ const setupServer = () => {
     }
   })
 
-  app.get("/tests", async (req, res) => {
-    console.log("開始");
-    let result;
-    try {
-      console.log("aaaaaaaa");
-      result = await getTest(req.query.user_id);
-      console.log(result);
-      res.json(result).status(200).end();
-    } catch (err) {
-      console.log(err);
-      res.send(err).status(404).end();
-    }
-  });
+  // app.get("/tests", async (req, res) => {
+  //   console.log("開始");
+  //   let result;
+  //   try {
+  //     console.log("aaaaaaaa");
+  //     result = await getTest(req.query.user_id);
+  //     console.log(result);
+  //     res.json(result).status(200).end();
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.send(err).status(404).end();
+  //   }
+  // });
 
   app.get("/testsStudent",async(req,res) => {
     let result;
     try{
-      result = await ggetStudentTest(req.query.user_id);
+      result = await getStudentTest(req.query.user_id);
       res.json(result).status(200).end();
     } catch(err){
       res.send(err).status(404).end();

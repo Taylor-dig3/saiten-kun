@@ -16,22 +16,6 @@ export default function S1Menu() {
   const [tesList, setTestList] = useRecoilState(studentTestList);
   const navigate = useNavigate();
   const s2Test = () => {
-    axios
-      .get("/testsStudent", {
-        params: { user_id: loginInfo.userId },
-      })
-      .then((res) => {
-        if (res.data.length) {
-          console.log(res.data)
-          const filterTest = res.data.filter((elem) => {
-            
-            return elem.run_date
-          })
-          console.log(filterTest)
-          setTestList(filterTest);
-        } else {
-          setTestList(false)
-        }
         axios
           .get("/questions", {
             params: { user_id: loginInfo.userId },
@@ -44,22 +28,21 @@ export default function S1Menu() {
               navigate("../S2Test");
             }
           });
-      });
   };
 
   const s3ResultListDisplay = () => {
     axios
-      .get("/tests", {
+      .get("/testsStudent", {
         params: { user_id: loginInfo.userId },
       })
       .then((res) => {
         console.log("S3pe-zi");
         console.log(res.data);
         if (res.data.length) {
-          const filterTest = res.data.filter((elem) => {
-            return elem.run_date
-          })
-          setTestList(filterTest);
+          // const filterTest = res.data.filter((elem) => {
+          //   return elem.run_date
+          // })
+          setTestList(res.data);
         } else {
           setTestList(false)
         }
