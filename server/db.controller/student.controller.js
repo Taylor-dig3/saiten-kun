@@ -51,10 +51,9 @@ module.exports = {
           });
       });
   },
-  getStudentTest(user_id) {
+  async getStudentTest(user_id) {
     // console.log("bbbbbb");
-    // const testResultList 
-    return knex("tests")
+    const testResultList = await knex("tests")
       .join("results", "tests.id", "results.test_id")
       .join("subjects", "subjects.id", "tests.subject_id")
       .join("students", "students.id", "results.student_id")
@@ -74,8 +73,8 @@ module.exports = {
       });
     // .distinct()
     // .first();
-    // console.log(testResultList);
-    // return testResultList;
+    console.log(testResultList);
+    return testResultList;
     // .then(res => {
     //   console.log(res);
     // })
