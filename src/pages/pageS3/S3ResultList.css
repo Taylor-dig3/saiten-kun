@@ -5,6 +5,11 @@
   margin-bottom: 0%;
   font-weight: lighter;
 }
+.S3-not-test-message{
+  font-family: "Potta One", cursive;
+  font-size: 40px;
+  margin-top: 5%;
+}
 
 .S3_container {
   /* margin: px; */

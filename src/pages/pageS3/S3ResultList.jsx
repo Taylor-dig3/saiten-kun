@@ -189,7 +189,7 @@ export default function CollapsibleTable() {
             </RadioGroup>
           </TableContainer>
           :
-          "テストはありません"}
+         <h1 className="S3-not-test-message">テストはありません </h1> }
         <Snackbar
           open={isSnackbar}
           autoHideDuration={6000}
