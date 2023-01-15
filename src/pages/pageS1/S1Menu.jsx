@@ -44,14 +44,14 @@ export default function S1Menu() {
       .then((res) => {
         console.log("S3pe-zi");
         console.log(res.data);
-        if (res.data.length) {
+        // if (res.data.length) {
           // const filterTest = res.data.filter((elem) => {
           //   return elem.run_date
           // })
           setTestList(res.data);
-        } else {
-          setTestList(false)
-        }
+        // } else {
+          // setTestList(false)
+        // }
         navigate("../S3ResultList");
       });
   };
