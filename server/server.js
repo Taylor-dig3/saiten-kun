@@ -88,34 +88,34 @@ const setupServer = () => {
     }
   })
 
-  // app.get("/tests", async (req, res) => {
-  //   console.log("開始");
-  //   let result;
-  //   try {
-  //     console.log("aaaaaaaa");
-  //     result = await getTest(req.query.user_id);
-  //     console.log(result);
-  //     res.json(result).status(200).end();
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.send(err).status(404).end();
-  //   }
-  // });
-
-  app.get("/testsStudent",async(req,res) => {
+  app.get("/tests", async (req, res) => {
+    console.log("開始");
     let result;
-    console.log("rion!!!!!!!!!!")
-    res.json(false).status(200).end();
-
-    // try{
-    //   result = await getStudentTest(req.query.user_id);
-    //   res.json(result).status(200).end();
-    // } catch(err){
-    //   // res.send(err).status(404).end();
-    //   res.json(false).status(200).end();
-
-    // }
+    try {
+      console.log("aaaaaaaa");
+      result = await getTest(req.query.user_id);
+      console.log(result);
+      res.json(result).status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.send(err).status(404).end();
+    }
   });
+
+  // app.get("/testsStudent",async(req,res) => {
+  //   let result;
+  //   console.log("rion!!!!!!!!!!")
+  //   res.json(false).status(200).end();
+
+  //   // try{
+  //   //   result = await getStudentTest(req.query.user_id);
+  //   //   res.json(result).status(200).end();
+  //   // } catch(err){
+  //   //   // res.send(err).status(404).end();
+  //   //   res.json(false).status(200).end();
+
+  //   // }
+  // });
 
   app.get("/answer", async (req, res) => {
     // console.log("cccccccccccc");
