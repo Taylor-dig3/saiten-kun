@@ -109,7 +109,7 @@ const setupServer = () => {
       result = await getStudentTest(req.query.user_id);
       res.json(result).status(200).end();
     } catch(err){
-      res.send(err).status(401).end();
+      res.status(401).end();
       // res.json(false).status(200).end();
 
     }
