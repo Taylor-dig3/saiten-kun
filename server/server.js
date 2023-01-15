@@ -104,14 +104,16 @@ const setupServer = () => {
 
   app.get("/testsStudent",async(req,res) => {
     let result;
-    try{
-      result = await getStudentTest(req.query.user_id);
-      res.json(result).status(200).end();
-    } catch(err){
-      // res.send(err).status(404).end();
-      res.json(false).status(200).end();
+    res.json(false).status(200).end();
 
-    }
+    // try{
+    //   result = await getStudentTest(req.query.user_id);
+    //   res.json(result).status(200).end();
+    // } catch(err){
+    //   // res.send(err).status(404).end();
+    //   res.json(false).status(200).end();
+
+    // }
   });
 
   app.get("/answer", async (req, res) => {
