@@ -39,7 +39,7 @@ export default function S1Menu() {
   const s3ResultListDisplay = () => {
   console.log(loginInfo.userId)
     axios
-      .get("/tests", {
+      .get("/testsStudent", {
         params: { user_id: loginInfo.userId },
       })
       .then((res) => {
