@@ -80,30 +80,30 @@ module.exports = {
     // })
   },
 
-  // async getTest(user_id) {
-  //   console.log("bbbbbb");
-  //   const testResultList = await knex("tests")
-  //   .join("papers", "tests.id", "papers.test_id")
-  //   .join("teachers","teachers.id","tests.teacher_id")
-  //   .join("subjects", "subjects.id", "tests.subject_id")
-  //   .join("students", "students.teacher_id", "teachers.id")
-  //   .join("grades", "grades.id", "students.grade_id")
-  //   .select({
-  //       test_id: "tests.id",
-  //       title: "tests.name",
-  //       run_date: "tests.run_date",
-  //       subject: "subjects.name",
-  //       grade: "grades.grades_number",
-  //     })
-  //     .groupBy("tests.id", "subjects.id", "grades.grades_number","papers.test_id")
-  //     .count("papers.question_id", { as: "question_number" })
-  //     .where({
-  //       "students.id": user_id,
-  //     })
-  //   // console.log("rrrrrrrrrrr",testResultList);
-  //   // console.log("rion");
-  //   return testResultList;
-  // },
+  async getTest(user_id) {
+    console.log("bbbbbb");
+    const testResultList = await knex("tests")
+    .join("papers", "tests.id", "papers.test_id")
+    .join("teachers","teachers.id","tests.teacher_id")
+    .join("subjects", "subjects.id", "tests.subject_id")
+    .join("students", "students.teacher_id", "teachers.id")
+    .join("grades", "grades.id", "students.grade_id")
+    .select({
+        test_id: "tests.id",
+        title: "tests.name",
+        run_date: "tests.run_date",
+        subject: "subjects.name",
+        grade: "grades.grades_number",
+      })
+      .groupBy("tests.id", "subjects.id", "grades.grades_number","papers.test_id")
+      .count("papers.question_id", { as: "question_number" })
+      .where({
+        "students.id": user_id,
+      })
+    // console.log("rrrrrrrrrrr",testResultList);
+    // console.log("rion");
+    return testResultList;
+  },
 
   postAnswer(resultObj) {
     console.log("postAnswer");
