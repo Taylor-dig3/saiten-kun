@@ -104,6 +104,7 @@ const setupServer = () => {
 
   app.get("/testsStudent",async(req,res) => {
     let result;
+    console.log("rion!!!!!!!!!!")
     res.json(false).status(200).end();
 
     // try{
