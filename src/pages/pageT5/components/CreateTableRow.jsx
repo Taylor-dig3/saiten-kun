@@ -59,7 +59,7 @@ export default function CreateTableRow({ row }) {
              })
              .then((res) => {
                console.log("ここですよ",res.data);
-              //  setResultStatus(res.data);
+               setResultStatus(res.data);
              });
         });
       

@@ -100,6 +100,7 @@ module.exports = {
       .where({
         "students.id": user_id,
       })
+      .orderBy("tests.id",'desc');
     // console.log("rrrrrrrrrrr",testResultList);
     // console.log("rion");
     return testResultList;
@@ -167,6 +168,7 @@ module.exports = {
           };
           result.data = res.map((obj) => {
             return {
+              question_id:obj.question_id,
               question: obj.question,
               answer:obj.answer,
               answer_img: obj.answer_img,

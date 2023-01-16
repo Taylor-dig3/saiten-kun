@@ -67,6 +67,7 @@
 
 .S3-button:hover {
   animation: sh0 0.5s ease-in-out both;
+  
 }
 
 @keyframes sh0 {

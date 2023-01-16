@@ -115,7 +115,7 @@ export default function CollapsibleTable() {
       S3Score = "点数";
       break;
     case 4:
-      S3Title = "メニュー";
+      S3Title = "今までやったテスト";
       S3Back = "もどる";
       S3Result = "テスト結果かくにん";
       S3Sub = "教科";

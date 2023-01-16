@@ -27,6 +27,7 @@ const rewardObj = {
   elementCount: 500,
   elementSize: 15,
   zIndex: 4,
+  colors:['#ffd700', '#c0c0c0'],
   onAnimationComplete: () => {
     const elem = document.querySelector(".S4-baraemon-visible")
     elem.className = "S4-baraemon-hidden"

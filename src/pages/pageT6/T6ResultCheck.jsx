@@ -104,8 +104,17 @@ export default function T6ResultCheck() {
       const correctCount = paper.data.filter((elem) => elem.result).length;
       console.log((correctCount / questionCount) * 100);
       setScore(Math.round((correctCount / questionCount) * 100));
+      const sortData = paper.data.sort((a,b)=>{
+       if( a.result_id > b.result_id){
+        return 1;
+       }else if(a.result_id < b.result_id){
+        return -1;
+       }else{
+        return 0;
+       }
+      })
       setTablePaper(
-        paper.data.map((elem, index) => {
+        sortData.map((elem, index) => {
           console.log(elem);
           const decodedFile = Buffer.from(
             elem["answer_img"],
