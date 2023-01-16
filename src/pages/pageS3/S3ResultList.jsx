@@ -30,11 +30,9 @@ export default function CollapsibleTable() {
   const [selectTestInfo, setSelectTestInfo] = useRecoilState(studentSelectedTestInfo);
   const testList = useRecoilValue(studentTestList);
   const [isSnackbar, setIsSnackbar] = useState(false)
-  console.log(testList);
   const navigate = useNavigate();
 
   const s4ResultCheckDisplay = () => {
-    console.log(selectTestInfo)
     if (selectTestInfo.test_id !== "") {
       navigate("../S4TestCheck");
     } else {
@@ -76,7 +74,6 @@ export default function CollapsibleTable() {
         });
       })
       Promise.all(getScore).then(values => {
-        console.log(values);
         // score = values;
         setScore(values);
       })

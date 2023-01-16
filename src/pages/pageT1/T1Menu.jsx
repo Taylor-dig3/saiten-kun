@@ -18,14 +18,11 @@ export default function T1Menu() {
   };
 
   const t5TestList = () => {
-    console.log(loginInfo.userId);
     axios
       .get("/teacherTests", {
         params: { teacher_id: loginInfo.userId },
       })
       .then((res) => {
-        console.log("t5pe-zi");
-        console.log(res.data);
         setTestInfo(res.data);
         navigate("../T5TestList");
       });

@@ -1,5 +1,4 @@
 export  const createDate =(date)=>{
-    console.log(date)
     if(date){
       date = new Date(date)
       date.setTime(date.getTime() + 1000*60*60*9)

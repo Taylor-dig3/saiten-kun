@@ -34,9 +34,7 @@ export default function T2StudentRegistration() {
   };
 
   const displayStudentsList = async () => {
-    console.log("object");
 
-    console.log(studentTable);
     setEditModalIsOpen(true);
   };
   const initialRegisterValues = { userName: "", password: "", grade_id: "" };
@@ -51,15 +49,12 @@ export default function T2StudentRegistration() {
   const [isChangePassSnackbar, setIsChangePassSnackbar] = useState(false);
   
   const formChange = (e) => {
-    // console.log("入ったよ");
     const { name, value } = e.target;
-    console.log(e.target.value);
     setFormValues({ ...formValues, [name]: value });
   };
 
   const validate = (values) => {
     const errors = {};
-    // console.log(values);
     if (!values.userName) {
       errors.userName = "ユーザー名を入力してください";
     }
@@ -89,11 +84,9 @@ export default function T2StudentRegistration() {
           password: formValues.password,
         })
         .then((res) => {
-          // console.log(res);
           const formElem = document.getElementById("register-form");
           formElem.reset();
           setFormValues(initialRegisterValues);
-          console.log(formElem);
           setIsRegisterSnackbar(true);
         });
     }
@@ -107,7 +100,6 @@ export default function T2StudentRegistration() {
 
   const formSubmit = (e) => {
     e.preventDefault();
-    console.log(formValues);
     setFormErrors(validate(formValues));
 
   };

@@ -21,7 +21,6 @@ import { RecoilRoot, useRecoilValue, useRecoilState } from "recoil";
 import { login } from "./shareComponents/atom";
 export default function App() {
   const loginInfo = useRecoilValue(login);
-  console.log(loginInfo);
   const checkLoginState = (checkState) => {
     return loginInfo.loginState === checkState;
   };

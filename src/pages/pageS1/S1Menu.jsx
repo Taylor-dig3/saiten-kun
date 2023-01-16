@@ -25,8 +25,6 @@ export default function S1Menu() {
             params: { user_id: loginInfo.userId },
           })
           .then((res) => {
-            console.log("S1pe-zi");
-            console.log(res.data);
             setTestQuestionInfo(res.data);
             if (res.data.test_id) {
               navigate("../S2Test");
@@ -37,14 +35,11 @@ export default function S1Menu() {
   };
 
   const s3ResultListDisplay = () => {
-  console.log(loginInfo.userId)
     axios
       .get("/tests", {
         params: { user_id: loginInfo.userId },
       })
       .then((res) => {
-        console.log("S3pe-zi");
-        console.log(res.data);
         if (res.data.length) {
           const filterTest = res.data.filter((elem) => {
             return elem.run_date

@@ -1,10 +1,8 @@
 
 
 export const  unlockClick = (id)=>{
-    console.log("riiiiion",id)
     const editItems = document.querySelectorAll(`.change-user-data-edit-${id}`);
     const unlockItem = document.querySelector(`.change-user-data-unlock-${id}`);
-    // console.log(editItems)
     for (const elem of editItems) {
       elem.classList.remove("change-user-data-edit");
     }
@@ -23,7 +21,6 @@ export const  unlockClick = (id)=>{
   }
 
   export  const changePassword = (id,setFormInfo) => {
-    console.log("changepass")
 
     const info = {};
     const editInput = document.querySelector(
@@ -43,7 +40,6 @@ export const  unlockClick = (id)=>{
     }else{
         info.validateOkFlag = false;
     }
-    console.log(info)
     setFormInfo(info);
 
   };

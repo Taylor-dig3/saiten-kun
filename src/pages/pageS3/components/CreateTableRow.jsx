@@ -25,9 +25,7 @@ export default function CreateTableRow({ row, score }) {
   const [open, setOpen] = useState(false);
   const [testDetail, setTestDetails] = useState([{ question: "", answer: "" }]);
   const radioChange = (id, title, grade, subject, count, run_date) => {
-    console.log(id)
     setSelectTestInfo((prev) => {
-      console.log(prev)
       return {
         ...prev,
         test_id: id,
@@ -48,7 +46,6 @@ export default function CreateTableRow({ row, score }) {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setTestDetails(res.data);
       });
   }, []);

@@ -12,9 +12,6 @@ export default function StatusMessage({testStatus}) {
            const selectTest = testInfo.filter((elem)=>{
                return elem.test_id === Number(testStatus.testId)
             })
-            console.log(testInfo)
-            console.log(testStatus)
-            console.log(selectTest)
             if(selectTest.length > 0){
                 setMessage(`※現在${selectTest[0].grade}年生向けの${selectTest[0].subject}の「${selectTest[0].title}」が実施中です`)
             }

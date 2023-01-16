@@ -41,7 +41,6 @@ export default function T6ResultCheck() {
   const [tablePaper, setTablePaper] = useState();
   const [score, setScore] = useState();
   const { reward, isAnimating } = useReward("rewardId", "confetti", rewardObj);
-  console.log(selectTestInfo);
   const navigate = useNavigate();
   const s3TestListDisplay = () => {
     navigate("../S3ResultList");
@@ -120,8 +119,6 @@ export default function T6ResultCheck() {
 
   useEffect(() => {
     if (paper !== false && paper !== undefined) {
-      console.log("object");
-      console.log(paper);
 
       const questionCount = paper.data.length;
       let resultNullFlag = false;
@@ -131,7 +128,6 @@ export default function T6ResultCheck() {
         }
         return elem.result;
       }).length;
-      // console.log((correctCount / questionCount) * 100);
       if (!resultNullFlag) {
         setScore(Math.round((correctCount / questionCount) * 100));
       } else {
@@ -139,7 +135,6 @@ export default function T6ResultCheck() {
       }
       setTablePaper(
         paper.data.map((elem, index) => {
-          console.log(elem);
           const decodedFile = Buffer.from(
             elem["answer_img"],
             "base64"
@@ -177,14 +172,12 @@ export default function T6ResultCheck() {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setPaper(res.data);
       });
   }, []);
 
   useEffect(() => {
     if (score === 100) {
-      console.log("score入ったよ");
 
       const elem = document.querySelector(".S4-baraemon-hidden")
       elem.className = "S4-baraemon-visible"

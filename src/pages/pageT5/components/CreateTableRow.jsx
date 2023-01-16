@@ -10,22 +10,22 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import {selectedTestInfo } from "../../../shareComponents/atom";
-import {createDate} from "../../../helperFunctions/createDate"
+import { selectedTestInfo } from "../../../shareComponents/atom";
+import { createDate } from "../../../helperFunctions/createDate";
 
 import axios from "axios";
-import { Radio} from "@mui/material";
+import { Radio } from "@mui/material";
 
-import {useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 import "../T5TestList.css";
 
 export default function CreateTableRow({ row }) {
-  const [selectTestInfo,setSelectTestInfo] = useRecoilState(selectedTestInfo);
+  const [selectTestInfo, setSelectTestInfo] = useRecoilState(selectedTestInfo);
   const [open, setOpen] = useState(false);
   const [resultStatus, setResultStatus] = useState();
   const [testDetail, setTestDetails] = useState([{ question: "", answer: "" }]);
-  const radioChange = (id, title, grade, subject,count,makeDate,runDate) => {
+  const radioChange = (id, title, grade, subject, count, makeDate, runDate) => {
     setSelectTestInfo((prev) => {
       return {
         ...prev,
@@ -33,62 +33,36 @@ export default function CreateTableRow({ row }) {
         title: title,
         grade: grade,
         subject: subject,
-        question_count:count,
-        make_date:makeDate,
-        run_date:runDate
+        question_count: count,
+        make_date: makeDate,
+        run_date: runDate,
       };
     });
   };
 
   useEffect(() => {
-    (async() => {
-     await axios
-        .get("testDetail", {
-          params: {
-            test_id: row.test_id,
-          },
-        })
-        .then(async (res) => {
-          console.log(res.data);
-          setTestDetails(res.data);
-          await axios
-             .get("/teacher/checkResultStatus", {
-               params: {
-                 test_id: row.test_id,
-               },
-             })
-             .then((res) => {
-               console.log("ここですよ",res.data);
-               setResultStatus(res.data);
-             });
-        });
-      
-    })()
-  }, []);
+    axios
+      .get("testDetail", {
+        params: {
+          test_id: row.test_id,
+        },
+      })
+      .then((res) => {
+        setTestDetails(res.data);
+      })
+      .catch(() => {});
 
-  // useEffect(() => {
-  //     axios
-  //       .get("/teacher/checkResultStatus", {
-  //         params: {
-  //           test_id: row.test_id,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         console.log("ここですよ",res.data);
-  //         setResultStatus(res.data);
-  //       });
-  //     // axios
-  //     //   .get("/teacher/studentIdList", {
-  //     //     params: {
-  //     //       teacher_id: loginInfo.userId,
-  //     //     },
-  //     //   })
-  //     //   .then((res) => {
-  //     //     console.log(res.data);
-  //     //     setStudentIdList(res.data);
-  //     //     setFilterStudentIdList(res.data);
-  //     //   });
-  //   },[]);
+    axios
+      .get("/teacher/checkResultStatus", {
+        params: {
+          test_id: row.test_id,
+        },
+      })
+      .then((response) => {
+        setResultStatus(response.data);
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <React.Fragment>
@@ -98,7 +72,15 @@ export default function CreateTableRow({ row }) {
             value={row.test_id}
             control={<Radio />}
             onChange={() =>
-              radioChange(row.test_id, row.title, row.grade, row.subject,row.question_count,row.make_date,row.run_date)
+              radioChange(
+                row.test_id,
+                row.title,
+                row.grade,
+                row.subject,
+                row.question_count,
+                row.make_date,
+                row.run_date
+              )
             }
           />
         </TableCell>
@@ -117,9 +99,9 @@ export default function CreateTableRow({ row }) {
         <TableCell align="center">{row.question_count}</TableCell>
         <TableCell align="center">{createDate(row.make_date)}</TableCell>
         <TableCell align="center">{createDate(row.run_date)}</TableCell>
-        <TableCell align="center">{resultStatus
-          ? "実施済み" : "未実施"}</TableCell>
-
+        <TableCell align="center">
+          {resultStatus ? "実施済み" : "未実施"}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

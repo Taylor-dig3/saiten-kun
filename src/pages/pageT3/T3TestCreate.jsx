@@ -48,7 +48,6 @@ export default function T3TestCreate() {
         break;
 
       default:
-        console.log("どれにも当てはまらないよ");
     }
 
     axios
@@ -72,7 +71,6 @@ export default function T3TestCreate() {
       .then((res) => {
         let getText = res.data.choices[0].text;
         getText = getText.split(/(\n|\s{3,}|\t)/);
-        console.log(getText);
         const arr = getText
           .map((elem) => elem.trim())
           .filter((elem) => {
@@ -82,7 +80,6 @@ export default function T3TestCreate() {
               elem === ""
             );
           });
-        console.log(arr);
         const questionArr = arr
           .filter((elem, index) => {
             return index % 2 === 0;

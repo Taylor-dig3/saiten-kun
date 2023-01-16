@@ -36,7 +36,6 @@ export default function CollapsibleTable() {
   const [isSnackbar, setIsSnackbar] = useState(false);
   const [errorWord, setErrorWord] = useState("");
   const [timeLimit, setTimeLimit] = useState(0);
-  console.log(testInfo);
   const navigate = useNavigate();
 
   const t6ResultCheckDisplay = () => {
@@ -64,7 +63,6 @@ export default function CollapsibleTable() {
             time_limit:timeLimit,
           })
           .then((res) => {
-            console.log(res);
             setTestStatus({
               statusWord: "テスト開始中",
               style: "primary",
@@ -81,7 +79,6 @@ export default function CollapsibleTable() {
             teacher_id: loginInfo.userId,
           })
           .then((res) => {
-            console.log(res);
             setTestStatus({
               statusWord: "テスト開始",
               style: "inherit",

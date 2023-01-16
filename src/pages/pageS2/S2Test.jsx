@@ -37,10 +37,7 @@ export default function S2Test() {
   }, [testQuestionInfo]);
 
   useEffect(() => {
-    console.log(paper.data.length);
-    console.log(paper.data);
     for (let i = 0; i < paper.data.length; i++) {
-      console.log(paper.data.length);
       canvas[i] = document.getElementById(`canvasAns${i}`);
       ctx[i] = canvas[i].getContext("2d");
       ctx[i].fillStyle = "rgba(255,255,255,0.5)";
@@ -193,49 +190,13 @@ export default function S2Test() {
     }
     if (flag) {
       document.getElementById("S2-ending").style.visibility = "visible";
-      console.log("submit start");
-      // answerImg["student_id"] = student_ID;
-      // answerImg["student_name"] = chgImg(0);
       answerImg["answer"] = [];
       for (let i = 0; i < paper.data.length; i++) {
         answerImg["answer"].push(chgImg(i));
       }
-      console.log("answer end", answerImg["answer"]);
       setCurrentAnswer(answerImg);
-      console.log("answer set end");
-      console.log(answerImg);
 
-      //ユーザーローカルに画像を入力して、文字列の配列を出力する関数
-      // const arr = [];
-      // let i = 0;
-      // for (const elem of answerImg.answer) {
-      //   console.log("for" + i);
-      //   arr[i] = await axios
-      //     .post("/riontest", {
-      //       data: elem.replace(/^data:\w+\/\w+;base64,/, ""),
-      //       headers: {
-      //         "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      //         "Content-Type": "multipart/form-data",
-      //       },
-      //     })
-      //     .then((res) => {
-      //       console.log("then");
-      //       return res.data.text;
-      //     });
-      //   i++;
-      // }
-      // console.log(arr);
-
-      // const answerResult = [];
-      // for (let i = 0; i < testQuestionInfo.data.length; i++) {
-      //   if (testQuestionInfo.data[i].answer === arr[i]) {
-      //     answerResult.push(true);
-      //   } else {
-      //     answerResult.push(false);
-      //   }
-      // }
-      // console.log(answerResult);
-
+      
       const dataArray = [];
       for (let i = 0; i < testQuestionInfo.data.length; i++) {
         const dataObj = {
@@ -245,7 +206,6 @@ export default function S2Test() {
         };
         dataArray.push(dataObj);
       }
-      console.log(dataArray);
 
       //アンサーデータをDBに送信
       await axios
@@ -255,9 +215,7 @@ export default function S2Test() {
           data: dataArray,
         })
         .then((res) => {
-          console.log("then");
           setTimeout(() => {
-            console.log(`wait ${waitTime/1000} sec`);
             document.getElementById("S2-ending").style.visibility = "hidden";
             s1MenuDisplay();
           }, waitTime);

@@ -38,17 +38,13 @@ export default function T6ResultCheck() {
 
   const gradeChange = (e) => {
     setSelectGrade(e.target.value);
-    console.log(e.target.value);
-    console.log(studentIdList);
     const filterArr = studentIdList.filter((elem) => {
       if (e.target.value !== "全学年") {
-        console.log(elem.grade_id, e.target.value);
         return elem.grade_id === e.target.value;
       } else {
         return true;
       }
     });
-    console.log(filterArr);
     setFilterStudentIdList(filterArr);
   };
 
@@ -65,7 +61,6 @@ export default function T6ResultCheck() {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setPaper(res.data);
       });
   };
@@ -78,7 +73,6 @@ export default function T6ResultCheck() {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setResultStatus(res.data);
       });
 
@@ -89,7 +83,6 @@ export default function T6ResultCheck() {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setStudentIdList(res.data);
         setFilterStudentIdList(res.data);
       });
@@ -97,12 +90,9 @@ export default function T6ResultCheck() {
 
   useEffect(() => {
     if (paper !== false && paper !== undefined) {
-      console.log("object");
-      console.log(paper);
 
       const questionCount = paper.data.length;
       const correctCount = paper.data.filter((elem) => elem.result).length;
-      console.log((correctCount / questionCount) * 100);
       setScore(Math.round((correctCount / questionCount) * 100));
       const sortData = paper.data.sort((a,b)=>{
        if( a.result_id > b.result_id){
@@ -115,7 +105,6 @@ export default function T6ResultCheck() {
       })
       setTablePaper(
         sortData.map((elem, index) => {
-          console.log(elem);
           const decodedFile = Buffer.from(
             elem["answer_img"],
             "base64"
@@ -145,15 +134,12 @@ export default function T6ResultCheck() {
                         result_id: elem.result_id,
                       })
                       .then((res) => {
-                        console.log(res);
                       });
                     setPaper((prev) => {
-                      console.log(prev);
                       prev.data.splice(index, 1, {
                         ...prev.data[index],
                         result: flag,
                       });
-                      console.log(prev.data);
                       return { ...paper, data: prev.data };
                     });
                   }}
@@ -181,8 +167,6 @@ export default function T6ResultCheck() {
         },
       })
       .then((res) => {
-        console.log(res.data);
-        console.log("採点が完了しました。");
         setResultStatus(true);
       });
       

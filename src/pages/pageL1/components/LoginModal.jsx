@@ -38,7 +38,6 @@ export default function LoginModal({setIsLoginModal}) {
 
   const formChange = (e) => {
     const { name, value } = e.target;
-    // console.log(e.target);
     setFormValues({ ...formValues, [name]: value });
   };
   const validate = (values) => {
@@ -67,7 +66,6 @@ export default function LoginModal({setIsLoginModal}) {
 
   useEffect(() => {
     if (formErrors.validateOkFlag) {
-      console.log(formValues);
       axios
         .post("/login", {
           user_id: formValues.userId,
@@ -75,7 +73,6 @@ export default function LoginModal({setIsLoginModal}) {
           student_flg: studentFlag,
         })
         .then((res) => {
-          console.log(res.data);
           if (res.data.login_state === "studentLogin") {
             setLoginInfo({
               userId: res.data.user_id,

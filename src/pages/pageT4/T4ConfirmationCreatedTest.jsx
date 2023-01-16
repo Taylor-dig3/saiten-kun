@@ -56,15 +56,12 @@ export default function T4ConfirmationCreatedTest() {
             question_title: description,
             data: qAndAArr,
           };
-          console.log(registerQandAObj);
 
           const subjects = ["国語", "算数", "理科", "社会", "英語"];
           const subjectId = () => {
             //教科名からsubject_idに変換
             for (const elem of subjects) {
-              console.log(elem);
               if (elem === registerQandAObj.subject) {
-                console.log(subjects.indexOf(elem) + 1);
                 return subjects.indexOf(elem) + 1;
               }
             }
@@ -80,14 +77,11 @@ export default function T4ConfirmationCreatedTest() {
               subject_id: subjectId(),
             })
             .then((res) => {
-              // console.log("then");
-              console.log(res);
               // loadingContainer.className = "T4-registering-hidden";
               navigate("../T1Menu");
               return res.data.text;
             });
 
-          console.log(registerQandAObj);
         }
       }
     }
@@ -99,13 +93,6 @@ export default function T4ConfirmationCreatedTest() {
   const titleChange = (e) => {
     setTitle(e.target.value);
   };
-
-  //aaaa
-
-  useEffect(() => {
-    // console.log("rion");
-    console.log(qAndA);
-  }, [qAndA]);
 
   useEffect(() => {
     if(loginInfo.loginState === "notYetLoggedIn"){

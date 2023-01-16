@@ -336,7 +336,7 @@ const setupServer = () => {
       const result = await checkResultStatus(req.query.test_id)
       res.send(result).status(200).end();
     } catch(err){
-      res.status(404).end();
+      res.send(false).status(200).end();
     }
   });
 
