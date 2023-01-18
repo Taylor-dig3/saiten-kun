@@ -1,70 +1,132 @@
-# Getting Started with Create React App
+# さいてんクン
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+小学校の先生のテスト自動作成、採点業務を効率化する web アプリ(デモアプリです)
 
-## Available Scripts
+[アプリリンク](https://saiten-kun.net)
 
-In the project directory, you can run:
+## アプリ詳細
 
-### `npm start`
+- 本アプリの機能はおおきく分けて２種類
+  _ 先生機能<br>
+  ┗ 生徒新規登録<br>
+  ┗ テスト問題自動作成<br>
+  ┗ テスト採点<br>
+  _ 生徒機能<br>
+  ┗ テスト開始<br>
+  ┗ 今までのテスト<br>
+  <br>
+- テストは ChatGPT により自動作成
+- 生徒の手書き文字を手書き文字認識 AI によりテキスト化し自動採点を実施
+<br>
+<br>
+<br>
+## アプリの使い方(先生側)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 生徒の新規登録
+  <p>
+<img src="./README_img/01.png" alt="altテキスト" width="150"/>
+<img src="./README_img/02.png" alt="altテキスト" width="150"/>
+<img src="./README_img/03.png" alt="altテキスト" width="150"/>
+<img src="./README_img/04.png" alt="altテキスト" width="150"/>
+  </p>
+  　ログイン⇨生徒新規登録⇨必要情報入力⇨生徒一覧で登録を確認
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
+<br>
 
-### `npm test`
+### テストの作成
+  <p>
+<img src="./README_img/01.png" alt="altテキスト" width="150"/>
+<img src="./README_img/05.png" alt="altテキスト" width="150"/>
+<img src="./README_img/06.png" alt="altテキスト" width="150"/>
+<img src="./README_img/07.png" alt="altテキスト" width="150"/>
+  </p>
+  　ログイン⇨テスト作成⇨テストの科目等を選択⇨登録ボタンを押下
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+<br>
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### テストの開始
+  <p>
+<img src="./README_img/01.png" alt="altテキスト" width="150"/>
+<img src="./README_img/08.png" alt="altテキスト" width="150"/>
+<img src="./README_img/09.png" alt="altテキスト" width="150"/>
+  </p>
+  　ログイン⇨テスト一覧⇨テストを選択して時間をセット後、「テスト開始」を押下
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
+<br>
 
-### `npm run eject`
+### テストの採点
+  <p>
+<img src="./README_img/01.png" alt="altテキスト" width="150"/>
+<img src="./README_img/08.png" alt="altテキスト" width="150"/>
+<img src="./README_img/10.png" alt="altテキスト" width="150"/>
+<img src="./README_img/11.png" alt="altテキスト" width="150"/>
+<img src="./README_img/12.png" alt="altテキスト" width="150"/>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  </p>
+  　
+  ログイン⇨テスト一覧⇨採点したいテストを選択⇨「自動採点」をクリック⇨成績を見たい生徒を選択
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br>
+<br>
+<br>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## アプリの使い方（生徒側）
 
-## Learn More
+### テストの開始
+  <p>
+<img src="./README_img/01.png" alt="altテキスト" width="150"/>
+<img src="./README_img/13.png" alt="altテキスト" width="150"/>
+<img src="./README_img/14.png" alt="altテキスト" width="150"/>
+<img src="./README_img/15.png" alt="altテキスト" width="150"/>
+  </p>
+  ※先生のテスト開始後<br>
+  ログイン⇨テスト開始を選択⇨出題されたテストを解く⇨右上の提出を選択しOKを押下
+<br>
+<br>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### テストの結果確認
+  <p>
+<img src="./README_img/01.png" alt="altテキスト" width="150"/>
+<img src="./README_img/16.png" alt="altテキスト" width="150"/>
+<img src="./README_img/17.png" alt="altテキスト" width="150"/>
+<img src="./README_img/18.png" alt="altテキスト" width="150"/>
+  </p>
+  ※先生のテスト採点後<br>
+  ログイン⇨今までのテストを選択⇨テストを選択しテスト結果確認を押下⇨自分の点数を確認
+<br>
+<br>
+<br>
+<br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 使用している技術
+* フロントエンド<br>
+  ┗React<br>
+   　 ┗ react-router(ルーティングライブラリ)<br>
+    　┗ recoil(ステート管理ライブラリ)<br>
+    　┗ react-three-fiber(3Dアニメーションライブラリ)<br>
+    　┗ MaterialUi(UIコンポーネントライブラリ)<br>
+    　┗react-rewards(紙吹雪アニメーションライブラリ)<br>
+  ┗webAPI<br>
+    　┗ChatGPT(自然言語処理モデルAI-テスト作成に使用)<br>
+    　┗UserLocal(手書き文字認識AI)<br>
+<br>
+<br>
 
-### Analyzing the Bundle Size
+## 注意事項
+* ChatGPTはライセンス制限により問題作成に制限がかかる可能性があります。<br>
+* UserLocalの文字認識AIのAPIは現在1000回/24hの制限があります。<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## 文責
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* 作成者 kazu006 Tera-saka Yusuke333 riiiiion
+* 所属　Taylor
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

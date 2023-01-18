@@ -50,7 +50,7 @@
   "scripts": {
     "start": "PORT=3000 react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
     "server": "node ./server/launch.js",
     "server-dev": "nodemon ./server/launch.js",
