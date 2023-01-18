@@ -20,14 +20,15 @@
 <br>
 <br>
 <br>
+
 ## アプリの使い方(先生側)
 
 ### 生徒の新規登録
   <p>
-<img src="./README_img/01.png" alt="altテキスト" width="150"/>
-<img src="./README_img/02.png" alt="altテキスト" width="150"/>
-<img src="./README_img/03.png" alt="altテキスト" width="150"/>
-<img src="./README_img/04.png" alt="altテキスト" width="150"/>
+<img src="./README_img/01.png" alt="altテキスト" width="220"/>
+<img src="./README_img/02.png" alt="altテキスト" width="220"/>
+<img src="./README_img/03.png" alt="altテキスト" width="220"/>
+<img src="./README_img/04.png" alt="altテキスト" width="220"/>
   </p>
   　ログイン⇨生徒新規登録⇨必要情報入力⇨生徒一覧で登録を確認
 
@@ -36,10 +37,10 @@
 
 ### テストの作成
   <p>
-<img src="./README_img/01.png" alt="altテキスト" width="150"/>
-<img src="./README_img/05.png" alt="altテキスト" width="150"/>
-<img src="./README_img/06.png" alt="altテキスト" width="150"/>
-<img src="./README_img/07.png" alt="altテキスト" width="150"/>
+<img src="./README_img/01.png" alt="altテキスト" width="220"/>
+<img src="./README_img/05.png" alt="altテキスト" width="220"/>
+<img src="./README_img/06.png" alt="altテキスト" width="220"/>
+<img src="./README_img/07.png" alt="altテキスト" width="220"/>
   </p>
   　ログイン⇨テスト作成⇨テストの科目等を選択⇨登録ボタンを押下
 
@@ -49,9 +50,9 @@
 
 ### テストの開始
   <p>
-<img src="./README_img/01.png" alt="altテキスト" width="150"/>
-<img src="./README_img/08.png" alt="altテキスト" width="150"/>
-<img src="./README_img/09.png" alt="altテキスト" width="150"/>
+<img src="./README_img/01.png" alt="altテキスト" width="220"/>
+<img src="./README_img/08.png" alt="altテキスト" width="220"/>
+<img src="./README_img/09.png" alt="altテキスト" width="220"/>
   </p>
   　ログイン⇨テスト一覧⇨テストを選択して時間をセット後、「テスト開始」を押下
 
@@ -61,11 +62,11 @@
 
 ### テストの採点
   <p>
-<img src="./README_img/01.png" alt="altテキスト" width="150"/>
-<img src="./README_img/08.png" alt="altテキスト" width="150"/>
-<img src="./README_img/10.png" alt="altテキスト" width="150"/>
-<img src="./README_img/11.png" alt="altテキスト" width="150"/>
-<img src="./README_img/12.png" alt="altテキスト" width="150"/>
+<img src="./README_img/01.png" alt="altテキスト" width="220"/>
+<img src="./README_img/08.png" alt="altテキスト" width="220"/>
+<img src="./README_img/10.png" alt="altテキスト" width="220"/>
+<img src="./README_img/11.png" alt="altテキスト" width="220"/>
+<img src="./README_img/12.png" alt="altテキスト" width="220"/>
 
   </p>
   　
@@ -80,10 +81,10 @@
 
 ### テストの開始
   <p>
-<img src="./README_img/01.png" alt="altテキスト" width="150"/>
-<img src="./README_img/13.png" alt="altテキスト" width="150"/>
-<img src="./README_img/14.png" alt="altテキスト" width="150"/>
-<img src="./README_img/15.png" alt="altテキスト" width="150"/>
+<img src="./README_img/01.png" alt="altテキスト" width="220"/>
+<img src="./README_img/13.png" alt="altテキスト" width="220"/>
+<img src="./README_img/14.png" alt="altテキスト" width="220"/>
+<img src="./README_img/15.png" alt="altテキスト" width="220"/>
   </p>
   ※先生のテスト開始後<br>
   ログイン⇨テスト開始を選択⇨出題されたテストを解く⇨右上の提出を選択しOKを押下
@@ -92,10 +93,10 @@
 
 ### テストの結果確認
   <p>
-<img src="./README_img/01.png" alt="altテキスト" width="150"/>
-<img src="./README_img/16.png" alt="altテキスト" width="150"/>
-<img src="./README_img/17.png" alt="altテキスト" width="150"/>
-<img src="./README_img/18.png" alt="altテキスト" width="150"/>
+<img src="./README_img/01.png" alt="altテキスト" width="220"/>
+<img src="./README_img/16.png" alt="altテキスト" width="220"/>
+<img src="./README_img/17.png" alt="altテキスト" width="220"/>
+<img src="./README_img/18.png" alt="altテキスト" width="220"/>
   </p>
   ※先生のテスト採点後<br>
   ログイン⇨今までのテストを選択⇨テストを選択しテスト結果確認を押下⇨自分の点数を確認
